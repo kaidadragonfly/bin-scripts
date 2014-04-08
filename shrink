@@ -1,0 +1,21 @@
+#!/bin/bash
+
+oldx=$(tput cols)
+oldy=$(tput lines)
+x=$((${oldx} * 64 / 100))
+y=$((${oldy} * 60 / 100))
+
+# Normalize to return to 24x80
+if [[ 70 < $x && $x < 90 ]]; then
+    x=80
+    # y=24
+fi
+
+if [[ 20 < $y && $y < 28 ]]; then
+    # x=80
+    y=24
+fi
+
+resize -n $x $y
+
+

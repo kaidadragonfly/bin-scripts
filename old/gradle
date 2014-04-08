@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ROOTDIR="$(dirname $(git rev-parse --git-dir 2>/dev/null))"
+
+if [ "${ROOTDIR}" ]; then
+    cd "${ROOTDIR}"
+fi
+
+/opt/gradle-1.0/bin/gradle "$@"

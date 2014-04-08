@@ -1,0 +1,8 @@
+#!/bin/bash
+
+base_dir=$(git rev-parse --show-toplevel)
+
+if [ -d "${base_dir}/.git/svn" ]; then
+    echo 'true'
+fi
+

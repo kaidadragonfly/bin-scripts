@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ ! "$(which git)" ]; then
+    exit 1
+fi
+
+git_cmd='/usr/bin/env git'
+
+fetch=$(${git_cmd} fetch 2>/dev/stdout)
+
+fatal=$(echo ${fetch} | grep '^fatal:')
+if [ "${fatal}" ]; then
+    exit 1
+fi
+
+merge=$(${git_cmd} merge --ff-only 2>/dev/stdout)
+if [[ "${merge}" != 'Already up-to-date.' ]]; then
+    uptodate=$(echo "${merge}" | grep 'is up to date[.]$')
+    if [ -z "${uptodate}" ]; then
+        echo "${merge}"
+    fi
+fi
+
+${git_cmd} fetch --tags

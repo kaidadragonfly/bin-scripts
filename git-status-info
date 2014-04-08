@@ -1,0 +1,77 @@
+#!/bin/bash
+
+if [ ! "$(which git)" ]; then
+    exit 1
+fi
+
+git_cmd='/usr/bin/env git'
+results=$(${git_cmd} rev-parse --git-dir 2>&1)
+fatal=$(${git_cmd} status 2>&1 | grep '^fatal:')
+git_dir=${results}
+
+if [ "${fatal}" ]; then
+    exit 1
+fi
+
+branch=$(${git_cmd} branch 2> /dev/null | egrep '^[*] ' \
+    | sed -r 's/^[*] //')
+
+if [ -e "${git_dir}/FETCH_HEAD" ] && \
+    [ $(find "${git_dir}/FETCH_HEAD" -mmin +5) ]; then
+    if [ -d '.git/svn' ]; then
+        SVN='true'
+        ${git_cmd} svn fetch >/dev/null 2>/dev/null
+    else
+        ${git_cmd} fetch >/dev/null 2>/dev/null
+    fi
+fi
+
+# Prevent unexpected delays while working.
+touch "${git_dir}/FETCH_HEAD" 2>/dev/null
+
+git_version=$(${git_cmd} --version | sed 's/git version //')
+# Legacy git support, a little crude; also prone to breakage.
+if [[ $git_version < '1.8' ]]; then
+    header=$(${git_cmd} status | tail -n +2 | head -n 1)
+    behind=$(echo "${header}" | grep -i 'behind')
+    ahead=$(echo "${header}" | grep -i 'ahead')
+    diverged=$(echo "${header}" | grep -i 'diverged')
+else
+    header=$(${git_cmd} status --porcelain --branch | head -n 1)
+    behind=$(echo "${header}" | egrep '\[behind [0-9]+\]')
+    ahead=$(echo "${header}" | egrep '\[ahead [0-9]+\]')
+    diverged=$(echo "${header}" | egrep "\[ahead [0-9]+, behind [0-9]+\]")
+fi
+
+changes=$(${git_cmd} status --porcelain | wc -l)
+
+stashes=$(${git_cmd} stash list)
+
+if [[ "${changes}" != 0 ]]; then
+    short_status=$( 2>/dev/null)
+    if [ "$(${git_cmd} status --porcelain 2>/dev/null | egrep -v '^. ')" ]
+    then
+        dirty='*'
+    else
+        dirty='~'
+    fi
+fi
+
+if [ "$behind" ]; then
+    remote='-'
+fi
+
+if [ "${ahead}" ]; then
+    local='+'
+fi
+
+if [ "${diverged}" ]; then
+    local='+'
+    remote='-'
+fi
+
+if [ "${stashes}" ]; then
+    stash='&'
+fi
+
+echo -n "${branch}${local}${remote}${dirty}${stash}"

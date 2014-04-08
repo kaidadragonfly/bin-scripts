@@ -1,0 +1,80 @@
+#!/bin/bash
+
+results=$(git rev-parse --git-dir 2>&1)
+fatal=$(echo "${results}" | grep '^fatal:')
+
+if [ "${fatal}" ]; then
+    exit 1
+fi
+
+cols=$(tput cols)
+cols=$((${cols} - 4))
+function show_help() {
+    echo 'usage: git summary [OPTION]' | fold -sw ${cols}
+    echo
+    options=${options}'-s, --show-stashes\n\t\t'
+    options=${options}'also display stash information '
+    options=${options}'(like "git-stash list")\n'
+#    options=${options}'-u, --no-upstream\n\t\t'
+    options=${options}'show information regarding upstream\n'
+    options=${options}'-h\n\t\t'
+    options=${options}'display this help and exit\n'
+    echo -e "${options}" | sed 's/^/  /'
+}
+
+# Argument parsing, yay!
+# args=(getopt -o so -l "show_stashes,show_upstream," -n "git-summary" -- "$@");
+# echo $?
+
+show_upstream=1
+while [ "$1" ]; do
+    case "$1" in
+        -s* | --show-stashes)
+            show_stashes=1
+            # 1=$(echo "$1" | sed 's/-s/-/')
+            shift
+            ;;
+        # -u* | --no-upstream)
+        #     # 1=$(echo "$1" | sed 's/-u/-/')
+        #     show_upstream=0
+        #     shift
+        #     ;;
+        -h)
+            show_help
+            exit
+            ;;
+        *)
+            echo "git-summary: unrecoginized option '$1'"
+            show_help
+            exit
+            ;;
+    esac
+done
+
+# if [ ${show_upstream} ]; then
+#     has_status=$(git status-info | egrep -o '[-+*]$')
+# else
+#     has_status=$(git status --porcelain)
+# fi
+has_status=$(git status --porcelain)
+
+
+if [ ${show_stashes} ]; then
+    stashes=$(git stash list)
+    if [ "${stashes}" ]; then
+        echo "stashes:"
+        # Wrap.
+        stashes=$(echo "${stashes}" | fold -sw ${cols})
+        # Indent.
+        stashes=$(echo "${stashes}" | sed 's/^/    /')
+        echo "${stashes}"
+        # Skip a line.
+        if [ "${has_status}" ]; then
+            echo
+        fi
+    fi
+fi
+
+if [ "${has_status}" ]; then
+    git status
+fi

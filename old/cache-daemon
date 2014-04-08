@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DAEMON_PIPE="/tmp/cache-daemon-pipe-${USER}"
+
+if [[ ! -p "${DAEMON_PIPE}" ]]; then
+    rm -f ${DAEMON_PIPE}
+    mkfifo "${DAEMON_PIPE}"
+    chmod 600 "${DAEMON_PIPE}"
+fi
+
+while true
+do
+    if read line <"${DAEMON_PIPE}"; then
+        bash -c "$line" &
+    fi
+done

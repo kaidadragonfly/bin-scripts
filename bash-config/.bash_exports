@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#export LESS=" --raw-control-chars --no-init ${LESS}"
+# Try this if there is trouble.
+export LESS=" --RAW-CONTROL-CHARS --no-init ${LESS}"
+
+# Add ~/bin/ to the front of the PATH if it exists.
+if [ -d "$HOME/bin" ]; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Add ~/bin/local to the front of the PATH if it exists.
+if [ -d "$HOME/bin/local" ]; then
+    PATH="$HOME/bin/local:$PATH"
+fi
+
+export PATH
+
+# Below relies on a properly exported path variable.
+if [[ -x $(which src-hilite-lesspipe.sh) ]]; then
+    export LESSOPEN="| src-hilite-lesspipe.sh %s"
+fi

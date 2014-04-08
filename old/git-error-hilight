@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$1" != commit && "$1" != branch ]]; then
+    /usr/bin/git "$@" 2>&1 | egrep -i --color '.*rejected.*|.*error.*|$'
+else
+    /usr/bin/git "$@"
+fi

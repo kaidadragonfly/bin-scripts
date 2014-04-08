@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#Get remote commits.
+remote='?'
+
+results=$(git status 2>&1)
+fatal=$(echo "$results" | head -n 1 | grep '^fatal:')
+git_dir=${results}
+
+fetch_file="${git_dir}/FETCH_DRY_RUN_CACHE"
+
+# Remove tempfile if it is older than 5 minutes.
+find "${fetch_file}" -type f -mmin +5 -delete 2>/dev/null
+
+if [ ! "${fatal}" ]; then
+    # if [ -w ${fetch_file} ]; then
+    #     results=$(cat ${fetch_file})
+    #     fatal=$(echo "$results" | grep 'fatal')
+    #     (git fetch --dry-run >/dev/null 2>${fetch_file} &) &
+    #     results=$(echo "${results}" | head -n -1)
+    # else
+        if which timeout >/dev/null; then
+            results=$(timeout 0.25 git fetch --dry-run 2>&1)
+            fatal=$(echo "$results" | grep 'fatal')
+        fi
+    # fi
+    if [ ! "${fatal}" ]; then
+        if [ "${results}" ]; then
+            remote='-'
+        else
+            remote=''
+        fi
+    fi
+fi
+
+results=$(git status --short 2>&1)
+fatal=$(echo "$results" | grep 'fatal')
+
+if [ "${fatal}" ]; then
+    exit 1
+fi
+
+if [ "${results}" ]; then
+    dirty='*'
+fi
+
+results=$(git log --oneline origin/master..HEAD 2> /dev/null | head -n 1)
+
+if [ "${results}" ]; then
+    local='+'
+fi
+
+echo -n "${local}${remote}${dirty}"

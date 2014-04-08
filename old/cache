@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Returns a cached result of the given command from 
+# [WORKING DIRECTORY]/[CACHEFILE] (./.cached-output by default),
+# running the command in the background to update the cache.
+
+FULLARGS="$@"
+
+# Parse command.
+if [ "$1" ]; then
+    CMD="$1"
+    shift
+else
+    # Usage
+    echo "cache COMMAND [WORKING DIRECTORY] [CACHEFILE] [ARGS...]"
+    echo
+    echo "    example (omitting cachefile):"
+    echo "    cache 'cat' '~' -- '.bashrc'"
+    exit 0
+fi
+
+# Parse optional arguments.
+WD='.'
+if [[ "$1" && "$1" != '--' ]]; then
+    WD="$1"
+    shift
+fi
+
+OUT=".cached-output"
+
+if [[ "$1" && "$1" != '--' ]]; then
+    OUT="$1"
+    shift
+fi
+
+if [[ "$1" == '--' ]]; then
+    shift
+fi
+
+cd "${WD}"
+
+# Compare stored arguments with actual arguments.
+# Clear the cache if they differ.
+if [ -e "${OUT}" ]; then
+    if [[ "$(head -n 1 ${OUT})" != "${FULLARGS}" ]]; then
+        rm "${OUT}"
+    fi
+fi
+
+# Remove tempfile if older than 5 minutes.
+find "${OUT}" -type f -mmin +5 -delete 2>/dev/null
+
+TMPFILE=$(mktemp)
+# Store arguments in the tempfile.  
+echo "${FULLARGS}" >"${TMPFILE}"
+
+# Should exist if the cache daemon is running.
+DAEMON_PIPE="/tmp/cache-daemon-pipe-${USER}"
+
+# Actually load data from the tempfile, or run the command directly if
+# the cache is empty.
+if [ -e "${OUT}" ]; then
+    tail -n +2 "${OUT}" 2>/dev/null
+    if [[ -p "${DAEMON_PIPE}" ]] && \
+        pgrep -f $(which cache-daemon) >/dev/null; then
+        echo "cd $(pwd) && ${CMD} $@ >>${TMPFILE} 2>>${TMPFILE} && mv ${TMPFILE} ${OUT}" >>"${DAEMON_PIPE}"
+    else
+        "${CMD}" "$@" >>"${TMPFILE}" 2>>"${TMPFILE}" \
+            && mv "${TMPFILE}" "${OUT}" 2>/dev/null &
+    fi
+else
+    "${CMD}" "$@" >>"${TMPFILE}" 2>>"${TMPFILE}"
+    mv "${TMPFILE}" "${OUT}" 2>/dev/null
+    tail -n +2 "${OUT}" 2>/dev/null
+fi
+

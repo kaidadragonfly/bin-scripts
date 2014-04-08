@@ -1,0 +1,20 @@
+#!/bin/bash
+
+base_dir=$PWD
+git_cmd="$@"
+
+echo -n 'Locating repositories...'
+repos=$(find . -name .git -prune -o -name .git -type d 2>/dev/null \
+    | sed -r 's|/[.]git$||')
+echo ' done.'
+
+for repo in ${repos}
+do
+    cd ${base_dir}/${repo}
+    output=$(git ${git_cmd} 2>&1)
+    if [ "${output}" ]; then
+        echo
+        echo "in repo ${repo}:"
+        echo "${output}" | sed 's/^/    /'
+    fi
+done

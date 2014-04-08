@@ -1,0 +1,35 @@
+#!/bin/bash
+
+while [ "$1" ]; do
+    case "$1" in
+        -q | --quiet)
+            quiet="true"
+            ;;
+    esac
+    shift
+done
+
+# Check that "timeout" exists.
+which timeout >/dev/null || exit 1
+
+# Find the directory that contains the '.git' folder.
+# git rev-parse --show-toplevel
+    
+results=$(timeout 1 git fetch --dry-run 2>&1)
+fatal=$(echo "$results" | grep 'fatal')
+
+if [ "$fatal" ]; then
+    exit 1
+fi
+
+if [ ! "$quiet" ]; then
+    if [ "$results" ]; then
+        echo "$results"
+    else
+        echo "Local up to date."
+    fi
+fi
+
+if [ "$results" ]; then
+    echo "Local out of date."
+fi

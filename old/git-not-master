@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ ! "$(which git)" ]; then
+    exit 1
+fi
+
+git_cmd='/usr/bin/env git'
+
+branch=$(${git_cmd} branch 2>/dev/stdout)
+
+fatal=$(echo "${branch}" | grep '^fatal:')
+if [ "${fatal}" ]; then
+    exit 1
+fi
+
+branch=$(echo "${branch}" | grep '^* ' | sed 's/^* //')
+
+if [[ "${branch}" != "master" ]]; then
+    echo "${branch}"
+fi
