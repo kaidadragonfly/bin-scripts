@@ -21,7 +21,7 @@ def svn_rebase():
     Back it out if it fails.
     """
     output = str(git.svn.rebase()).strip()
-    if output != 'Current branch master is up to date.':
+    if not output.endswith('Current branch master is up to date.'):
         print('"' + output + '"')
 
 if __name__ == '__main__':
