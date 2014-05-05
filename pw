@@ -1,0 +1,10 @@
+#!/bin/bash
+
+after=1
+
+if [ "$2" ]; then
+    after="$2"
+fi
+
+grep -i $1 -A $after ~/Documents/passwords.txt
+
