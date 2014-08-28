@@ -13,6 +13,7 @@ fi
 $CMD --msg-template='{path}:{line}: {category} ({symbol}): {msg}' \
     --reports=n "$@" 2>/dev/null \
     | grep -v ': info'  \
+    | sed 's/convention/Warning[convention]/' \
     | sed -r 's/: ([a-z])/: \u\1/' \
     | tail -n +2
     
