@@ -4,9 +4,11 @@ Recursively walk the current directory looking for git repositories.
 
 Then run the specified git command on each directory.
 """
-from git_utils import git, ErrorReturnCode, wrap
 from os import walk, chdir, getcwd
 from sys import stdout, argv
+from sh import ErrorReturnCode # pylint: disable=no-name-in-module
+
+from git_utils import git, wrap
 
 if __name__ == '__main__':
     stdout.write('Locating repositories...')

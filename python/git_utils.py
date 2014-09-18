@@ -3,8 +3,7 @@ Utility functions for writing git plugins.
 """
 
 # sh magically creates functions below it; this confuses pylint.
-# pylint: disable=no-name-in-module, unused-import
-from sh import git, ErrorReturnCode
+from sh import git # pylint: disable=no-name-in-module
 import functools
 import textwrap
 

@@ -2,7 +2,9 @@
 """
 Perform a 'git pull --ff-only' and a 'git fetch --tags'.
 """
-from git_utils import wrap, git, svn_repo, ErrorReturnCode
+from sh import ErrorReturnCode # pylint: disable=no-name-in-module
+
+from git_utils import wrap, git, svn_repo
 
 def refresh():
     """
