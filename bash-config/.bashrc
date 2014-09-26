@@ -63,7 +63,7 @@ function c () {
 
 function show_host () {
     if [ -z "$(git branch 2> /dev/null)" ]; then
-        echo -n "@$(hostname --short)"
+        echo -n "@$(hostname -s)"
     fi
 }
 

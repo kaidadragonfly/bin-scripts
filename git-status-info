@@ -43,7 +43,7 @@ else
     diverged=$(echo "${header}" | egrep "\[ahead [0-9]+, behind [0-9]+\]")
 fi
 
-changes=$(${git_cmd} status --porcelain | wc -l)
+changes=$(${git_cmd} status --porcelain | wc -l | tr -d ' ')
 
 stashes=$(${git_cmd} stash list)
 
