@@ -1,0 +1,22 @@
+#!/bin/bash
+
+x=80
+y=24
+
+if [[ "$1" == "--no-clear" || "$1" == "-n" ]]; then
+    noclear="true"
+    shift
+fi
+
+if [ "$1" ]; then
+    x="$1"
+fi
+
+if [ "$1" ]; then
+    y="$2"
+fi
+
+printf '\033[8;'"$y;$x"'t'
+if [[ ! "$noclear" ]]; then
+    tput clear
+fi
