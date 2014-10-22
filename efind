@@ -1,0 +1,19 @@
+#!/bin/bash
+
+EXTENSIONS='scala$|java$'
+
+FILES=""
+while [ "$1" ]; do
+    if [[ "$1" == "-e" ]]; then
+        ECHO='true'
+    else
+        FILES="$FILES $(find . -ipath "*$1*" | egrep ${EXTENSIONS})"
+    fi
+    shift
+done
+
+if [ "$ECHO" ]; then
+    echo "$FILES"
+else
+    emacs $FILES
+fi
