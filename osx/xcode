@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" ] && [ ! -f "$1" ]; then
+    touch "$1"
+fi
+
+open -a /Applications/Xcode.app/ "$1"
