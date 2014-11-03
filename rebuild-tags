@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Generate tags using exuberant c-tags for the root directory of the
+# repository (only supports git), with fallback to the current directory.  
+ROOT=$(proj-root)
+
+if [ "$ROOT" ]; then
+    cd $ROOT
+fi
+
+ctags -eR -f .tags
