@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXTENSIONS='scala$|java$'
+EXTENSIONS='scala$|java$|js$'
 
 FILES=""
 while [ "$1" ]; do
