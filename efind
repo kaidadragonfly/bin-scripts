@@ -1,7 +1,3 @@
 #!/bin/bash
 
-if [[ "$1" == '-e' ]]; then
-    emacs $(find . -ipath "*$2")
-else
-    emacs --eval "(let ((tags-file-name (concat (proj-root) \"/.tags\"))) (find-tag \"$1\"))"
-fi
+emacs --eval "(let ((tags-file-name (concat (proj-root) \"/.tags\"))) (find-tag \"$1\"))"
