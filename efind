@@ -1,3 +1,4 @@
 #!/bin/bash
 
+rebuild-tags
 emacs --eval "(let ((tags-file-name (concat (proj-root) \"/.tags\"))) (find-tag \"$1\"))"
