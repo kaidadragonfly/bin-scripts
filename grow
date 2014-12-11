@@ -2,8 +2,8 @@
 
 oldx=$(tput cols)
 oldy=$(tput lines)
-x=$((${oldx} * 100 / 64))
-y=$((${oldy} * 100 / 60))
+x=$((${oldx} * 100 / 70))
+y=$((${oldy} * 100 / 70))
 
 # Normalize to return to 24x80
 if [[ 70 < $x && $x < 90 ]]; then
