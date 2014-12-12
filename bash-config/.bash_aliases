@@ -29,5 +29,7 @@ alias simonsays='sudo'
 alias please='sudo'
 alias dc='git diff --color --no-index'
 alias dw='git diff --color-words --no-index'
+alias cdr='cd $(proj-root)'
 git config --global alias.dw 'diff --color-words'
 git config --global alias.tree "log --all --graph --pretty='format:%h (%an) %s'"
+

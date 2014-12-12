@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export EDITOR='vim'
+export EDITOR='emacs'
+export GIT_EDITOR='vim'
 #export LESS=" --raw-control-chars --no-init ${LESS}"
 # Try this if there is trouble.
 export LESS=" --RAW-CONTROL-CHARS --no-init ${LESS}"

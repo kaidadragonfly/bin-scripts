@@ -8,4 +8,4 @@ if [ "$ROOT" ]; then
     cd $ROOT
 fi
 
-ctags --exclude=.git --exclude=target -eR -f .tags
+ctags --exclude=.git --exclude=target -eR -f .tags .

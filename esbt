@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd $(proj-root)
+
 sbt -Dsbt.log.noformat=true offline compile test:compile | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
