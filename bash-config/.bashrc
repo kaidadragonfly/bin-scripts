@@ -166,3 +166,7 @@ __expand_tilde_by_ref () {
     false # Do nothing.
 } # __expand_tilde_by_ref()
 
+if [[ "${TERM_PROGRAM}" == 'Apple_Terminal' ]]; then
+   cmd-key-happy >/dev/null 2>/dev/null &
+   disown
+fi
