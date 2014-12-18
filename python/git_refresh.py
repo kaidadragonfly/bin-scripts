@@ -26,7 +26,8 @@ def svn_rebase():
     if not output.endswith('Current branch master is up to date.'):
         print('"' + output + '"')
 
-if __name__ == '__main__':
+def main():
+    """Top level."""
     try:
         if not svn_repo():
             refresh()
@@ -34,4 +35,14 @@ if __name__ == '__main__':
             svn_rebase()
 
     except ErrorReturnCode as ex:
-        print(wrap('Command: "{}" failed!'.format(ex.full_cmd)))
+        full_cmd = ex.full_cmd.split()
+        cmd = (full_cmd[0]).split('/')[-1]
+        args = ' '.join(full_cmd[1:])
+
+        if 'no remote' not in ex.stderr.lower():
+            print(wrap('Command "{} {}" failed!'.format(cmd, args)))
+            print()
+            print(ex.stderr)
+
+if __name__ == '__main__':
+    main()
