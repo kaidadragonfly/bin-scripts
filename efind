@@ -1,4 +1,7 @@
 #!/bin/bash
 
 rebuild-tags
-emacs --eval "(let ((tags-file-name (concat (proj-root) \"/.tags\"))) (find-tag \"$1\"))"
+
+FILE=$(emacs --no-init-file --no-site-file --batch --eval "(let ((tags-file-name \"$(proj-root)/.tags\")) (find-tag \"$1\") (message buffer-file-name))" 2>&1 | tail -n 1)
+
+${EDITOR} ${FILE}
