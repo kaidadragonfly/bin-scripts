@@ -1,8 +1,13 @@
 #!/bin/bash
 
+if [ "$(pgrep -fl sbt-launch.jar)" ]; then
+    echo "sbt is already running, exiting."
+    exit
+fi
+
 cd $(proj-root)
 
-sbt -Dsbt.log.noformat=true offline compile test:compile | \
+sbt -Dsbt.log.noformat=true offline test:compile | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
     sed -r 's/ERROR /[error] /'
