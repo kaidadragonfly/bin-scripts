@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIMEOUT=$(date -d 'now +30 seconds' '+%s')
+TIMEOUT=$(date -d 'now +10 seconds' '+%s')
 if [ "$(pgrep -fl 'sbt-launch.jar')" ]; then
     echo 'Another sbt process is already running.'
     echo
