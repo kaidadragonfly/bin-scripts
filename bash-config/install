@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ln -s -i .bash* .profile ${HOME}/
