@@ -1,3 +1,8 @@
 #!/bin/bash
 
-ln -s -i .bash* .profile ${HOME}/
+LN='ln -s -v'
+if [[ "$(uname)" == 'Darwin' || "$(uname)" == 'Linux' ]]; then
+    LN='ln -s -i'
+fi
+
+${LN} .bash* .profile ${HOME}/
