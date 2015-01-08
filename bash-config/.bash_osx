@@ -1,0 +1,18 @@
+if [[ "$(uname)" == 'Darwin' ]]; then
+    unalias open >/dev/null 2>/dev/null
+
+    export PATH="$HOME/bin/osx:$PATH"
+    alias ls='gls --color=auto'
+    alias l='gls --color=auto -CF'
+    alias l.='gls --color=auto --directory .*'
+    alias la='gls --color=auto -A'
+    alias ll='gls --color=auto -alF'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias cmd_k="osascript -e 'tell application \"System Events\" to keystroke \"k\" using command down'"
+    alias reset="cmd_k; 'reset'; cmd_k"
+    alias top='top -s1 -o cpu -R -F'
+
+    source /usr/local/etc/bash_completion.d/git-completion.bash
+fi

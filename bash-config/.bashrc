@@ -110,6 +110,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# OSX specific definitions
+if [ -f ~/.bash_osx ]; then
+    . ~/.bash_osx
+fi
+
 # Machine local definitions.
 if [ -f ~/.bash_local ]; then
     . ~/.bash_local
