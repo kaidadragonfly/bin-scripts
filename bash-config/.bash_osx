@@ -13,6 +13,7 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias cmd_k="osascript -e 'tell application \"System Events\" to keystroke \"k\" using command down'"
     alias reset="cmd_k; 'reset'; cmd_k"
     alias top='top -s1 -o cpu -R -F'
+    alias meld='GTK_PATH=/usr/local/lib/gtk-2.0 meld '
 
     source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
