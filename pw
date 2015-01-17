@@ -1,10 +1,38 @@
 #!/bin/bash
 
+if [[ "$#" < 1 ]]; then
+    echo 'Usage: pw KEY [AFTER-CONTEXT]'
+    exit 1
+fi
+
 after=1
 
 if [ "$2" ]; then
     after="$2"
 fi
 
-grep -i $1 -A $after ~/Documents/passwords.txt
+read -p 'Enter decryption password: ' -s password
+echo
 
+die () {
+    echo "$1"
+    exit 1
+}
+
+cleartext=$(openssl aes-256-cbc -d \
+                    -in ~/Documents/passwords.aes \
+                    -pass pass:$password 2>/dev/null) || \
+    die 'Failed to decrypt!'
+
+if [[ "$1" == '-e' ]]; then
+    TMP=$(TMPDIR=/tmp/ mktemp -t 'temp') || die 'Failed to create tmp file!'
+    echo "$cleartext" > $TMP
+    $EDITOR $TMP
+    openssl aes-256-cbc \
+            -in $TMP \
+            -out ~/Documents/passwords.aes \
+            -pass pass:$password
+    rm $TMP
+else
+    echo "$cleartext" | grep -i $1 -A $after
+fi
