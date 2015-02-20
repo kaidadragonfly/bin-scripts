@@ -1,0 +1,14 @@
+#!/bin/bash
+
+osascript <<EOF
+  tell application "iTerm"
+    activate
+    set t to (make new terminal)
+    tell t
+      launch session "Default"
+      tell current session
+        write text "cd $PWD"
+      end tell        
+    end tell
+  end tell
+EOF
