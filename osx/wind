@@ -3,12 +3,18 @@
 osascript <<EOF
   tell application "iTerm"
     activate
+    set cur to (current terminal)
+
     set t to (make new terminal)
     tell t
       launch session "Default"
       tell current session
         write text "cd $PWD"
+        write text "$@"
       end tell        
     end tell
+
+    delay 0.5
+    select cur
   end tell
 EOF
