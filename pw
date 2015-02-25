@@ -1,8 +1,16 @@
 #!/bin/bash
 
 if [[ "$#" < 1 ]]; then
-    echo 'Usage: pw KEY [AFTER-CONTEXT]'
+    echo 'Usage: pw [-p CRYPT_FILE] KEY [AFTER-CONTEXT]'
     exit 1
+fi
+
+CRYPT_FILE=~/Documents/passwords.aes
+
+if [[ "$1" == '-p' ]]; then
+    shift                       # eat '-p'
+    CRYPT_FILE="$1"
+    shift                       # eat $CRYPT_FILE
 fi
 
 after=1
@@ -20,7 +28,7 @@ die () {
 }
 
 cleartext=$(openssl aes-256-cbc -d \
-                    -in ~/Documents/passwords.aes \
+                    -in $CRYPT_FILE \
                     -pass pass:$password 2>/dev/null) || \
     die 'Failed to decrypt!'
 
@@ -30,7 +38,7 @@ if [[ "$1" == '-e' ]]; then
     $EDITOR $TMP
     openssl aes-256-cbc \
             -in $TMP \
-            -out ~/Documents/passwords.aes \
+            -out $CRYPT_FILE \
             -pass pass:$password
     rm $TMP
 else
