@@ -1,0 +1,36 @@
+#!/bin/bash
+
+PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+
+SESSION=$(sbtd)
+
+if [[ "$#" < 1 ]]; then
+   echo "usage: sbtc COMMAND..."
+   exit
+fi
+
+COMMAND="$1"
+shift
+while [ "$1" ]; do
+    COMMAND="$COMMAND $1"
+    shift
+done
+
+if [ $(echo "$COMMAND" | grep '~') ]; then
+    echo "Repeated commands (~COMMAND) are not supported."
+    exit 1
+fi
+
+tmux send -t "$SESSION" "$COMMAND" ENTER
+tmux send -t "$SESSION" ENTER
+
+tail -f -n 0 "/tmp/sbtd/$SESSION" | \
+    while read LOGLINE; do
+        if [[ "${LOGLINE}" == "> "* ]]; then
+            exit
+        fi
+
+        if [[ "${LOGLINE}" != "$COMMAND"* ]]; then
+            echo "$LOGLINE"
+        fi
+    done

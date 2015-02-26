@@ -1,0 +1,26 @@
+#!/bin/bash
+
+die () {
+    echo "$1"
+    exit 1
+}
+
+PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+TARGET="\"${PROJ_ROOT}/target/sbtd\""
+
+SESSION=$(echo "sbtd/$PWD" | sed 's+/+!+g')
+mkdir -p /tmp/sbtd/
+TMP="/tmp/sbtd/$SESSION"
+
+cd $(git rev-parse --show-toplevel 2>/dev/null)
+if tmux new -d -s "$SESSION" 'sbt -Dsbt.log.noformat=true' 2>/dev/null; then
+    tmux send -t "$SESSION" "set target := file($TARGET)" ENTER
+    tmux send -t "$SESSION" "set offline := true" ENTER
+
+    echo > $TMP
+    tmux pipe-pane -o -t "$SESSION" "cat >> $TMP"
+
+    (sbtd-watchdog "$SESSION" "$TMP" &) &
+fi
+
+echo $SESSION
