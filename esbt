@@ -1,27 +1,8 @@
 #!/bin/bash
 
-TIMEOUT=$(date -d 'now +10 seconds' '+%s')
-if [ "$(pgrep -fl 'sbt-launch.jar')" ]; then
-    echo 'Another sbt process is already running.'
-    echo
-    echo -n 'Waiting for it to exit '
-    
-    while [ "$(pgrep -fl 'sbt-launch.jar')" ]; do
-        if [[ $(date '+%s') > $TIMEOUT ]]; then
-            echo ' timed out. Exiting.'
-            exit
-        else
-            echo -n '.'
-            sleep 1
-        fi
-    done
-
-    echo ' done.'
-fi
-
 cd $(proj-root)
 
-sbt -Dsbt.log.noformat=true offline test:compile | \
+sbtc test:compile | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
     sed -r 's/ERROR /[error] /'
