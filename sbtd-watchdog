@@ -6,4 +6,4 @@ while [ $(find "$TMP" -mmin -15 2>/dev/null) ]; do
     sleep 10
 done
 tmux kill-session -t "$SESSION"
-rm "$TMP"
+rm -f "$TMP"

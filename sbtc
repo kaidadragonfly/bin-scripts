@@ -2,6 +2,7 @@
 
 PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
 
+sbtd >/dev/null
 SESSION=$(sbtd)
 
 if [[ "$#" < 1 ]]; then
@@ -21,10 +22,25 @@ if [ $(echo "$COMMAND" | grep '~') ]; then
     exit 1
 fi
 
+TMP="/tmp/sbtd/$SESSION"
+MSG='Starting daemon'
+until grep '^> $' $TMP >/dev/null; do
+    echo -n "$MSG"
+    MSG='.'
+    sleep 1
+done
+
+if [[ "$MSG" == '.' ]]; then
+    echo ' done.'
+    echo
+    sleep 0.3
+fi
+
 tmux send -t "$SESSION" "$COMMAND" ENTER
 tmux send -t "$SESSION" ENTER
 
-tail -f -n 0 "/tmp/sbtd/$SESSION" | \
+FIRST='true'
+tail -f -n 0 "$TMP" | \
     while read LOGLINE; do
         if [[ "${LOGLINE}" == "> "* ]]; then
             exit
