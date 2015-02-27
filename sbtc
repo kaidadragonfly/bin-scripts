@@ -42,11 +42,12 @@ tmux send -t "$SESSION" ENTER
 FIRST='true'
 tail -f -n 0 "$TMP" | \
     while read LOGLINE; do
-        if [[ "${LOGLINE}" == "> "* ]]; then
+        LOGLINE=$(echo "$LOGLINE" | tr -d '\r')
+        if [[ "${LOGLINE}" == "> " ]]; then
             exit
         fi
 
-        if [[ "${LOGLINE}" != "$COMMAND"* ]]; then
+        if [[ "${LOGLINE}" != "$COMMAND" ]]; then
             echo "$LOGLINE"
         fi
     done
