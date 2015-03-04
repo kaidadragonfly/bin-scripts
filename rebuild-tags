@@ -12,10 +12,9 @@ rm -f .tags
 touch .tags
 
 DEP_TAGS='.dep-tags'
-DEP_DIR='./target/sbt-ctags-dep-srcs/'
+DEP_DIR='target/sbt-ctags-dep-srcs/'
 if [ ! -f "$DEP_TAGS" ] && [ -d "$DEP_DIR" ]; then
-    ctags -e -f "$DEP_TAGS" -R "$DEP_DIR"
-
+    ctags -e -R -f "$DEP_TAGS" "$DEP_DIR"
 fi
 
 if [ -f "$DEP_TAGS" ]; then
