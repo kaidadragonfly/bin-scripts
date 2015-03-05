@@ -4,6 +4,11 @@ cd $(proj-root)
 
 WD='.'
 
+if [[ "$1" == '-n' ]]; then
+    DRY_RUN=true
+    shift
+fi
+
 if [[ "$#" != 1 ]] && [[ "$#" != 3 ]]; then
     echo 'usage: efind PREFIX [in DIRECTORY]'
     exit 1
@@ -20,4 +25,8 @@ fi
 FILES=$(find "$WD" -iname "$1*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2)
 FILE=$(echo "$FILES" | head -n 1)
 
-${EDITOR} ${FILE}
+if [ "${DRY_RUN}" ]; then
+    echo "$FILE"
+else
+    ${EDITOR} ${FILE}
+fi
