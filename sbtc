@@ -10,10 +10,10 @@ if [[ "$#" < 1 ]]; then
    exit
 fi
 
-COMMAND="$1"
+COMMAND=";$1"
 shift
 while [ "$1" ]; do
-    COMMAND="$COMMAND $1"
+    COMMAND="$COMMAND ;$1"
     shift
 done
 
