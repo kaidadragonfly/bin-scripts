@@ -17,6 +17,8 @@ while [ "$1" ]; do
     shift
 done
 
+COMMAND=$(echo "$COMMAND" | sed 's/;;/;/')
+
 if [ $(echo "$COMMAND" | grep '~') ]; then
     echo "Repeated commands (~COMMAND) are not supported."
     exit 1
