@@ -1,3 +1,10 @@
 #!/bin/bash
 
-JAVA_HOME=$(/usr/libexec/java_home -v 1.8) exec java -Xmx2048M ${SBT_OPTS} -jar /usr/local/Library/LinkedKegs/sbt/libexec/sbt-launch.jar "$@"
+if [ "$JAVA_HOME" ]; then
+    export SBT_OPTS="-Xms512M -Xmx2048M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=1024M ${SBT_OPTS}"
+else    
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export SBT_OPTS="-Xmx2048M ${SBT_OPTS}"
+fi
+
+exec java ${SBT_OPTS} -jar /usr/local/Library/LinkedKegs/sbt/libexec/sbt-launch.jar "$@"
