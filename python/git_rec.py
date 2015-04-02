@@ -28,7 +28,8 @@ def do_command(repo):
 
     except ErrorReturnCode as ex:
         print("in repo {}:".format(repo))
-        print(wrap('Command: "{}" failed!'.format(ex.full_cmd)))
+        print(wrap('Command failed!'))
+        # print(wrap('Command: "{}" failed!'.format(ex.full_cmd)))
 
 def main():
     """
@@ -40,10 +41,10 @@ def main():
     workers = []
     for root, dirs, _ in walk('.', topdown=True):
         if '.git' in dirs:
+            dirs[:] = []
             worker = Process(target=do_command, args=(root,))
             worker.start()
             workers.append(worker)
-        dirs[:] = [d for d in dirs if not d[0] == '.']
 
     for worker in workers:
         worker.join()
