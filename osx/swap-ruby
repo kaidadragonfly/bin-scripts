@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for rby in $(brew list | grep ruby); do
+    brew unlink $rby
+done
+
+brew link "$1"
+sudo gem install bundler
+sudo gem install rubocop
+sudo gem install foodcritic
+
+if [ -f Gemfile ]; then
+    bundle install
+fi
