@@ -12,13 +12,16 @@ rm -f .tags
 touch .tags
 
 DEP_TAGS='.dep-tags'
-DEP_DIR='target/sbt-ctags-dep-srcs/'
+if [ -z "${DEP_DIR}" ]; then
+    DEP_DIR='target/sbt-ctags-dep-srcs/'
+fi
+
 if [ ! -f "$DEP_TAGS" ] && [ -d "$DEP_DIR" ]; then
     ctags -e -R -f "$DEP_TAGS" "$DEP_DIR"
 fi
 
-if [ -f "$DEP_TAGS" ]; then
-    cp "$DEP_TAGS" .tags
+if [ -f "${DEP_TAGS}" ]; then
+    cp "${DEP_TAGS}" .tags
 fi
 
-ctags --exclude=.git --exclude=target -e -R -a -f .tags .
+ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -a -f .tags .
