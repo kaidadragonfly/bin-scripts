@@ -90,6 +90,8 @@ PS1=$PS1'\['${dir_c}'\]\W\['${no_c}'\]'              # directory
 PS1=$PS1'$(c)\['${git_c}'\]$(branch)\['${no_c}'\]'   # version control
 # Reboot needed?
 PS1=$PS1'\['${reboot_c}'\]$(show_reboot)\['${no_c}'\]'
+# on-call, maybe display in regular "magenta".
+# PS1='[\D{%H:%M }'$PS1']\$ '
 PS1='['$PS1']\$ '                                    # brackets
 unset color_prompt force_color_prompt
 

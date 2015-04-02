@@ -5,6 +5,7 @@ export GIT_EDITOR='vim'
 #export LESS=" --raw-control-chars --no-init ${LESS}"
 # Try this if there is trouble.
 export LESS=" --RAW-CONTROL-CHARS --no-init ${LESS}"
+export PAGER='less'
 
 # Add ~/bin/ to the front of the PATH if it exists.
 if [ -d "$HOME/bin" ]; then

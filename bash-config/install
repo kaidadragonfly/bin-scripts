@@ -1,8 +1,9 @@
 #!/bin/bash
 
-LN='ln -s -v'
+SYM_LINK='ln -s -v'
 if [[ "$(uname)" == 'Darwin' || "$(uname)" == 'Linux' ]]; then
-    LN='ln -s -i'
+    SYM_LINK='ln -s -i'
 fi
 
-${LN} .bash* .profile ${HOME}/
+${SYM_LINK} .bash* .profile ${HOME}/
+${SYM_LINK} .profile ${HOME}/.bash_profile
