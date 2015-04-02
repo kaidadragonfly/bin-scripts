@@ -6,12 +6,12 @@ Then run the specified git command on each directory.
 """
 from os import chdir, walk
 from sys import stdout, argv
-from multiprocessing import Process
+from multiprocessing import Process, Queue # pylint: disable=no-name-in-module
 from sh import ErrorReturnCode # pylint: disable=no-name-in-module
 
 from git_utils import git, wrap
 
-def do_command(repo):
+def do_command(repo, queue):
     """
     Execute the command in the given repository.
     """
@@ -20,16 +20,28 @@ def do_command(repo):
         command = git(argv[1:])
         if len(command) > 0:
             # Empty string prevents printing the tuple in python2
-            print('')
-            print("in repo {}:".format(repo))
+            output = ''
+            output += '\n'
+            output += 'in repo {}:\n'.format(repo)
             for line in command:
-                print(wrap(line))
-                stdout.flush()
+                output += '{}\n'.format(wrap(line))
+            queue.put(output)
 
     except ErrorReturnCode as ex:
-        print("in repo {}:".format(repo))
-        print(wrap('Command failed!'))
-        # print(wrap('Command: "{}" failed!'.format(ex.full_cmd)))
+        error = ''
+        error += "in repo {}:".format(repo)
+        error += wrap('Command: "{}" failed!\n'.format(ex.full_cmd))
+        queue.put(error)
+
+def printer(queue):
+    """
+    Print from queue until it contains 'None'.
+    """
+    item = queue.get()
+    while item:
+        stdout.write(item)
+        stdout.flush()
+        item = queue.get()
 
 def main():
     """
@@ -39,15 +51,22 @@ def main():
     # Process is reported as not callable.
 
     workers = []
+    output_queue = Queue()
     for root, dirs, _ in walk('.', topdown=True):
         if '.git' in dirs:
             dirs[:] = []
-            worker = Process(target=do_command, args=(root,))
+            worker = Process(target=do_command, args=(root, output_queue))
             worker.start()
             workers.append(worker)
 
+    printer_worker = Process(target=printer, args=(output_queue,))
+    printer_worker.start()
+
     for worker in workers:
         worker.join()
+    output_queue.put(None)
+
+    printer_worker.join()
 
 if __name__ == '__main__':
     main()
