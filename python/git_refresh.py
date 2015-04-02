@@ -2,6 +2,7 @@
 """
 Perform a 'git pull --ff-only' and a 'git fetch --tags'.
 """
+from time import sleep
 from sh import ErrorReturnCode # pylint: disable=no-name-in-module
 
 from git_utils import wrap, git, svn_repo
@@ -30,7 +31,13 @@ def main():
     """Top level."""
     try:
         if not svn_repo():
-            refresh()
+            try:
+                refresh()
+            # Sometimes the server is overloaded, give it a little and
+            # try again.
+            except ErrorReturnCode:
+                sleep(0.5)
+                refresh()
         else:
             svn_rebase()
 
@@ -41,7 +48,7 @@ def main():
 
         if 'no remote' not in ex.stderr.lower():
             print(wrap('Command "{} {}" failed!'.format(cmd, args)))
-            print()
+            print('')
             print(ex.stderr)
 
 if __name__ == '__main__':
