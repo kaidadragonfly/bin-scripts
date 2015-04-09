@@ -73,10 +73,15 @@ function show_reboot() {
     fi
 }
 
+function show_time() {
+    echo "$(date '+%H:%m')"
+}
+
 if [ "$color_prompt" = yes ]; then
     if [ -n "${SSH_CLIENT}" ]; then
         usr_c="\033[0;33m"
     fi
+    time_c="\033[0;35m"
     reboot_c="\033[0;31m"
     dir_c="\033[1;34m"
     git_c="\033[1;30m"
@@ -84,15 +89,18 @@ if [ "$color_prompt" = yes ]; then
 fi
 
 # Configure prompt.
-PS1='\['${usr_c}'\]\u\['${no_c}'\]'                  # user
-PS1=$PS1'$(show_host) '                              # host
-PS1=$PS1'\['${dir_c}'\]\W\['${no_c}'\]'              # directory
-PS1=$PS1'$(c)\['${git_c}'\]$(branch)\['${no_c}'\]'   # version control
 # Reboot needed?
-PS1=$PS1'\['${reboot_c}'\]$(show_reboot)\['${no_c}'\]'
-# on-call, maybe display in regular "magenta".
-# PS1='[\D{%H:%M }'$PS1']\$ '
-PS1='['$PS1']\$ '                                    # brackets
+# PS1=$PS1'\['${reboot_c}'\]$(show_reboot)\['${no_c}'\]'
+
+PS1=''                                               # start
+PS1=$PS1'['                                          # open-bracket
+# PS1=$PS1'\['${time_c}'\]$(show_time)\['${no_c}'\] '  # time
+PS1=$PS1'\['${usr_c}'\]\u\['${no_c}'\]'              # user
+PS1=$PS1'$(show_host)'                               # host
+PS1=$PS1' \['${dir_c}'\]\W\['${no_c}'\]'             # directory
+PS1=$PS1'$(c)\['${git_c}'\]$(branch)\['${no_c}'\]'   # version control
+PS1=$PS1']'                                          # close-bracket
+PS1=$PS1'\$ '                                        # dollar
 unset color_prompt force_color_prompt
 
 
@@ -176,4 +184,9 @@ __expand_tilde_by_ref () {
 if [[ "${TERM_PROGRAM}" == 'Apple_Terminal' ]]; then
    cmd-key-happy >/dev/null 2>/dev/null &
    disown
+fi
+
+KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa")
+if [ "${SSH_AUTH_SOCK}" ] && [ -z "${KEY_EXISTS}" ]; then
+    ssh-add ~/.ssh/id_rsa
 fi

@@ -31,6 +31,9 @@ alias dc='git diff --color --no-index'
 alias dw='git diff --color-words --no-index'
 alias cdr='cd $(proj-root)'
 alias gf='git-fuzzy'
-git config --global alias.dw 'diff --color-words'
-git config --global alias.tree "log --all --graph --pretty='format:%h (%an) %s'"
+
+# Git aliases
+# [alias]
+#     dw = diff --color-words --word-diff-regex='[A-z0-9_]+|[^[:space:]]'
+#     tree = log --all --graph --pretty='format:%h (%an) %s'
 
