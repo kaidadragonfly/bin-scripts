@@ -1,0 +1,3 @@
+#!/bin/bash
+
+PAGER=cat git log HEAD..origin/HEAD
