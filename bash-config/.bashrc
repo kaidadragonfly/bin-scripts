@@ -165,8 +165,8 @@ _expand () {
 
     if [[ "$cur" == \~*/* ]]; then
         ( cd ~;
-            eval dur=(${cur:2});
-            cur=${dur[*]/#/xxx} );
+          eval dur=(${cur:2});
+          cur=${dur[*]/#/xxx} );
     elif [[ "$cur" == \~* ]]; then
         cur=${cur#\~}
         COMPREPLY=( $( compgen -P '~' -u $cur ) )
@@ -181,12 +181,20 @@ __expand_tilde_by_ref () {
     false # Do nothing.
 } # __expand_tilde_by_ref()
 
-if [[ "${TERM_PROGRAM}" == 'Apple_Terminal' ]]; then
-   cmd-key-happy >/dev/null 2>/dev/null &
-   disown
+# ssh-agent setup.
+if [ "${SSH_AUTH_SOCK}" ]; then
+    echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" > "${HOME}/.ssh/auth_sock_var"
+    
+    KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa")
+    if [ -z "${KEY_EXISTS}" ]; then
+        ssh-add ~/.ssh/id_rsa
+    fi
+
+    KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa_personal")
+    if [ -z "${KEY_EXISTS}" ] && [ -f "${HOME}/.ssh/id_rsa_personal" ]; then
+        ssh-add "${HOME}/.ssh/id_rsa_personal"
+    fi
 fi
 
-KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa")
-if [ "${SSH_AUTH_SOCK}" ] && [ -z "${KEY_EXISTS}" ]; then
-    ssh-add ~/.ssh/id_rsa
-fi
+# Allow C-s to search forward if you go too far with C-r.
+stty -ixon
