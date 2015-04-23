@@ -1,3 +1,4 @@
 #!/bin/bash
 
+cd $(proj-root)
 emacs $(git-changed)
