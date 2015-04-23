@@ -3,9 +3,12 @@
 Daemon to run sbt in the background and pass information back/forward over a
 port.
 """
-import logging, socket, subprocess
+import logging
+import socket
+import subprocess
 
 from daemon import runner       # pylint: disable=no-name-in-module
+
 
 def dispatch(workdir, command):
     """Determine whether we will "foreground" or "background"."""
@@ -14,9 +17,11 @@ def dispatch(workdir, command):
     else:
         foreground(workdir, command)
 
+
 def background(workdir, command):
     """Run "command" in a new subprocess in the background."""
     return "Background not implemented!: {} {}".format(workdir, command)
+
 
 def foreground(workdir, command):
     """Run "command" using the persistent SBT process for "workdir"."""
@@ -27,6 +32,7 @@ def foreground(workdir, command):
                             stderr=subprocess.PIPE)
     out, err = proc.communicate(command)
     return "{} {}: {}\n{}".format(workdir, command, out, err)
+
 
 class App():                    # pylint: disable=too-few-public-methods
     """Wrapper class for main logic."""
@@ -59,6 +65,7 @@ class App():                    # pylint: disable=too-few-public-methods
             command = client.recv(4096).rstrip()
             client.send(foreground(workdir, command))
             client.close()
+
 
 def main():
     """Bootstrap the daemon."""

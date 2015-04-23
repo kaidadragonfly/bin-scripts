@@ -3,11 +3,12 @@ Utility functions for writing git plugins.
 """
 
 # sh magically creates functions below it; this confuses pylint.
-from sh import git # pylint: disable=no-name-in-module
+from sh import git              # pylint: disable=no-name-in-module
 import functools
 import textwrap
 
 WRAPPER = textwrap.TextWrapper()
+
 
 def wrap(string, indent=4):
     """
@@ -21,6 +22,7 @@ def wrap(string, indent=4):
         return functools.reduce(lambda x, y: x + '\n' + y, wrapped)
     else:
         return ''
+
 
 def svn_repo():
     """

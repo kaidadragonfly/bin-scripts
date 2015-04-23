@@ -3,9 +3,10 @@
 Perform a 'git pull --ff-only' and a 'git fetch --tags'.
 """
 from time import sleep
-from sh import ErrorReturnCode # pylint: disable=no-name-in-module
+from sh import ErrorReturnCode  # pylint: disable=no-name-in-module
 
 from git_utils import wrap, git, svn_repo
+
 
 def refresh():
     """
@@ -17,6 +18,7 @@ def refresh():
         print(output)
     git.fetch('--tags')
 
+
 def svn_rebase():
     """
     Perform a 'git svn rebase' on the repository.
@@ -26,6 +28,7 @@ def svn_rebase():
     output = str(git.svn.rebase()).strip()
     if not output.endswith('Current branch master is up to date.'):
         print('"' + output + '"')
+
 
 def main():
     """Top level."""

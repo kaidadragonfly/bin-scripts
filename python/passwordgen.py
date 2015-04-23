@@ -9,6 +9,7 @@ from os import urandom
 from string import ascii_letters as letters, digits, punctuation
 from argparse import ArgumentParser
 
+
 def passgen(alphabet, length):
     """
     Actually perform the random string generation.
@@ -20,6 +21,7 @@ def passgen(alphabet, length):
         if char in alphabet:
             passw += char
     return passw
+
 
 def main():
     """

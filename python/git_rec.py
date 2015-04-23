@@ -6,10 +6,11 @@ Then run the specified git command on each directory.
 """
 from os import chdir, walk
 from sys import stdout, argv
-from multiprocessing import Process, Queue # pylint: disable=no-name-in-module
-from sh import ErrorReturnCode # pylint: disable=no-name-in-module
+from multiprocessing import Process, Queue  # pylint: disable=no-name-in-module
+from sh import ErrorReturnCode              # pylint: disable=no-name-in-module
 
 from git_utils import git, wrap
+
 
 def do_command(repo, queue):
     """
@@ -33,6 +34,7 @@ def do_command(repo, queue):
         error += wrap('Command: "{}" failed!\n'.format(ex.full_cmd))
         queue.put(error)
 
+
 def printer(queue):
     """
     Print from queue until it contains 'None'.
@@ -42,6 +44,7 @@ def printer(queue):
         stdout.write(item)
         stdout.flush()
         item = queue.get()
+
 
 def main():
     """
