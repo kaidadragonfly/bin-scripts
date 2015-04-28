@@ -14,6 +14,9 @@ export PROMPT_COMMAND="history -a"
 # append to the history file, don't overwrite it
 shopt -s histappend
 
+# ssh-agent setup.
+export PROMPT_COMMAND="add-keys.sh; ${PROMPT_COMMAND}"
+
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -135,9 +138,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Store history after every command, not just on exit.
-export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
 #Special pushd that emulates cds behavior, but uses the directory stack.
 cpushd () {
     if [ "$1" ]
@@ -180,21 +180,6 @@ unset __expand_tilde_by_ref
 __expand_tilde_by_ref () {
     false # Do nothing.
 } # __expand_tilde_by_ref()
-
-# ssh-agent setup.
-if [ "${SSH_AUTH_SOCK}" ]; then
-    echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" > "${HOME}/.ssh/auth_sock_var"
-    
-    KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa")
-    if [ -z "${KEY_EXISTS}" ]; then
-        ssh-add ~/.ssh/id_rsa
-    fi
-
-    KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa_personal")
-    if [ -z "${KEY_EXISTS}" ] && [ -f "${HOME}/.ssh/id_rsa_personal" ]; then
-        ssh-add "${HOME}/.ssh/id_rsa_personal"
-    fi
-fi
 
 # Allow C-s to search forward if you go too far with C-r.
 stty -ixon
