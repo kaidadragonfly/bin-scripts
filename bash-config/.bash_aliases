@@ -28,7 +28,7 @@ alias gitg='gitg &'
 alias simonsays='sudo'
 alias please='sudo'
 alias dc='git diff --color --no-index'
-alias dw='git diff --color-words --no-index'
+alias dw="git diff --color-words --no-index --word-diff-regex='[A-z0-9_]+|[^[:space:]]'"
 alias cdr='cd $(proj-root)'
 alias gf='git-fuzzy'
 
