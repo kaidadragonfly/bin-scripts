@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ssh-agent setup.
-if [ "${SSH_AUTH_SOCK}" ]; then
+if [ "${SSH_AUTH_SOCK}" ] && [ $(find "${HOME}/.ssh/auth_sock_var" -mmin +5) ]; then
     echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" > "${HOME}/.ssh/auth_sock_var"
 
     KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa")
@@ -11,6 +11,8 @@ if [ "${SSH_AUTH_SOCK}" ]; then
 
     KEY_EXISTS=$(ssh-add -l | grep "${HOME}/[.]ssh/id_rsa_personal")
     if [ -z "${KEY_EXISTS}" ] && [ -f "${HOME}/.ssh/id_rsa_personal" ]; then
+        echo
         ssh-add "${HOME}/.ssh/id_rsa_personal"
     fi
 fi
+
