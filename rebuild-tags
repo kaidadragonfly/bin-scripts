@@ -8,8 +8,7 @@ if [ "$ROOT" ]; then
     cd $ROOT
 fi
 
-rm -f .tags
-touch .tags
+ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -f .tags .
 
 DEP_TAGS='.dep-tags'
 if [ -z "${DEP_DIR}" ]; then
@@ -21,7 +20,5 @@ if [ ! -f "$DEP_TAGS" ] && [ -d "$DEP_DIR" ]; then
 fi
 
 if [ -f "${DEP_TAGS}" ]; then
-    cp "${DEP_TAGS}" .tags
+    cat "${DEP_TAGS}" >> .tags
 fi
-
-ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -a -f .tags .
