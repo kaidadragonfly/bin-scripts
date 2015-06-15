@@ -23,3 +23,6 @@ export PATH
 if [[ -x $(which src-hilite-lesspipe.sh) ]]; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
 fi
+
+
+export PYTHONSTARTUP=~/.pystartup

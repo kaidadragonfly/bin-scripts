@@ -13,7 +13,6 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias cmd_k="osascript -e 'tell application \"System Events\" to keystroke \"k\" using command down'"
     alias reset="cmd_k; 'reset'; cmd_k"
     alias top='top -s1 -o cpu -R -F'
-    alias meld='GTK_PATH=/usr/local/lib/gtk-2.0 meld '
     alias jdk7="JAVA_HOME=$(/usr/libexec/java_home -v 1.7) "
     alias jdk8="JAVA_HOME=$(/usr/libexec/java_home -v 1.8) "
 

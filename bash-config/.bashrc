@@ -15,7 +15,7 @@ export PROMPT_COMMAND="history -a"
 shopt -s histappend
 
 # Add ssh-keys.
-if [ -x $(which add-keys.sh) ]; then
+if [ -x "${HOME}/bin/add-keys.sh" ]; then
     export PROMPT_COMMAND="add-keys.sh; ${PROMPT_COMMAND}"
 fi
 
