@@ -40,6 +40,7 @@ fi
 
 tmux send -t "$SESSION" "$COMMAND" ENTER
 tmux send -t "$SESSION" ENTER
+tmux send -t "$SESSION" ENTER
 
 FIRST='true'
 tail -f -n 0 "$TMP" | \

@@ -2,10 +2,18 @@
 
 cd $(git rev-parse --show-toplevel 2>/dev/null)
 
-sbtc test:compile scalastyle test:scalastyle | \
+function check() {
+    sbtc "$@" | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
     sed -r 's/ERROR /[error] /' | \
     sed -r 's|\[warn\] /|WARN /|' | \
     sed -r 's/\[warn\] //' | \
     sed -r 's/WARN /[warn] /'
+}
+
+check test:compile
+check scalastyle
+check test:scalastyle
+check styleCheck
+check test:styleCheck
