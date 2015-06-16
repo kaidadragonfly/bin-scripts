@@ -79,24 +79,10 @@ function show_host () {
     fi
 }
 
-function show_reboot() {
-    if [ -e /var/run/reboot-required ]; then
-        echo -n ' ⟳ '
-    fi
-}
-
-function show_time() {
-    if [ -e "${HOME}/.oncall" ]; then
-        echo ":$(date '+%H.%m.%S')"
-    fi
-}
-
 if [ "$color_prompt" = yes ]; then
     if [ -n "${SSH_CLIENT}" ]; then
         usr_c="\033[0;33m"
     fi
-    time_c="\033[00m"
-    # time_c="\033[0;35m"
     reboot_c="\033[0;31m"
     dir_c="\033[1;34m"
     git_c="\033[1;30m"
@@ -110,7 +96,6 @@ fi
 PS1=''                                               # start
 PS1=$PS1'['                                          # open-bracket
 PS1=$PS1'\['${usr_c}'\]$(show_user)\['${no_c}'\]'    # user
-PS1=$PS1'\['${time_c}'\]$(show_time)\['${no_c}'\]'   # time
 PS1=$PS1'$(show_host)'                               # host
 PS1=$PS1' \['${dir_c}'\]\W\['${no_c}'\]'             # directory
 PS1=$PS1'$(c)\['${git_c}'\]$(branch)\['${no_c}'\]'   # version control
