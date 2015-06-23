@@ -16,7 +16,7 @@ shopt -s histappend
 
 # Add ssh-keys.
 if [ -x "${HOME}/bin/add-keys.sh" ]; then
-    export PROMPT_COMMAND="add-keys.sh; ${PROMPT_COMMAND}"
+    export PROMPT_COMMAND="add-keys.sh --batch; ${PROMPT_COMMAND}"
 fi
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
