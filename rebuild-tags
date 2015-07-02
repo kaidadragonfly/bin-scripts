@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Generate tags using exuberant c-tags for the root directory of the
-# repository (only supports git), with fallback to the current directory.  
+# repository (only supports git), with fallback to the current directory.
 ROOT=$(proj-root)
 
 if [ "$ROOT" ]; then
@@ -10,15 +10,29 @@ fi
 
 ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -f .tags .
 
-DEP_TAGS='.dep-tags'
-if [ -z "${DEP_DIR}" ]; then
-    DEP_DIR='target/sbt-ctags-dep-srcs/'
-fi
+# Scala dep-tags setup.
+if [ -d 'target' ]; then
+    DEP_TAGS='.dep-tags'
+    SRC_DEP_DIR='target/sbt-ctags-dep-srcs'
+    DEP_DIR='.deps'
 
-if [ ! -f "$DEP_TAGS" ] && [ -d "$DEP_DIR" ]; then
-    ctags -e -R -f "$DEP_TAGS" "$DEP_DIR"
-fi
+    if [ ! -L ${SRC_DEP_DIR} ]; then
+        if [ -d ${SRC_DEP_DIR} ]; then
+            mv ${SRC_DEP_DIR} ${DEP_DIR}
+        fi
 
-if [ -f "${DEP_TAGS}" ]; then
-    cat "${DEP_TAGS}" >> .tags
+        if [ -d $(dirname ${SRC_DEP_DIR}) ]; then
+            ln -s "../${DEP_DIR}" ${SRC_DEP_DIR}
+        fi
+    fi
+
+    mkdir -p ${DEP_DIR}
+
+    if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_DIR}" ]; then
+        ctags -e -R -f "${DEP_TAGS}" "${DEP_DIR}"
+    fi
+
+    if [ -f "${DEP_TAGS}" ]; then
+        cat "${DEP_TAGS}" >> .tags
+    fi
 fi
