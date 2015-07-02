@@ -3,6 +3,7 @@
 cd $(proj-root)
 
 WD='.'
+EXCLUDES='([.]os|[.]o)$'
 
 if [[ "$1" == '-n' ]]; then
     DRY_RUN=true
@@ -22,7 +23,7 @@ if [[ "$2" == 'in' ]]; then
     WD="$3"
 fi
 
-FILES=$(find "$WD" -iname "$1*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2)
+FILES=$(find "$WD" -iname "$1*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
 FILE=$(echo "$FILES" | head -n 1)
 
 if [ "${DRY_RUN}" ]; then
