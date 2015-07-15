@@ -26,6 +26,7 @@ fi
 
 TMP="/tmp/sbtd/$SESSION"
 MSG='Starting daemon'
+touch $TMP
 until grep '^> $' $TMP >/dev/null; do
     echo -n "$MSG"
     MSG='.'
