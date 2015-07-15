@@ -1,3 +1,9 @@
 #!/bin/bash
 
+# Auto-hide dock.
 osascript -e "tell application \"System Events\" to set the autohide of the dock preferences to true"
+
+# Don't bounce.
+defaults write com.apple.dock no-bouncing -bool FALSE
+killall Dock
+
