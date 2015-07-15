@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LOOP_COMMAND="$1"
+
+${LOOP_COMMAND}
+fswatch -e '/[.]' -e '/flycheck_' -r -o . \
+    | xargs -n1 -I{} py.test
