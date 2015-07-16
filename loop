@@ -1,7 +1,15 @@
 #!/bin/bash
 
-LOOP_COMMAND="$1"
+EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)'
 
-${LOOP_COMMAND}
-fswatch -e '/[.]' -e '/flycheck_' -r -o . \
-    | xargs -n1 -I{} py.test
+LOOP_COMMAND="$@"
+
+${LOOP_COMMAND} &
+echo here
+PID="$!"
+
+fswatch -E -e "${EXCLUDES}" -0 . | while read -d "" event; do
+    kill "${PID}" 2>/dev/null
+    ${LOOP_COMMAND} &
+    PID="$!"
+done
