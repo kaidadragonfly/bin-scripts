@@ -1,9 +1,15 @@
 #!/bin/bash
 
-SYM_LINK='ln -s -v'
+DEST="${HOME}/"
+INSTALL_CMD='ln -s -v'
 if [[ "$(uname)" == 'Darwin' || "$(uname)" == 'Linux' ]]; then
-    SYM_LINK='ln -s -i'
+    INSTALL_CMD='ln -s -i'
 fi
 
-${SYM_LINK} .bash* .profile ${HOME}/
-${SYM_LINK} .profile ${HOME}/.bash_profile
+if [ "$1" ]; then
+    DEST="$1:"
+    INSTALL_CMD='scp'
+fi
+
+
+${INSTALL_CMD} .bash* .profile "${DEST}"
