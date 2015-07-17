@@ -13,7 +13,7 @@ function check() {
 }
 
 check test:compile
-check scalastyle
-check test:scalastyle
+# check scalastyle
+# check test:scalastyle
 check styleCheck
 check test:styleCheck
