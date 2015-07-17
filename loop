@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)'
+EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)'
 
 LOOP_COMMAND="$@"
 
