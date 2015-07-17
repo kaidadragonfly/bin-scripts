@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 export EDITOR='emacs'
 export GIT_EDITOR='vim'
@@ -24,5 +24,4 @@ if [[ -x $(which src-hilite-lesspipe.sh) ]]; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
 fi
 
-
-export PYTHONSTARTUP=~/.pystartup
+export PYTHONPATH=.
