@@ -4,11 +4,14 @@ EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)'
 
 LOOP_COMMAND="$@"
 
-${LOOP_COMMAND} &
+(${LOOP_COMMAND}) &
 PID="$!"
 
-fswatch -E -e "${EXCLUDES}" -0 . | while read -d "" event; do
+trap 'kill $PID' SIGINT SIGTERM EXIT
+
+while read -d ""; do
     kill "${PID}" 2>/dev/null
-    ${LOOP_COMMAND} &
-    PID="$!"
-done
+    echo
+    (${LOOP_COMMAND}) &
+    export PID="$!"
+done < <(fswatch -E -e "${EXCLUDES}" -0 .)
