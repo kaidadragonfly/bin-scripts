@@ -1,0 +1,22 @@
+#!/bin/bash
+
+REXP='[A-z0-9_]+|[^[:space:]]'
+
+if [ "$1" ]; then
+    while [ "$1" ]; do
+        FILES="$1"
+        
+        if echo "$1" | grep -q '[*]'; then
+            GLOB=${1//\*/.\*}
+            FILES=($(git status -s \
+                            | sed -r 's/^.[^ ] //' \
+                            | grep "$GLOB"))
+            export FILES
+        fi
+        git diff --color-words --word-diff-regex="$REXP" -- "${FILES[@]}"
+        
+        shift
+    done
+else
+    git diff --color-words --word-diff-regex="$REXP"
+fi
