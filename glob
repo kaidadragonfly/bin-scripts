@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CMD="$1"
+shift
+
+if [ "$1" ]; then
+    while [ "$1" ]; do
+        FILES="$1"
+
+        if echo "$1" | grep -q '[*]'; then
+            GLOB=${1//\*/.\*}
+            FILES=($(git status --porcelain \
+                            | sed -r 's/^.[^ ] //' \
+                            | grep "$GLOB"))
+            export FILES
+        fi
+        ${CMD} -- "${FILES[@]}"
+
+        shift
+    done
+else
+    ${CMD}
+fi
