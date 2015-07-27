@@ -1,19 +1,14 @@
 #!/bin/bash
 
-cd $(git rev-parse --show-toplevel 2>/dev/null)
+cd "$(git rev-parse --show-toplevel 2>/dev/null)"
 
-function check() {
-    sbtc "$@" | \
+sbtc test:compile test:styleCheck styleCheck | \
+    egrep '^(\[error\]|\[warn\])' | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
     sed -r 's/ERROR /[error] /' | \
     sed -r 's|\[warn\] /|WARN /|' | \
     sed -r 's/\[warn\] //' | \
-    sed -r 's/WARN /[warn] /'
-}
-
-check test:compile
-# check scalastyle
-# check test:scalastyle
-check styleCheck
-check test:styleCheck
+    sed -r 's/WARN /[warn] /' | \
+    egrep -v '^(Total time:)|(errors exist$)' | \
+    cat
