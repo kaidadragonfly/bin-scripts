@@ -1,4 +1,8 @@
 #!/bin/bash
 
 REXP='[A-z0-9_]+|[^[:space:]]'
-glob "git diff --color-words --word-diff-regex=$REXP" "$@"
+if [ "$1" ]; then
+    git glob "diff --color-words --word-diff-regex=$REXP" "$@"
+else
+    git diff --color-words --word-diff-regex="$REXP"
+fi
