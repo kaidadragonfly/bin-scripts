@@ -1,0 +1,22 @@
+#!/bin/bash
+
+CMD="git $1"
+PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+shift
+
+if [ "$1" ]; then
+    while [ "$1" ]; do
+        FILES="$1"
+
+        MATCH=$(echo "$1" | sed -r 's/^|$|[*]/.*/g')
+        FILES=($(git status --porcelain \
+                        | sed -r 's/^.[^ ] //' \
+                        | grep "$MATCH"))
+
+        for file in "${FILES[@]}"; do
+            ${CMD} -- "${PROJ_ROOT}/${file}"
+        done
+
+        shift
+    done
+fi
