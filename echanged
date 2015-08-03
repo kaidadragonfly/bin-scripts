@@ -1,4 +1,5 @@
 #!/bin/bash
 
-cd $(proj-root)
-emacs $(git-changed)
+cd "$(proj-root)"
+FILES=($(git status --porcelain | sed 's/^.. //'))
+${EDITOR} "${FILES[@]}"
