@@ -42,5 +42,6 @@ if [[ "$1" == '-e' ]]; then
             -pass pass:$password
     rm $TMP
 else
-    echo "$cleartext" | grep -i $1 -A $after
+    export LESS=''
+    echo "$cleartext" | grep -i $1 -A $after | less
 fi
