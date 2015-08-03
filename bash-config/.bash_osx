@@ -13,12 +13,12 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias cmd_k="osascript -e 'tell application \"System Events\" to keystroke \"k\" using command down'"
     alias reset="cmd_k; 'reset'; cmd_k"
     alias top='top -s1 -o cpu -R -F'
-    alias jdk7="JAVA_HOME=$(/usr/libexec/java_home -v 1.7) "
-    alias jdk8="JAVA_HOME=$(/usr/libexec/java_home -v 1.8) "
+    alias jdk7="JAVA_HOME=\$(/usr/libexec/java_home -v 1.7) "
+    alias jdk8="JAVA_HOME=\$(/usr/libexec/java_home -v 1.8) "
 
     source /usr/local/etc/bash_completion.d/git-completion.bash
 
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+        source "$(brew --prefix)/etc/bash_completion"
     fi
 fi
