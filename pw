@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$#" < 1 ]]; then
+if ! [ "$1" ]; then
     echo 'Usage: pw [-p CRYPT_FILE] KEY [AFTER-CONTEXT]'
     exit 1
 fi
@@ -20,7 +20,9 @@ if [ "$2" ]; then
 fi
 
 read -p 'Enter decryption password: ' -s password
-echo
+if [ "$PS1" ]; then
+    echo
+fi
 
 die () {
     echo "$1"
@@ -28,20 +30,34 @@ die () {
 }
 
 cleartext=$(openssl aes-256-cbc -d \
-                    -in $CRYPT_FILE \
-                    -pass pass:$password 2>/dev/null) || \
+                    -in "${CRYPT_FILE}" \
+                    -pass "pass:${password}" 2>/dev/null) || \
     die 'Failed to decrypt!'
 
 if [[ "$1" == '-e' ]]; then
     TMP=$(TMPDIR=/tmp/ mktemp -t 'temp') || die 'Failed to create tmp file!'
-    echo "$cleartext" > $TMP
-    $EDITOR $TMP
+    echo "$cleartext" > "${TMP}"
+    "${EDITOR}" "${TMP}"
     openssl aes-256-cbc \
-            -in $TMP \
-            -out $CRYPT_FILE \
-            -pass pass:$password
-    rm $TMP
+            -in "${TMP}" \
+            -out "${CRYPT_FILE}" \
+            -pass "pass:${password}"
+    rm "${TMP}"
 else
     export LESS=''
-    echo "$cleartext" | grep -i $1 -A $after | less
+    ORIG=$(echo "${cleartext}" | grep -i "$1" -A "${after}")
+    ORIG_ENTRIES=$(echo "${ORIG}" | grep -c '^[^ ]')
+
+    TEXT="${ORIG}"
+    ENTRIES="${ORIG_ENTRIES}"
+    
+    while [[ "${ENTRIES}" == "${ORIG_ENTRIES}" ]]; do
+        echo "$ENTRIES"
+        after=$((after + 1))
+        TEXT=$(echo "${cleartext}" | grep -i "$1" -A "${after}")
+        ENTRIES=$(echo "${TEXT}" | grep -c '^[^ ]')
+    done
+
+    after=$((after - 1))
+    echo "${cleartext}" | grep -i "$1" -A "${after}" | less
 fi
