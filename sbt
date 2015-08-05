@@ -3,10 +3,12 @@
 if [ "$JAVA_HOME" ]; then
     SBT_OPTS="-Xms512M -Xmx2048M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=1024M ${SBT_OPTS}"
     export SBT_OPTS
-else    
-    JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+else
+    if [ -x /usr/libexec/java_home ]; then
+        JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+        export JAVA_HOME
+    fi
     SBT_OPTS="-Xmx512M ${SBT_OPTS}"
-    export JAVA_HOME
     export SBT_OPTS
 fi
 
