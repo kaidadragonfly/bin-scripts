@@ -11,7 +11,7 @@ if [ "$1" ]; then
         MATCH=$(echo "$1" | sed -r 's/^|$|[*]/.*/g')
         FILES=($(git status --porcelain \
                         | sed -r 's/^.[^ ] //' \
-                        | grep "$MATCH"))
+                        | grep -i "$MATCH"))
 
         for file in "${FILES[@]}"; do
             ${CMD} -- "${PROJ_ROOT}/${file}"
