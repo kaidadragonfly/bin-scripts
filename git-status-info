@@ -16,24 +16,21 @@ if [ "${fatal}" ]; then
 fi
 
 branch=$(${git_cmd} branch 2> /dev/null | egrep '^[*] ' \
-    | sed -r 's/^[*] //')
+                | sed -r 's/^[*] //')
 
 if [ -e "${git_dir}/FETCH_HEAD" ] && \
-    [ $(find "${git_dir}/FETCH_HEAD" -mmin +5) ]; then
-    if [ -d '.git/svn' ]; then
-        SVN='true'
-        ${git_cmd} svn fetch >/dev/null 2>/dev/null
-    else
-        ${git_cmd} fetch >/dev/null 2>/dev/null
-    fi
+       [ "$(find "${git_dir}/FETCH_HEAD" -mmin +5)" ]; then
+    ${git_cmd} fetch --all >/dev/null 2>/dev/null
 fi
 
 # Prevent unexpected delays while working.
 touch "${git_dir}/FETCH_HEAD" 2>/dev/null
 
 git_version=$(${git_cmd} --version | sed 's/git version //')
-# Legacy git support, a little crude; also prone to breakage.
-if [[ $git_version < '1.8' ]]; then
+git_major_version=$(echo "${git_version}" | cut -d. -f1)
+git_minor_version=$(echo "${git_version}" | cut -d. -f2)
+# Legacy git support, a little crude; also somewhat prone to breakage.
+if [ "${git_major_version}" -gt '1' ] || [ "${git_minor_version}" -gt '8' ]; then
     header=$(${git_cmd} status | tail -n +2 | head -n 1)
     behind=$(echo "${header}" | grep -i 'behind')
     ahead=$(echo "${header}" | grep -i 'ahead')
@@ -45,7 +42,8 @@ else
     diverged=$(echo "${header}" | egrep "\[ahead [0-9]+, behind [0-9]+\]")
 fi
 
-if [ -z "$(${git_cmd} for-each-ref --format='%(upstream:short)' $(${git_cmd} symbolic-ref -q HEAD))" ]; then
+REF="$(${git_cmd} symbolic-ref -q HEAD)"
+if [ -z "$(${git_cmd} for-each-ref --format='%(upstream:short)' "${REF}")" ]; then
     no_upstream='?'
 fi
 
@@ -58,7 +56,7 @@ origin_host=$(git config --get remote.origin.url | \
                      sed -r 's|^https?://||' | \
                      sed -r 's/:.*$//')
 
-if [ "$(echo ${origin_host} | grep -v ${ORIGIN_HOST_REGEXP})" ]; then
+if echo "${origin_host}" | grep -v -q "${ORIGIN_HOST_REGEXP}"; then
     unknown_origin=true
 fi
 
@@ -68,9 +66,7 @@ if [ -z "${origin_host}" ]; then
 fi
 
 if [[ "${changes}" != 0 ]]; then
-    short_status=$( 2>/dev/null)
-    if [ "$(${git_cmd} status --porcelain 2>/dev/null | egrep -v '^. ')" ]
-    then
+    if ${git_cmd} status --porcelain 2>/dev/null | egrep -v -q '^. '; then
         dirty='*'
     else
         dirty='~'
@@ -96,6 +92,6 @@ fi
 
 if [ "${unknown_origin}" ]; then
     branch="${origin_host}/${branch}"
-fi    
+fi
 
 echo -n "${branch}${no_upstream}${local}${remote}${dirty}${stash}"
