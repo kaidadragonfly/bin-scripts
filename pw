@@ -51,13 +51,19 @@ else
     TEXT="${ORIG}"
     ENTRIES="${ORIG_ENTRIES}"
     
-    while [[ "${ENTRIES}" == "${ORIG_ENTRIES}" ]]; do
-        echo "$ENTRIES"
+    while [ "${ENTRIES}" -gt 0 ] \
+              && [ "${after}" -lt 10 ] \
+              && [[ "${ENTRIES}" == "${ORIG_ENTRIES}" ]]; do
         after=$((after + 1))
         TEXT=$(echo "${cleartext}" | grep -i "$1" -A "${after}")
         ENTRIES=$(echo "${TEXT}" | grep -c '^[^ ]')
     done
 
     after=$((after - 1))
-    echo "${cleartext}" | grep -i "$1" -A "${after}" | less
+    if [ "${ENTRIES}" -gt 0 ]; then
+        echo
+        echo "${cleartext}" | grep -i "$1" -A "${after}" | less
+    else
+        echo
+    fi
 fi
