@@ -5,7 +5,7 @@
 ROOT=$(proj-root)
 
 if [ "$ROOT" ]; then
-    cd $ROOT
+    cd "$ROOT"
 fi
 
 ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -f .tags .
@@ -21,15 +21,15 @@ if [ -d 'target' ]; then
             mv ${SRC_DEP_DIR} ${DEP_DIR}
         fi
 
-        if [ -d $(dirname ${SRC_DEP_DIR}) ]; then
-            ln -s "../${DEP_DIR}" ${SRC_DEP_DIR}
+        if [ -d "$(dirname ${SRC_DEP_DIR})" ]; then
+            ln -s "${PWD}../${DEP_DIR}" ${SRC_DEP_DIR}
         fi
     fi
 
     mkdir -p ${DEP_DIR}
 
     if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_DIR}" ]; then
-        ctags -e -R -f "${DEP_TAGS}" "${DEP_DIR}"
+        ctags -e -R -f "${DEP_TAGS}" "${DEP_DIR}"/*
     fi
 
     if [ -f "${DEP_TAGS}" ]; then
