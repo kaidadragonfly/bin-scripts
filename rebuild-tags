@@ -8,7 +8,7 @@ if [ "$ROOT" ]; then
     cd "$ROOT"
 fi
 
-ctags --exclude=.git --exclude=target --exclude=node_modules -e -R -f .tags .
+ctags --exclude=.git --exclude=target --exclude=node_modules --exclude='flycheck_*' -e -R -f .tags .
 
 # Scala dep-tags setup.
 if [ -d 'target' ]; then
