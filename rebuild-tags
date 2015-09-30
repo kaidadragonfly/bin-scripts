@@ -33,6 +33,6 @@ if [ -d 'target' ]; then
     fi
 
     if [ -f "${DEP_TAGS}" ]; then
-        cat "${DEP_TAGS}" >> .tags
+        cat -fr "${DEP_TAGS}" >> .tags
     fi
 fi
