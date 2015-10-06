@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CMD='dw'
+ARGS=''
+if [[ "$1" == '--full' ]]; then
+    CMD='diff'
+    shift
+fi
+
+if [[ "$1" == '--name-only' ]]; then
+    ARGS='--name-only'
+    shift
+fi
+
+git "$CMD" "$ARGS" "$1"^ "$1"
