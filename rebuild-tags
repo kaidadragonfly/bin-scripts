@@ -5,34 +5,52 @@
 ROOT=$(proj-root)
 
 if [ "$ROOT" ]; then
-    cd "$ROOT"
+    cd "$ROOT" || exit 1
 fi
 
-ctags --exclude=.git --exclude=target --exclude=node_modules --exclude='flycheck_*' -e -R -f .tags .
+ctags --exclude=.git --exclude=target --exclude=*/target --exclude=node_modules --exclude='flycheck_*' -e -R -f .tags .
+
+# We're done if we don't have /target.
+if ! [ -d 'target' ]; then
+    exit
+fi
 
 # Scala dep-tags setup.
-if [ -d 'target' ]; then
-    DEP_TAGS='.dep-tags'
-    SRC_DEP_DIR='target/sbt-ctags-dep-srcs'
-    DEP_DIR='.deps'
+DEP_ROOT="${PWD}/.deps"
+DEP_TAGS=".dep-tags"
 
-    if [ ! -L ${SRC_DEP_DIR} ]; then
-        if [ -d ${SRC_DEP_DIR} ]; then
-            mv ${SRC_DEP_DIR} ${DEP_DIR}
-        fi
+mkdir -p "${DEP_ROOT}"
 
-        if [ -d "$(dirname ${SRC_DEP_DIR})" ]; then
-            ln -s "${PWD}../${DEP_DIR}" ${SRC_DEP_DIR}
-        fi
+find . -maxdepth 4 -name 'sbt-ctags-dep-srcs' | while read -r SRC_DEP_DIR; do
+    DEP_DIR=$(dirname "$(dirname "${SRC_DEP_DIR}")")
+    if [ "${DEP_DIR}" = '.' ]; then
+        DEP_DIR='root-proj'
     fi
+    DEP_DIR="${DEP_ROOT}/${DEP_DIR}"
 
-    mkdir -p ${DEP_DIR}
-
-    if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_DIR}" ]; then
-        ctags -e -R -f "${DEP_TAGS}" "${DEP_DIR}"/*
+    if [ ! -L "${SRC_DEP_DIR}" ] && [ -d "${SRC_DEP_DIR}" ]; then
+        mv "${SRC_DEP_DIR}" "${DEP_DIR}"
     fi
+done
 
-    if [ -f "${DEP_TAGS}" ]; then
-        cat -fr "${DEP_TAGS}" >> .tags
+find .deps/* -maxdepth 0 | while read -r DEP_DIR; do
+    SRC_DEP_BASE=$(basename "${DEP_DIR}")
+    if [ "${SRC_DEP_BASE}" = 'root-proj' ]; then
+        SRC_DEP_BASE='.'
     fi
+    
+    DEP_DIR="${PWD}/${DEP_DIR}"
+    SRC_DEP_DIR="${PWD}/${SRC_DEP_BASE}/target/sbt-ctags-dep-srcs"
+    
+    ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 
+done
+
+exit
+
+if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_ROOT}" ]; then
+    ctags -e -R -f "${DEP_TAGS}" "${DEP_ROOT}"/* "${DEP_ROOT}"/*/*
+fi
+
+if [ -f "${DEP_TAGS}" ]; then
+    cat -fr "${DEP_TAGS}" >> .tags
 fi
