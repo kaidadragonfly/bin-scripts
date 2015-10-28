@@ -42,10 +42,8 @@ find .deps/* -maxdepth 0 | while read -r DEP_DIR; do
     DEP_DIR="${PWD}/${DEP_DIR}"
     SRC_DEP_DIR="${PWD}/${SRC_DEP_BASE}/target/sbt-ctags-dep-srcs"
     
-    ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 
+    ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 2>/dev/null
 done
-
-exit
 
 if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_ROOT}" ]; then
     ctags -e -R -f "${DEP_TAGS}" "${DEP_ROOT}"/* "${DEP_ROOT}"/*/*
