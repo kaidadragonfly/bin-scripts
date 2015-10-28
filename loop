@@ -9,8 +9,10 @@ PID="$!"
 
 trap 'kill $PID' SIGINT SIGTERM EXIT
 
-while read -d ""; do
-    kill "${PID}" 2>/dev/null
+while read -r -d ""; do
+    if [ "$1" = '-k' ]; then
+       kill "${PID}" 2>/dev/null
+    fi
     echo
     (${LOOP_COMMAND}) &
     export PID="$!"
