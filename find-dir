@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ ! ("$#" == 1 || ("$#" == 3 && "$2" == 'in')) ]]; then
+    echo "usage: $(basename $0) dirname ['in' path]"
+    exit 1
+fi
+
+FIND_PATH='.'
+if [ "$3" ]; then
+    FIND_PATH="$3"
+fi
+
+find "${FIND_PATH}" -type d -ipath "*$1*" -print -quit

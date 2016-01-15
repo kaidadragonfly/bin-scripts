@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if ! [ "$1" ]; then
+    echo 'usage: loop [-k] COMMAND'
+fi
+
+if [ "$1" = '-k' ]; then
+    KILL=true
+    shift
+fi
+
 EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)'
 
 LOOP_COMMAND="$@"
@@ -10,8 +19,8 @@ PID="$!"
 trap 'kill $PID' SIGINT SIGTERM EXIT
 
 while read -r -d ""; do
-    if [ "$1" = '-k' ]; then
-       kill "${PID}" 2>/dev/null
+    if $KILL; then
+        kill "${PID}" 2>/dev/null
     fi
     echo
     (${LOOP_COMMAND}) &

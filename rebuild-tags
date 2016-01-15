@@ -4,9 +4,11 @@
 # repository (only supports git), with fallback to the current directory.
 ROOT=$(proj-root)
 
-if [ "$ROOT" ]; then
-    cd "$ROOT" || exit 1
+if [ -z "$ROOT" ]; then
+    exit 1
 fi
+
+cd "$ROOT" || exit 1
 
 ctags --exclude=.git --exclude=target --exclude=*/target --exclude=node_modules --exclude='flycheck_*' -e -R -f .tags .
 
@@ -38,10 +40,10 @@ find .deps/* -maxdepth 0 | while read -r DEP_DIR; do
     if [ "${SRC_DEP_BASE}" = 'root-proj' ]; then
         SRC_DEP_BASE='.'
     fi
-    
+
     DEP_DIR="${PWD}/${DEP_DIR}"
     SRC_DEP_DIR="${PWD}/${SRC_DEP_BASE}/target/sbt-ctags-dep-srcs"
-    
+
     ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 2>/dev/null
 done
 

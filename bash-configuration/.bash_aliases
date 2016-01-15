@@ -30,6 +30,15 @@ alias please='sudo'
 alias dc='git diff --color --no-index'
 alias dw="git diff --color-words --no-index --word-diff-regex='[A-z0-9_]+|[^[:space:]]'"
 alias cdr='cd $(proj-root)'
+
+function cdf() {
+    if [ "$1" ]; then
+        cd "$(find-dir "$1")"
+    else
+        echo "usage: cdf dirname ['in' path]"
+    fi       
+}
+
 alias gf='git-fuzzy'
 
 # Git aliases

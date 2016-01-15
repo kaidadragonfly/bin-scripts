@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ ! ("$#" == 1 || ("$#" == 3 && "$2" == 'in')) ]]; then
+    echo "usage: $(basename $0) dirname ['in' path]"
+    exit 1
+fi
+
+ls "$(find-dir "$@")"
