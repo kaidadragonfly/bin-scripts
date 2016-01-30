@@ -21,8 +21,6 @@ fi
 DEP_ROOT="${PWD}/.deps"
 DEP_TAGS=".dep-tags"
 
-mkdir -p "${DEP_ROOT}"
-
 find . -maxdepth 4 -name 'sbt-ctags-dep-srcs' | while read -r SRC_DEP_DIR; do
     DEP_DIR=$(dirname "$(dirname "${SRC_DEP_DIR}")")
     if [ "${DEP_DIR}" = '.' ]; then
@@ -30,22 +28,25 @@ find . -maxdepth 4 -name 'sbt-ctags-dep-srcs' | while read -r SRC_DEP_DIR; do
     fi
     DEP_DIR="${DEP_ROOT}/${DEP_DIR}"
 
+    mkdir -p "${DEP_ROOT}"
     if [ ! -L "${SRC_DEP_DIR}" ] && [ -d "${SRC_DEP_DIR}" ]; then
         mv "${SRC_DEP_DIR}" "${DEP_DIR}"
     fi
 done
 
-find .deps/* -maxdepth 0 | while read -r DEP_DIR; do
-    SRC_DEP_BASE=$(basename "${DEP_DIR}")
-    if [ "${SRC_DEP_BASE}" = 'root-proj' ]; then
-        SRC_DEP_BASE='.'
-    fi
+if [ -d "${DEP_+ROOT}" ]; then
+    find .deps/* -maxdepth 0 | while read -r DEP_DIR; do
+        SRC_DEP_BASE=$(basename "${DEP_DIR}")
+        if [ "${SRC_DEP_BASE}" = 'root-proj' ]; then
+            SRC_DEP_BASE='.'
+        fi
 
-    DEP_DIR="${PWD}/${DEP_DIR}"
-    SRC_DEP_DIR="${PWD}/${SRC_DEP_BASE}/target/sbt-ctags-dep-srcs"
+        DEP_DIR="${PWD}/${DEP_DIR}"
+        SRC_DEP_DIR="${PWD}/${SRC_DEP_BASE}/target/sbt-ctags-dep-srcs"
 
-    ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 2>/dev/null
-done
+        ln -s "${DEP_DIR}" "${SRC_DEP_DIR}" 2>/dev/null
+    done
+fi
 
 if [ ! -f "${DEP_TAGS}" ] && [ -d "${DEP_ROOT}" ]; then
     ctags -e -R -f "${DEP_TAGS}" "${DEP_ROOT}"/* "${DEP_ROOT}"/*/*
