@@ -1,6 +1,7 @@
 if [[ "$(uname)" == 'Darwin' ]]; then
     unalias open >/dev/null 2>/dev/null
 
+    export PATH="/usr/local/sbin:$PATH"
     export PATH="$HOME/bin/osx:$PATH"
     alias ls='gls --color=auto'
     alias l='gls --color=auto -CF'
