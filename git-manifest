@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ! [ "$1" ]; then
+    echo "usage: git manifest LAST_RELEASE"
+fi
+
+git log --pretty=format:"%h%x09%an%x09%ad%x09%s" "$1"..HEAD
