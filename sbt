@@ -8,7 +8,13 @@ else
         JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
         export JAVA_HOME
     fi
-    SBT_OPTS=(-Xmx512M ${SBT_OPTS})
+    
+    if [ -e "$(proj-root)/.sbt-opts" ]; then
+        # shellcheck source=/dev/null
+        source "$(proj-root)/.sbt-opts" 
+    else
+        SBT_OPTS=(-Xmx512M ${SBT_OPTS})
+    fi
     export SBT_OPTS
 fi
 
