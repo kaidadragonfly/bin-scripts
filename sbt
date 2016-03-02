@@ -19,4 +19,4 @@ else
 fi
 
 export PATH="${JAVA_HOME}/bin:${PATH}"
-exec java "${SBT_OPTS[@]}" -jar /usr/local/Library/LinkedKegs/sbt/libexec/sbt-launch.jar "$@"
+exec java -client "${SBT_OPTS[@]}" -jar /usr/local/Library/LinkedKegs/sbt/libexec/sbt-launch.jar "$@"
