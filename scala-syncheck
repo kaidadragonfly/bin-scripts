@@ -1,0 +1,113 @@
+#!/bin/bash
+
+TARGET="$1"
+
+PROJ_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+SUBPROJ_FILE="${PROJ_ROOT}/.sbt-subprojects"
+
+cd "$PROJ_ROOT" || exit -1
+
+function rebuild_subprojects() {
+    SUBPROJ_COMMAND="loadedBuild.eval.allProjectRefs foreach { case (_, p) => println(\"SUBPROJ: \" + p.base) }"
+    SUBPROJECTS="$(echo "$SUBPROJ_COMMAND" | sbt -Dsbt.log.noformat=true consoleProject | grep '^SUBPROJ' | sed 's/^SUBPROJ: //')"
+    echo "$SUBPROJECTS" > "$SUBPROJ_FILE"
+}
+
+function rebuild_settings() {
+    SUBPROJ_DIR="$1"
+    if [ "$SUBPROJ_DIR" == "$PROJ_ROOT" ]; then
+        SUBPROJECT=''
+    else
+        SUBPROJECT="$(basename "$SUBPROJ_DIR")/"
+    fi
+
+    SCALAC_FILE="$SUBPROJ_DIR/.scalac-options"
+    TESTSC_FILE="$SUBPROJ_DIR/.test-scalac-options"
+
+    COMPILE_COMMAND='(externalDependencyClasspath in Compile).eval.files foreach { jar => println("COMP_CLASSPATH: " + jar) }'
+    TEST_COMMAND='(externalDependencyClasspath in Test).eval.files foreach { jar => println("TEST_CLASSPATH: " + jar) }'
+    # COMPILE_COMMAND='(fullClasspath in Compile).eval.files foreach { jar => println("COMP_CLASSPATH: " + jar) }'
+    # TEST_COMMAND='(fullClasspath in Test).eval.files foreach { jar => println("TEST_CLASSPATH: " + jar) }'
+    SCALAC_COMMAND='(scalacOptions in Compile).eval foreach { opt => println("SCALAC_OPT: " + opt) }'
+    TESTSC_COMMAND='(scalacOptions in Test).eval foreach { opt => println("TESTSC_OPT: " + opt) }'
+    TARGET_COMMAND='println("CROSS_TARGET: " + crossTarget.eval)'
+    COMPILE_SRC_COMMAND='println("COMPILE_SOURCES: " + (scalaSource in Compile).eval)'
+    TEST_SRC_COMMAND='println("TEST_SOURCES: " + (scalaSource in Test).eval)'
+
+    SBT_COMMAND="$SCALAC_COMMAND; $TESTSC_COMMAND; $COMPILE_COMMAND; $TEST_COMMAND; $TARGET_COMMAND; $COMPILE_SRC_COMMAND; $TEST_SRC_COMMAND;"
+    # Actually invoke SBT.
+    SBT_OUTPUT="$(echo "$SBT_COMMAND" | sbt -Dsbt.log.noformat=true "${SUBPROJECT}"consoleProject)"
+
+    SBT_TARGET="$(echo "$SBT_OUTPUT" | grep '^CROSS_TARGET' | sed 's/^CROSS_TARGET: //')"
+    COMPILE_SOURCES="$(echo "$SBT_OUTPUT" | grep '^COMPILE_SOURCES' | sed 's/^COMPILE_SOURCES: //')"
+    TEST_SOURCES="$(echo "$SBT_OUTPUT" | grep '^TEST_SOURCES' | sed 's/^TEST_SOURCES: //')"
+
+    COMPILE_CLASSPATH="$(echo "$SBT_OUTPUT" | grep '^COMP_CLASSPATH' | sed 's/^COMP_CLASSPATH: //')"
+    COMPILE_CLASSPATH="$SBT_TARGET/classes:$(echo "$COMPILE_CLASSPATH" | tr '\n' ':' | sed 's/:$//')"
+
+    TEST_CLASSPATH="$(echo "$SBT_OUTPUT" | grep '^TEST_CLASSPATH' | sed 's/^TEST_CLASSPATH: //')"
+    TEST_CLASSPATH="$SBT_TARGET/test-classes:$(echo "$TEST_CLASSPATH" | tr '\n' ':' | sed 's/:$//')"
+
+    SCALAC_OPTIONS="$(echo "$SBT_OUTPUT" | grep '^SCALAC_OPT' | sed 's/^SCALAC_OPT: //' )"
+    SCALAC_OPTIONS="$(echo "${SCALAC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $COMPILE_CLASSPATH -sourcepath '$COMPILE_SOURCES'"
+
+    TESTSC_OPTIONS="$(echo "$SBT_OUTPUT" | grep '^TESTSC_OPT' | sed 's/^TESTSC_OPT: //' )"
+    TESTSC_OPTIONS="$(echo "${TESTSC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $TEST_CLASSPATH -sourcepath '$TEST_SOURCES'"
+
+    echo "$SCALAC_OPTIONS" > "$SCALAC_FILE"
+    echo "$TESTSC_OPTIONS" > "$TESTSC_FILE"
+}
+
+REBUILD=false
+if [ -e "$SUBPROJ_FILE" ]; then
+    SBT_FILES=$(find "${PROJ_ROOT}/." \
+                     -iname '*.sbt' \
+                     -newer "$SUBPROJ_FILE" \
+                     -maxdepth 2)
+    PROJ_FILES=$(find "${PROJ_ROOT}/project" \
+                      -newer "$SUBPROJ_FILE" \
+                      -maxdepth 1)
+    if [ "$SBT_FILES" ] || [ "$PROJ_FILES" ]; then
+        REBUILD=true
+    fi
+else
+    REBUILD=true
+fi
+
+if $REBUILD; then
+    echo 'Build configuration has changed.'
+    echo
+    echo -n 'Rebuilding sbt settings cache... '
+
+    rebuild_subprojects
+
+    SUBPROJECTS=$(cat "$SUBPROJ_FILE")
+    for subproj in $SUBPROJECTS; do
+        rebuild_settings "$subproj"
+    done
+
+    echo 'done'
+fi
+
+CHECK_DIR="$(dirname "$TARGET")/.syncheck" # TODO: Use presentation compiler.
+mkdir -p "$CHECK_DIR"
+
+cd "$(dirname "$TARGET")" || exit -2
+while [ "$PWD" != "PROJ_ROOT" ]; do
+    if [ -e .scalac-options ]; then
+        if echo "$TARGET" | grep --silent '/src/test/'; then
+            SCALAC_OPTIONS="$(cat "${PROJ_ROOT}/.test-scalac-options")"
+        else
+            SCALAC_OPTIONS="$(cat "${PROJ_ROOT}/.scalac-options")"
+        fi
+
+        # shellcheck disable=SC2086
+        scalac $SCALAC_OPTIONS -d "$CHECK_DIR" "$TARGET"
+
+        break
+    else
+        cd ..
+    fi
+done
+
+rm -r "$CHECK_DIR"
