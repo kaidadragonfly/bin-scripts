@@ -2,6 +2,7 @@
 
 TARGET="$1"
 
+TARGET=$(python -c "import os; print(os.path.realpath('$TARGET'))")
 PROJ_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
 SUBPROJ_FILE="${PROJ_ROOT}/.sbt-subprojects"
 
@@ -26,8 +27,6 @@ function rebuild_settings() {
 
     COMPILE_COMMAND='(externalDependencyClasspath in Compile).eval.files foreach { jar => println("COMP_CLASSPATH: " + jar) }'
     TEST_COMMAND='(externalDependencyClasspath in Test).eval.files foreach { jar => println("TEST_CLASSPATH: " + jar) }'
-    # COMPILE_COMMAND='(fullClasspath in Compile).eval.files foreach { jar => println("COMP_CLASSPATH: " + jar) }'
-    # TEST_COMMAND='(fullClasspath in Test).eval.files foreach { jar => println("TEST_CLASSPATH: " + jar) }'
     SCALAC_COMMAND='(scalacOptions in Compile).eval foreach { opt => println("SCALAC_OPT: " + opt) }'
     TESTSC_COMMAND='(scalacOptions in Test).eval foreach { opt => println("TESTSC_OPT: " + opt) }'
     TARGET_COMMAND='println("CROSS_TARGET: " + crossTarget.eval)'
@@ -39,8 +38,6 @@ function rebuild_settings() {
     SBT_OUTPUT="$(echo "$SBT_COMMAND" | sbt -Dsbt.log.noformat=true "${SUBPROJECT}"consoleProject)"
 
     SBT_TARGET="$(echo "$SBT_OUTPUT" | grep '^CROSS_TARGET' | sed 's/^CROSS_TARGET: //')"
-    COMPILE_SOURCES="$(echo "$SBT_OUTPUT" | grep '^COMPILE_SOURCES' | sed 's/^COMPILE_SOURCES: //')"
-    TEST_SOURCES="$(echo "$SBT_OUTPUT" | grep '^TEST_SOURCES' | sed 's/^TEST_SOURCES: //')"
 
     COMPILE_CLASSPATH="$(echo "$SBT_OUTPUT" | grep '^COMP_CLASSPATH' | sed 's/^COMP_CLASSPATH: //')"
     COMPILE_CLASSPATH="$SBT_TARGET/classes:$(echo "$COMPILE_CLASSPATH" | tr '\n' ':' | sed 's/:$//')"
@@ -49,10 +46,10 @@ function rebuild_settings() {
     TEST_CLASSPATH="$SBT_TARGET/test-classes:$(echo "$TEST_CLASSPATH" | tr '\n' ':' | sed 's/:$//')"
 
     SCALAC_OPTIONS="$(echo "$SBT_OUTPUT" | grep '^SCALAC_OPT' | sed 's/^SCALAC_OPT: //' )"
-    SCALAC_OPTIONS="$(echo "${SCALAC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $COMPILE_CLASSPATH -sourcepath '$COMPILE_SOURCES'"
+    SCALAC_OPTIONS="$(echo "${SCALAC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $COMPILE_CLASSPATH"
 
     TESTSC_OPTIONS="$(echo "$SBT_OUTPUT" | grep '^TESTSC_OPT' | sed 's/^TESTSC_OPT: //' )"
-    TESTSC_OPTIONS="$(echo "${TESTSC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $TEST_CLASSPATH -sourcepath '$TEST_SOURCES'"
+    TESTSC_OPTIONS="$(echo "${TESTSC_OPTIONS}" | tr '\n' ' ' | sed 's/ $//') -classpath $TEST_CLASSPATH"
 
     echo "$SCALAC_OPTIONS" > "$SCALAC_FILE"
     echo "$TESTSC_OPTIONS" > "$TESTSC_FILE"
@@ -110,4 +107,4 @@ while [ "$PWD" != "PROJ_ROOT" ]; do
     fi
 done
 
-rm -r "$CHECK_DIR"
+rm -rf "$CHECK_DIR"
