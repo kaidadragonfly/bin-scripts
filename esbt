@@ -2,7 +2,7 @@
 
 cd "$(git rev-parse --show-toplevel 2>/dev/null)"
 
-sbtc test:compile test:styleCheck styleCheck | \
+sbtc test:compile | \
     egrep '^(\[error\]|\[warn\])' | \
     sed -r 's|\[error\] /|ERROR /|' | \
     sed -r 's/\[error\] //' | \
