@@ -1,4 +1,0 @@
-#!/bin/bash
-
-REXP='[A-z0-9_]+|[^[:space:]]'
-git diff --color-words --word-diff-regex="$REXP" "$@"
