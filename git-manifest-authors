@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if ! [ "$1" ]; then
+    echo "usage: git manifest-authors LAST_RELEASE"
+fi
+
+function replace {
+    sed "s/^$1$/$2/"
+}
+
+# Convert emails into Slack usernames.
+git log --pretty=format:"%ae" "$1"..HEAD \
+    | replace aerust@uw.edu alexa.rust \
+    | replace cyranix@users.noreply.github.com andrew.harrison \
+    | replace github@rojoma.com robert.macomber \
+    | replace housepage@gmail.com andrew.gall \
+    | replace michaelb990@gmail.com michael.brown \
+    | replace urmilan@users.noreply.github.com urmila.nadkarni \
+    | replace clint@dontexplain.com clint \
+    | sed 's/@socrata.com$//' \
+    | sort --ignore-case | uniq
