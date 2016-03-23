@@ -6,3 +6,9 @@ osascript -e "tell application \"System Events\" to set the autohide of the dock
 # Don't bounce.
 defaults write com.apple.dock no-bouncing -bool TRUE
 killall Dock
+
+# Mute "Display Audio".
+SwitchAudioSource -s 'Display Audio'
+osascript -e 'set volume output muted true'
+# Set output to USB audio adapter.
+SwitchAudioSource -s 'C_Media USB Audio Device   '
