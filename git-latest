@@ -1,0 +1,17 @@
+#!/bin/bash
+
+LATEST=$(git tag --sort version:refname --list | tail -n 1)
+
+if [ "$1" == '-q' ]; then
+    echo "${LATEST}"
+else
+    git --no-pager log -n 1 "${LATEST}"
+    echo
+    echo "TAG: ${LATEST}"
+    echo
+    echo "Changes since tag:"
+    git --no-pager log --date=short --pretty='format:%h (%cd) %s' \
+        "${LATEST}..HEAD"
+    echo
+fi
+    
