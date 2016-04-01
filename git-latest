@@ -1,8 +1,19 @@
 #!/bin/bash
 
-LATEST=$(git tag --sort version:refname --list | tail -n 1)
-
+QUIET=false
 if [ "$1" == '-q' ]; then
+    QUIET=true
+    shift
+fi
+
+PREFIX='.'
+if [ "$1" ]; then
+    PREFIX="$1"
+fi
+
+LATEST=$(git tag --sort version:refname --list | grep "^${PREFIX}" | tail -n 1)
+
+if $QUIET; then
     echo "${LATEST}"
 else
     git --no-pager log -n 1 "${LATEST}"
