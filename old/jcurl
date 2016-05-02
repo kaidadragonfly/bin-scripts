@@ -1,0 +1,8 @@
+#!/bin/bash
+
+URL="$1"
+FILE="$2"
+
+# curl --header "Content-Type: application/json" --user 'engineering@socrata.com:OpenData!' --request POST --data @"$FILE" "$URL"
+curl --header "Content-Type: application/json" --request POST --data @"$FILE" "$URL"
+echo

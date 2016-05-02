@@ -25,3 +25,5 @@ if [[ -x $(which src-hilite-lesspipe.sh) ]]; then
 fi
 
 export PYTHONPATH=.
+
+export SHELLCHECK_OPTS="-e SC1090 -e SC1091 -e SC2001 -e SC2012"

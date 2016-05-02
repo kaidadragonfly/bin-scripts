@@ -28,6 +28,7 @@ alias nh='nohup >/dev/null 2>/dev/null'
 alias gitg='gitg &'
 alias simonsays='sudo'
 alias please='sudo'
+alias cdiff='git diff --color --no-index'
 alias dc='git diff --color --no-index'
 alias dw="git diff --color-words --no-index --word-diff-regex='[A-z0-9_]+|[^[:space:]]'"
 

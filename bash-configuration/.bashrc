@@ -43,6 +43,7 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
+# shellcheck disable=SC2154
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have color support; assume it's compliant with Ecma-48
@@ -83,7 +84,6 @@ if [ "$color_prompt" = yes ]; then
     if [ -n "${SSH_CLIENT}" ]; then
         usr_c="\033[0;33m"
     fi
-    reboot_c="\033[0;31m"
     dir_c="\033[1;34m"
     git_c="\033[1;30m"
     no_c="\033[00m"
@@ -132,13 +132,12 @@ fi
 
 # Enable bash completion.
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+    . /etc/bash_completion 
 fi
 
-#Special pushd that emulates cds behavior, but uses the directory stack.
+# Special `pushd` that emulates `cd`s behavior, but uses the directory stack.
 cpushd () {
-    if [ "$1" ]
-    then
+    if [ "$1" ]; then
         if [[ "$1" == "-" ]]
         then
             builtin popd > /dev/null
@@ -160,13 +159,15 @@ unset _expand
 _expand () {
     [ "$cur" != "${cur%\\}" ] && cur="$cur\\"
 
+    # shellcheck disable=SC2031
     if [[ "$cur" == \~*/* ]]; then
-        ( cd ~;
-          eval dur=(${cur:2});
-          cur=${dur[*]/#/xxx} );
+        ( cd ~ || exit;
+          eval dur="(${cur:2})";
+          # shellcheck disable=SC2030,SC2154
+          cur="${dur[*]/#/xxx}" );
     elif [[ "$cur" == \~* ]]; then
         cur=${cur#\~}
-        COMPREPLY=( $( compgen -P '~' -u $cur ) )
+        COMPREPLY=( $( compgen -P '~' -u "$cur" ) )
         return ${#COMPREPLY[@]}
     fi
 } # _expand()
@@ -187,4 +188,12 @@ if [ -z "${RECORDING}" ] && [ -e "${HOME}/.oncall" ]; then
     NOW="$(date '+%Y-%m-%d_%H.%m.%S.%3N')"
     ttyrec ".logs/${NOW}.log"
     exit
+fi
+
+# Add the following to your shell init to set up gpg-agent automatically for every shell
+if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
+    source ~/.gnupg/.gpg-agent-info
+    export GPG_AGENT_INFO
+else
+    eval "$(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)"
 fi
