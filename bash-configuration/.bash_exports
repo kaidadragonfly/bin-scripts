@@ -12,6 +12,11 @@ if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# Add ~/bin/vm to the front of the PATH if it exists.
+if [ -d "$HOME/bin/vm" ]; then
+    PATH="$HOME/bin/vm:$PATH"
+fi
+
 # Add ~/bin/local to the front of the PATH if it exists.
 if [ -d "$HOME/bin/local" ]; then
     PATH="$HOME/bin/local:$PATH"

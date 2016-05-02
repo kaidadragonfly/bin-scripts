@@ -81,7 +81,7 @@ function show_host () {
 }
 
 if [ "$color_prompt" = yes ]; then
-    if [ -n "${SSH_CLIENT}" ]; then
+    if [ -n "${SSH_CLIENT}" ] && ! [ -e "${HOME}/.treat-local" ]; then
         usr_c="\033[0;33m"
     fi
     dir_c="\033[1;34m"

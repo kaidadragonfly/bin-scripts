@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RELPATH=$(python -c "import os.path; print os.path.relpath('$PWD', '$HOME')")
+host-ssh '${HOME}/bin/osx/run-in' '${HOME}/'"${RELPATH}" "$@"

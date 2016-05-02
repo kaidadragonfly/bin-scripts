@@ -1,0 +1,4 @@
+#!/bin/bash
+
+HOST_OS_IP="$(ip route show | head -n 1 | cut -d' ' -f3)"
+ssh "${HOST_OS_IP}" "$@"
