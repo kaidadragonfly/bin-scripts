@@ -11,7 +11,6 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-    alias cmd_k="osascript -e 'tell application \"System Events\" to keystroke \"k\" using command down'"
     alias reset="cmd_k; 'reset'; cmd_k"
     alias top='top -s1 -o cpu -R -F'
     alias jdk7="JAVA_HOME=\$(/usr/libexec/java_home -v 1.7) "
