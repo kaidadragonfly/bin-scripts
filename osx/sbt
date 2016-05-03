@@ -1,0 +1,3 @@
+#!/bin/bash
+
+SBT_LAUNCH_JAR=/usr/local/Library/LinkedKegs/sbt/libexec/sbt-launch.jar exec launch-sbt.sh "$@"
