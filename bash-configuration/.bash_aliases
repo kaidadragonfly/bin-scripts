@@ -20,9 +20,12 @@ alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls --directory .*'
 
-# A few custom aliases.  
+# A few custom aliases.
+if ! [ -x $(which open) ]; then
+    alias open='xdg-open'
+fi
+
 alias emacs='emacs -nw'
-alias open='xdg-open'
 alias hgit='git --git-dir=.home.git/ '
 alias nh='nohup >/dev/null 2>/dev/null'
 alias gitg='gitg &'

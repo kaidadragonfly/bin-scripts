@@ -1,0 +1,5 @@
+#!/bin/bash
+
+host-command '${HOME}/bin/osx/cmd_k'
+/usr/bin/reset
+host-command '${HOME}/bin/osx/cmd_k'
