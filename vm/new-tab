@@ -1,0 +1,14 @@
+#!/bin/bash
+
+host-ssh "osascript -e '
+tell application \"iTerm\"
+  make new terminal
+  tell the current terminal
+    activate current session
+    launch session \"Default\"
+    tell the last session
+      write text \"cd $PWD; clear\"
+    end tell
+  end tell
+end tell'
+"
