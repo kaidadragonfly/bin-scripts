@@ -7,7 +7,7 @@ tell application \"iTerm\"
     activate current session
     launch session \"Default\"
     tell the last session
-      write text \"cd $PWD; clear\"
+      write text \"cd \\\"$PWD\\\"; clear\"
     end tell
   end tell
 end tell'
