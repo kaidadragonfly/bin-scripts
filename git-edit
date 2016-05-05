@@ -1,0 +1,4 @@
+#!/bin/bash
+# Convenience helper for git-match.
+
+"$EDITOR" "$@"
