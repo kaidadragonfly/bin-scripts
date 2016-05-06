@@ -35,7 +35,7 @@ cleartext=$(openssl aes-256-cbc -d \
     die 'Failed to decrypt!'
 
 if [[ "$1" == '-e' ]]; then
-    TMP=$(TMPDIR=/tmp/ mktemp -t 'temp') || die 'Failed to create tmp file!'
+    TMP=$(TMPDIR=/tmp/ mktemp -t 'tempXXX') || die 'Failed to create tmp file!'
     echo "$cleartext" > "${TMP}"
     "${EDITOR}" "${TMP}"
     openssl aes-256-cbc \
