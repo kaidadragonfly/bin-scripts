@@ -201,3 +201,5 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
 else
     eval "$(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info 2>/dev/null)"
 fi
+
+export GPG_TTY=$(tty)
