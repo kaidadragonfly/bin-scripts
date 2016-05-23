@@ -8,7 +8,10 @@ until ssh -qT vamp-willow exit; do
     sleep 0.1
 done
 
-if ! [ -f ~/Developer/.mounted ]; then
+if ! nc -z localhost 26499 2>/dev/null; then
     ssh -CnfN -D 26499 vamp-willow
+fi
+
+if ! [ -f ~/Developer/.mounted ]; then
     sshfs -o volname=Developer vamp-willow:Developer ~/Developer
 fi
