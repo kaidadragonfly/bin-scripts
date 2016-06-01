@@ -1,8 +1,12 @@
 #!/bin/bash
 
-if ! [ "$1" ]; then
-    echo 'Usage: pw [-p CRYPT_FILE] KEY [AFTER-CONTEXT]'
+die () {
+    echo "$1"
     exit 1
+}
+
+if ! [ "$1" ]; then
+    die 'Usage: pw [-p CRYPT_FILE] KEY [AFTER-CONTEXT]'
 fi
 
 CRYPT_FILE=~/Documents/passwords.aes
@@ -11,6 +15,10 @@ if [[ "$1" == '-p' ]]; then
     shift                       # eat '-p'
     CRYPT_FILE="$1"
     shift                       # eat $CRYPT_FILE
+fi
+
+if ! [ -f "${CRYPT_FILE}" ]; then
+    die "pw: error ${CRYPT_FILE} does not exist!"
 fi
 
 after=1
@@ -23,11 +31,6 @@ read -p 'Enter decryption password: ' -s password
 if [ "$PS1" ]; then
     echo
 fi
-
-die () {
-    echo "$1"
-    exit 1
-}
 
 cleartext=$(openssl aes-256-cbc -d \
                     -in "${CRYPT_FILE}" \
