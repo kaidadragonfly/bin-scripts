@@ -136,7 +136,7 @@ fi
 
 # Enable bash completion.
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion 
+    . /etc/bash_completion
 fi
 
 # Special `pushd` that emulates `cd`s behavior, but uses the directory stack.
@@ -194,12 +194,8 @@ if [ -z "${RECORDING}" ] && [ -e "${HOME}/.oncall" ]; then
     exit
 fi
 
-# Add the following to your shell init to set up gpg-agent automatically for every shell
-if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
-    source ~/.gnupg/.gpg-agent-info
-    export GPG_AGENT_INFO
-else
-    eval "$(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info 2>/dev/null)"
+if ! pgrep gpg-agent >/dev/null 2>/dev/null; then
+    gpg-agent --daemon --default-cache-ttl 36000 --max-cache-ttl 36000
 fi
 
 export GPG_TTY=$(tty)

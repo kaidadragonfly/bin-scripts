@@ -12,6 +12,11 @@ if [ -d "/opt/bin" ]; then
     PATH="/opt/bin:$PATH"
 fi
 
+# Add ~/.local/bin/ to the front of the PATH if it exists.
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Add ~/bin/ to the front of the PATH if it exists.
 if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"

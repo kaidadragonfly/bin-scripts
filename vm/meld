@@ -1,0 +1,3 @@
+#!/bin/bash
+
+host-command '${HOME}/bin/osx/meld' "$@" '&'
