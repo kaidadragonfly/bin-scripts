@@ -10,4 +10,5 @@ if [ "$3" ]; then
     FIND_PATH="$3"
 fi
 
-$EDITOR $(find "${FIND_PATH}" -ipath "*.$1" -print -quit)
+FILES=($(find "${FIND_PATH}" -ipath "*.$1" -print -quit))
+$EDITOR "${FILES[@]}"

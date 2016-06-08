@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Find a directory by name and then list its contents.
+
 if [[ ! ("$#" == 1 || ("$#" == 3 && "$2" == 'in')) ]]; then
     echo "usage: $(basename $0) dirname ['in' path]"
     exit 1
