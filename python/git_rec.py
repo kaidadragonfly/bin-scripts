@@ -56,8 +56,8 @@ def main():
     workers = []
     output_queue = Queue()
     root = path.realpath('.')
-    for base, dirs, _ in walk(root, topdown=True):
-        if '.git' in dirs and base != root:
+    for base, dirs, _ in walk('.', topdown=True):
+        if '.git' in dirs and path.realpath(base) != root:
             dirs[:] = []
             worker = Process(target=do_command, args=(base, output_queue))
             worker.start()
