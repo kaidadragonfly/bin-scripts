@@ -4,7 +4,7 @@ Recursively walk the current directory looking for git repositories.
 
 Then run the specified git command on each directory.
 """
-from os import chdir, walk
+from os import chdir, walk, path
 from sys import stdout, argv
 from multiprocessing import Process, Queue  # pylint: disable=no-name-in-module
 from sh import ErrorReturnCode              # pylint: disable=no-name-in-module
@@ -55,10 +55,11 @@ def main():
 
     workers = []
     output_queue = Queue()
-    for root, dirs, _ in walk('.', topdown=True):
-        if '.git' in dirs:
+    root = path.realpath('.')
+    for base, dirs, _ in walk(root, topdown=True):
+        if '.git' in dirs and base != root:
             dirs[:] = []
-            worker = Process(target=do_command, args=(root, output_queue))
+            worker = Process(target=do_command, args=(base, output_queue))
             worker.start()
             workers.append(worker)
 
