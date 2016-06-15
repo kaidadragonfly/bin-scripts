@@ -198,4 +198,5 @@ if ! pgrep gpg-agent >/dev/null 2>/dev/null; then
     gpg-agent --daemon --default-cache-ttl 36000 --max-cache-ttl 36000
 fi
 
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
