@@ -13,5 +13,5 @@ if ! nc -z localhost 26499 2>/dev/null; then
 fi
 
 if ! [ -f ~/Developer/.mounted ]; then
-    sshfs -o volname=Developer vamp-willow:Developer ~/Developer
+    sshfs -o volname=Developer vamp-willow:Developer ~/Developer 2>/dev/null
 fi
