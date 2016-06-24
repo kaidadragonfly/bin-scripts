@@ -202,10 +202,12 @@ fi
 GPG_TTY=$(tty)
 export GPG_TTY
 
-if [ -x "$(which ssh-agent)" ] && ! [ "$SSH_AUTH_SOCK" ]; then
-    ssh-agent >"$HOME/.ssh-agent.env"
+if [ -e "$HOME/.ssh-agent.env" ] && ! [ "$SSH_AUTH_SOCK" ]; then
+    source "$HOME/.ssh-agent.env" >/dev/null
 fi
 
-if [ -e "$HOME/.ssh-agent.env" ] && ! [ "$SSH_AUTH_SOCK" ]; then
-    source "$HOME/.ssh-agent.env"
+if [ -x "$(which ssh-agent)" ] \
+       && ! [ "$(ps -o pid= "${SSH_AGENT_PID}")" ]; then
+    ssh-agent >"$HOME/.ssh-agent.env"
+    source "$HOME/.ssh-agent.env" >/dev/null
 fi
