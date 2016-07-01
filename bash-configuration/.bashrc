@@ -206,8 +206,9 @@ if [ -e "$HOME/.ssh-agent.env" ] && ! [ "$SSH_AUTH_SOCK" ]; then
     source "$HOME/.ssh-agent.env" >/dev/null
 fi
 
-if [ -x "$(which ssh-agent)" ] \
-       && ! [ "$(ps -o pid= "${SSH_AGENT_PID}")" ]; then
+if [ "${SSH_AGENT_PID}" ] \
+       && [ -x "$(which ssh-agent)" ] \
+       && ! ps "${SSH_AGENT_PID}" >/dev/null 2>/dev/null; then
     ssh-agent >"$HOME/.ssh-agent.env"
     source "$HOME/.ssh-agent.env" >/dev/null
 fi
