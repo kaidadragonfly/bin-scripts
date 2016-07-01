@@ -1,3 +1,9 @@
 #!/bin/bash
 
-echo "$(git rev-parse --show-toplevel 2>/dev/null)/$1"
+DIR="$(git rev-parse --show-toplevel 2>/dev/null)/$1"
+
+if [ "${DIR}" = '/' ]; then
+    echo "${PWD}"
+else
+    echo "${DIR}"
+fi
