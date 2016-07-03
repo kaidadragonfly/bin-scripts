@@ -2,7 +2,11 @@
 
 DO_RUN=true
 if [[ "$1" == '--batch' ]]; then
-    DO_RUN="$(find "${HOME}/.ssh/auth_sock_var" -mmin +5)"
+    if [ -f "${HOME}/.ssh/auth_sock_var" ]; then
+	DO_RUN="$(find "${HOME}/.ssh/auth_sock_var" -mmin +5)"
+    else
+	DO_RUN=true
+    fi
 fi
 
 # ssh-agent setup.
