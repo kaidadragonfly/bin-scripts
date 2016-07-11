@@ -1,8 +1,0 @@
-#!/bin/bash
-
-FILES=""
-for arg in "$@"; do
-    FILES="${FILES} ${PWD}/$arg"
-done
-
-open -n /Applications/Meld.app --args $FILES
