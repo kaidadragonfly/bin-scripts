@@ -22,6 +22,8 @@ function rebuild_settings() {
         SUBPROJECT="$(basename "$SUBPROJ_DIR")/"
     fi
 
+    echo "Rebuilding for '$SUBPROJECT'"
+
     SCALAC_FILE="$SUBPROJ_DIR/.scalac-options"
     TESTSC_FILE="$SUBPROJ_DIR/.test-scalac-options"
 
@@ -35,7 +37,7 @@ function rebuild_settings() {
 
     SBT_COMMAND="$SCALAC_COMMAND; $TESTSC_COMMAND; $COMPILE_COMMAND; $TEST_COMMAND; $TARGET_COMMAND; $COMPILE_SRC_COMMAND; $TEST_SRC_COMMAND;"
     # Actually invoke SBT.
-    SBT_OUTPUT="$(echo "$SBT_COMMAND" | sbt -Dsbt.log.noformat=true "${SUBPROJECT}"consoleProject)"
+    SBT_OUTPUT="$(echo "$SBT_COMMAND" | sbt -Dsbt.log.noformat=true "$SUBPROJECT"consoleProject)"
 
     SBT_TARGET="$(echo "$SBT_OUTPUT" | grep '^CROSS_TARGET' | sed 's/^CROSS_TARGET: //')"
 
@@ -90,21 +92,31 @@ CHECK_DIR="$(dirname "$TARGET")/.syncheck" # TODO: Use presentation compiler.
 mkdir -p "$CHECK_DIR"
 
 cd "$(dirname "$TARGET")" || exit -2
-while [ "$PWD" != "PROJ_ROOT" ]; do
-    if [ -e .scalac-options ]; then
-        if echo "$TARGET" | grep --silent '/src/test/'; then
-            SCALAC_OPTIONS="$(cat "${PROJ_ROOT}/.test-scalac-options")"
-        else
-            SCALAC_OPTIONS="$(cat "${PROJ_ROOT}/.scalac-options")"
-        fi
 
-        # shellcheck disable=SC2086
-        scalac $SCALAC_OPTIONS -d "$CHECK_DIR" "$TARGET"
+function do_check() {
+    if echo "$TARGET" | grep --silent '/src/test/'; then
+        SCALAC_OPTIONS=$(cat "${PROJ_ROOT}/.test-scalac-options")
+        SRC_DIR="$PWD/src"
+    else
+        SCALAC_OPTIONS=$(cat "${PROJ_ROOT}/.scalac-options")
+        SRC_DIR="$PWD/src/main"
+    fi
 
+    # shellcheck disable=SC2086
+    scalac $SCALAC_OPTIONS -d "$CHECK_DIR" $(find "$SRC_DIR" -name '*.scala')
+}
+
+while [ "$PWD" != "$PROJ_ROOT" ]; do
+    if [ -e "$PWD/.scalac-options" ]; then
+        do_check
         break
     else
         cd ..
     fi
 done
+
+if [ -e "$PROJ_ROOT/.scalac-options" ]; then
+    do_check
+fi
 
 rm -rf "$CHECK_DIR"
