@@ -1,12 +1,14 @@
 #!/bin/bash
 
-if [[ ! "$1" || "$2" ]]; then
+if [ "$#" -ne 1 ]; then
     echo 'usage: newscript SCRIPTNAME'
+    exit
 fi
 
-if [[ ! -e "$1" ]]; then
+if ! [ -e "$1" ]; then
     echo '#!/bin/bash' >"$1"
     echo >> "$1"
 fi
+
 chmod +x "$1"
 emacs "$1"
