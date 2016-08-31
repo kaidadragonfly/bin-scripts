@@ -1,5 +1,9 @@
 #!/bin/bash
 
-cd "$(proj-root)"
-FILES=($(git status --porcelain | sed 's/^.. //'))
+cd "$(proj-root)" || exit
+if [ "$1" ]; then
+    FILES=($(git status --porcelain | sed 's/^.. //' | grep "$1"))
+else
+    FILES=($(git status --porcelain | sed 's/^.. //'))
+fi
 ${EDITOR} "${FILES[@]}"
