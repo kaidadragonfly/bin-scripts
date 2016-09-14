@@ -15,6 +15,8 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias top='top -s1 -o cpu -R -F'
     alias jdk7="JAVA_HOME=\$(/usr/libexec/java_home -v 1.7) "
     alias jdk8="JAVA_HOME=\$(/usr/libexec/java_home -v 1.8) "
+    
+    export JAVA_TOOL_OPTIONS="-Dapple.awt.UIElement=true"
 
     source /usr/local/etc/bash_completion.d/git-completion.bash
 
