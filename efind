@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd $(proj-root)
+cd "$(proj-root)" || exit
 
 WD='.'
-EXCLUDES='([.]os|[.]o)$'
+EXCLUDES='[.]((os)|o|(class))$'
 
 if [[ "$1" == '-n' ]]; then
     DRY_RUN=true
@@ -29,5 +29,5 @@ FILE=$(echo "$FILES" | head -n 1)
 if [ "${DRY_RUN}" ]; then
     echo "$FILE"
 else
-    ${EDITOR} ${FILE}
+    ${EDITOR} "${FILE}"
 fi
