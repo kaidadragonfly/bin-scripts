@@ -685,29 +685,29 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1066 1109 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>382 863 445 103 0 0 2560 1417 </string>
+	<string>382 755 445 77 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>189 166 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 83 918 512 0 0 1280 777 </string>
+	<string>980 223 918 495 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 1220 2560 197 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>98 1038 404 268 0 0 2560 1417 </string>
+	<string>1186 990 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>772 652 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>1722 663 572 388 0 0 2560 1417 </string>
+	<string>1865 927 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>1460 712 810 538 0 0 2560 1417 </string>
+	<string>1716 956 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>1656 677 572 388 0 0 2560 1417 </string>
+	<string>1717 715 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>1745 599 572 388 0 0 2560 1417 </string>
+	<string>11 249 572 388 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
-	<string>408 389 572 388 0 0 1280 777 </string>
+	<string>1146 1029 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
-	<string>236 6 572 388 0 0 1280 777 </string>
+	<string>663 70 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 8</key>
 	<string>408 689 810 572 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 9</key>
@@ -1406,7 +1406,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Osaka-Mono 14</string>
+			<string>Consolas 13</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -3885,7 +3885,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-08T22:54:20Z</date>
+	<date>2016-09-02T16:40:07Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3937,6 +3937,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.5</string>
+	<string>3.0.7</string>
 </dict>
 </plist>
