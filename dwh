@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$#" -lt 2 ]; then
+    echo "$(basename "$0") BEFORE AFTER" >/dev/stderr
+    exit
+fi
+
+BEFORE="$1"
+AFTER="$2"
+
+BEFORE_HEAD=$(mktemp /tmp/before.XXXX)
+AFTER_HEAD=$(mktemp /tmp/after.XXXX)
+
+head "$BEFORE" >"$BEFORE_HEAD"
+head "$AFTER" >"$AFTER_HEAD"
+
+dw "$BEFORE_HEAD" "$AFTER_HEAD"
+
+rm -f "$BEFORE_HEAD" "$AFTER_HEAD"

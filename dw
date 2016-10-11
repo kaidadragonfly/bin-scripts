@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git diff \
+    --color-words \
+    --no-index \
+    --word-diff-regex='[A-z0-9_]+|[^[:space:]]' \
+    "$@"

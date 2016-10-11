@@ -33,7 +33,6 @@ alias simonsays='sudo'
 alias please='sudo'
 alias cdiff='git diff --color --no-index'
 alias dc='git diff --color --no-index'
-alias dw="git diff --color-words --no-index --word-diff-regex='[A-z0-9_]+|[^[:space:]]'"
 
 function cdf() {
     if [ "$1" ]; then
