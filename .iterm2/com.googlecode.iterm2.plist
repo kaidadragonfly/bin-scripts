@@ -691,21 +691,21 @@
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
 	<string>-948 452 616 174 -1280 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1073 722 918 381 0 0 2560 1417 </string>
+	<string>294 334 918 381 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 1220 2560 197 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>694 365 572 412 0 0 1280 777 </string>
+	<string>1963 652 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>772 652 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>72 904 572 412 0 0 2560 1417 </string>
+	<string>977 863 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>231 365 572 412 0 0 1280 777 </string>
+	<string>1953 55 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>350 263 572 412 0 0 1280 777 </string>
+	<string>1348 165 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>136 865 572 412 0 0 2560 1417 </string>
+	<string>135 865 572 412 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
 	<string>1146 1029 572 388 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
@@ -716,6 +716,10 @@
 	<string>1269 983 572 412 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_24746145-A761-4CD0-B096-661728A9088A</key>
 	<true/>
+	<key>NeverWarnAboutShortLivedSessions_5F1E447B-27A9-4DC5-879C-780F5D860D77</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_5F1E447B-27A9-4DC5-879C-780F5D860D77_selection</key>
+	<integer>0</integer>
 	<key>NeverWarnAboutShortLivedSessions_AF3D6656-7636-4564-8DD2-9A57903F0582</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_BE1F614F-CD40-4238-94E3-68926DC18A00</key>
@@ -4280,7 +4284,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-09-20T22:36:07Z</date>
+	<date>2016-10-18T12:00:15Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -4332,7 +4336,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.9</string>
+	<string>3.0.10</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
