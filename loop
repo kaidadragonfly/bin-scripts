@@ -9,11 +9,11 @@ if [ "$1" = '-k' ]; then
     shift
 fi
 
-EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)'
+EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)|(.*/target/.*)'
 
-LOOP_COMMAND="$@"
+LOOP_COMMAND=("$@")
 
-(${LOOP_COMMAND}) &
+("${LOOP_COMMAND[@]}") &
 PID="$!"
 
 trap 'kill $PID' SIGINT SIGTERM EXIT
@@ -22,7 +22,8 @@ while read -r -d ""; do
     if $KILL; then
         kill "${PID}" 2>/dev/null
     fi
+    
     echo
-    (${LOOP_COMMAND}) &
+    ("${LOOP_COMMAND[@]}") &
     export PID="$!"
 done < <(fswatch -E -e "${EXCLUDES}" -0 .)
