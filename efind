@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$(proj-root)" || exit
+cd "$(proj-root)" || exit 1
 
 WD='.'
 EXCLUDES='[.]((os)|o|(class))$'
@@ -11,7 +11,7 @@ if [[ "$1" == '-n' ]]; then
 fi
 
 if [[ "$#" != 1 ]] && [[ "$#" != 3 ]]; then
-    echo 'usage: efind PREFIX [in DIRECTORY]'
+    echo 'usage: efind SUBSTR [in DIRECTORY]' >/dev/stderr
     exit 1
 fi
 
@@ -23,11 +23,18 @@ if [[ "$2" == 'in' ]]; then
     WD="$3"
 fi
 
-FILES=$(find "$WD" -iname "$1*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
+SUBSTR="$1"
+FILES=$(find "$WD" -iname "*${SUBSTR}*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
 FILE=$(echo "$FILES" | head -n 1)
 
 if [ "${DRY_RUN}" ]; then
-    echo "$FILE"
-else
+    echo "${EDITOR} ${FILE}"
+    exit
+fi
+
+if [ "${FILE}" ]; then
     ${EDITOR} "${FILE}"
+else
+    echo "Could not find any files for \"${SUBSTR}\"!" >/dev/stderr
+    exit 2
 fi
