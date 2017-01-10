@@ -45,6 +45,9 @@ def main():
                         "--spaces",
                         action="store_true",
                         help="output spaces in the password")
+    parser.add_argument("--no-quotes",
+                        action="store_true",
+                        help="do not output quote characters")
     parser.add_argument("length",
                         metavar='LENGTH',
                         type=int,
@@ -65,6 +68,11 @@ def main():
         chars += ' '
 
     ascii_chars = ' ' + letters + digits + punctuation
+
+    chars = chars or ascii_chars
+
+    if args.no_quotes:
+        chars = "".join(set(chars) - set(["'", '"']))
 
     print(passgen(chars or ascii_chars, args.length))
 
