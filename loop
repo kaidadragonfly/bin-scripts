@@ -9,7 +9,27 @@ if [ "$1" = '-k' ]; then
     shift
 fi
 
-EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)|(.*[.]pyc[.]?[0-9]*)|(.*/htmlcov/.*)|(.*/target/.*)'
+
+DEFAULT_EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)'
+
+if [ -f ".gitignore" ]; then
+    EXCLUDES=$(cat .gitignore \
+                   | sed -r 's/\s*$//g' \
+                   | sed -r 's/#.*$//' \
+                   | egrep -v "^$" \
+                   | egrep -v '^[.]$')
+    # Convert to regexp.
+    EXCLUDES=$(echo "${EXCLUDES}" \
+                   | sed -r 's/[.]/[.]/g' \
+                   | sed -r 's|^/|./|' \
+                   | sed -r 's/[*]/.*/g' \
+                   | sed -r 's/(.*)/(\1)/' \
+                   | tr '\n' '|')
+    # The above conversion leaves a trailing `|`.
+    EXCLUDES="${EXCLUDES}${DEFAULT_EXCLUDES}"
+else
+    EXCLUDES="${DEFAULT_EXCLUDES}"
+fi
 
 LOOP_COMMAND=("$@")
 
