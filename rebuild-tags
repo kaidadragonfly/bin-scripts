@@ -10,7 +10,36 @@ fi
 
 cd "$ROOT" || exit 1
 
-ctags --exclude=.git --exclude=target --exclude=*/target --exclude=node_modules --exclude='flycheck_*' -e -R -f .tags .
+HIDDEN_EXCLUDES=($(find . -name '.*' -maxdepth 1 | egrep -v '^[.]$'))
+DEFAULT_EXCLUDES=('tiny_mce' 'htdocs' 'target' 'public/javascripts/plugins' '*/target' 'node_modules' 'flycheck_*')
+DEFAULT_EXCLUDES=("${HIDDEN_EXCLUDES[@]}" "${DEFAULT_EXCLUDES[@]}")
+
+if [ -f ".gitignore" ]; then
+    INCLUDES=$(cat .gitignore \
+                   | sed -r 's/\s*$//g' \
+                   | egrep '^!' \
+                   | sed 's/^!//' \
+                   | sed -r 's/(.*)/(\1)/' \
+                   | tr "\n" '|' \
+                   | sed 's/|$//')
+    EXCLUDES=($(cat .gitignore \
+                        | sed -r 's/\s*$//g' \
+                        | sed -r 's/#.*$//' \
+                        | egrep -v '^$' \
+                        | egrep -v '^!' \
+                        | egrep -v '^[.]$' \
+                        | egrep -v "^${INCLUDES}$"))
+    EXCLUDES=("${DEFAULT_EXCLUDES[@]}" "${EXCLUDES[@]}")
+else
+    EXCLUDES=("${DEFAULT_EXCLUDES[@]}")
+fi
+
+EXCLUDE_ARGS=()
+for ex in "${EXCLUDES[@]}"; do
+    EXCLUDE_ARGS+=("--exclude=${ex}")
+done
+
+find . -type f -newer .tags -exec ctags "${EXCLUDE_ARGS[@]}" -e -R -f .tags '{}' +
 
 # We're done if we don't have /target.
 if ! [ -d 'target' ]; then
