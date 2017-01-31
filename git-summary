@@ -16,7 +16,7 @@ function show_help() {
     options=${options}'also display stash information '
     options=${options}'(like "git-stash list")\n'
     options=${options}'show information regarding upstream\n'
-    options=${options}'-h\n\t\t'
+    options=${options}'-h, --help\n\t\t'
     options=${options}'display this help and exit\n'
     echo -e "${options}" | sed 's/^/  /'
 }
@@ -27,7 +27,7 @@ while [ "$1" ]; do
             show_stashes=1
             shift
             ;;
-        -h)
+        -h | --help)
             show_help
             exit
             ;;
