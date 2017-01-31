@@ -39,6 +39,10 @@ for ex in "${EXCLUDES[@]}"; do
     EXCLUDE_ARGS+=("--exclude=${ex}")
 done
 
+if ! [ -f .tags ]; then
+    touch -t 197001010101 .tags
+fi
+
 find . -type f -newer .tags -exec ctags "${EXCLUDE_ARGS[@]}" -a -e -R -f .tags '{}' +
 
 # We're done if we don't have /target.
