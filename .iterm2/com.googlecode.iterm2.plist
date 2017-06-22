@@ -599,7 +599,7 @@
 	<key>HiddenAdvancedFontRendering</key>
 	<false/>
 	<key>HideActivityIndicator</key>
-	<false/>
+	<true/>
 	<key>HideMenuBarInFullscreen</key>
 	<true/>
 	<key>HideScrollbar</key>
@@ -615,13 +615,17 @@
 	<key>HotKeyTogglesWindow</key>
 	<true/>
 	<key>Hotkey</key>
+	<false/>
+	<key>HotkeyAutoHides</key>
 	<true/>
 	<key>HotkeyChar</key>
-	<integer>63247</integer>
+	<integer>32</integer>
 	<key>HotkeyCode</key>
-	<integer>111</integer>
+	<integer>49</integer>
+	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
 	<key>HotkeyModifiers</key>
-	<integer>8388864</integer>
+	<integer>524288</integer>
 	<key>HotkeyTermAnimationDuration</key>
 	<real>0.5</real>
 	<key>IRMemory</key>
@@ -685,13 +689,13 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>330 289 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>276 105 918 381 0 0 1280 777 </string>
+	<string>211 197 918 452 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 196 810 572 0 0 1280 777 </string>
+	<string>0 580 1280 197 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>686 319 572 412 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>662 348 572 412 0 0 1280 777 </string>
+	<string>223 70 572 412 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>218 153 572 412 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
@@ -1478,7 +1482,7 @@
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<false/>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
@@ -1762,10 +1766,36 @@
 			</dict>
 			<key>Guid</key>
 			<string>AF3D6656-7636-4564-8DD2-9A57903F0582</string>
+			<key>Has Hotkey</key>
+			<true/>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
+			<key>HotKey Activated By Modifier</key>
+			<false/>
+			<key>HotKey Alternate Shortcuts</key>
+			<array/>
+			<key>HotKey Characters</key>
+			<string></string>
+			<key>HotKey Characters Ignoring Modifiers</key>
+			<string></string>
+			<key>HotKey Key Code</key>
+			<integer>111</integer>
+			<key>HotKey Modifier Activation</key>
+			<integer>0</integer>
+			<key>HotKey Modifier Flags</key>
+			<integer>0</integer>
+			<key>HotKey Window Animates</key>
+			<true/>
+			<key>HotKey Window AutoHides</key>
+			<true/>
+			<key>HotKey Window Dock Click Action</key>
+			<integer>0</integer>
+			<key>HotKey Window Floats</key>
+			<false/>
+			<key>HotKey Window Reopens On Activation</key>
+			<false/>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -2240,7 +2270,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.062594763934612274</real>
+			<real>0.18213435913705586</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -2256,7 +2286,7 @@
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<false/>
 			<key>Window Type</key>
 			<integer>2</integer>
 			<key>Working Directory</key>
@@ -3888,7 +3918,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-05-24T19:53:48Z</date>
+	<date>2017-06-22T19:21:26Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3912,7 +3942,7 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
-	<false/>
+	<true/>
 	<key>TmuxDashboardLimit</key>
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
@@ -3940,7 +3970,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.15</string>
+	<string>3.1.beta.5</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
