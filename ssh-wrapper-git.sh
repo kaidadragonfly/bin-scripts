@@ -2,10 +2,12 @@
 
 REALPATH=$(python -c "import os; print(os.path.realpath('$PWD'))")
 
+# shellcheck disable=SC2029
+
 case $REALPATH in
     $HOME/Developer/Socrata*)
-        ssh -i ~/.ssh/id_rsa_work "$@"
+        ssh -i "$GIT_SSH_WORK" "$@"
         ;;
     *)
-        ssh -i ~/.ssh/id_rsa_github "$@"
+        ssh -i "$GIT_SSH_PERSONAL" "$@"
 esac
