@@ -41,6 +41,10 @@ def main():
                         "--punctuation",
                         action="store_true",
                         help="output punctuation in the password")
+    parser.add_argument("-e",
+                        "--shell-safe",
+                        action="store_true",
+                        help="generate only shell safe punctuation")
     parser.add_argument("-s",
                         "--spaces",
                         action="store_true",
@@ -69,7 +73,10 @@ def main():
 
     ascii_chars = ' ' + letters + digits + punctuation
 
-    chars = chars or ascii_chars
+    if args.shell_safe:
+        chars = letters + digits + "{}@_><!%[]()}/?^:;,."
+    else:
+        chars = chars or ascii_chars
 
     if args.no_quotes:
         chars = "".join(set(chars) - set(["'", '"']))
