@@ -47,6 +47,7 @@ function cdr() {
 }
 
 alias gf='git-fuzzy'
+alias 2fa='oathtool --base32 --totp'
 
 # Git aliases
 # [alias]
