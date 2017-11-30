@@ -18,10 +18,10 @@ export PROMPT_COMMAND="history -a"
 shopt -s histappend
 
 # Add ssh-keys.
-if ([ -z "${SSH_CLIENT}" ] || [ -e "${HOME}/.treat-local" ]) \
-       && [ -x "${HOME}/bin/add-keys.sh" ]; then
-    export PROMPT_COMMAND="add-keys.sh --batch; ${PROMPT_COMMAND}"
-fi
+# if ([ -z "${SSH_CLIENT}" ] || [ -e "${HOME}/.treat-local" ]) \
+#        && [ -x "${HOME}/bin/add-keys.sh" ]; then
+#     export PROMPT_COMMAND="add-keys.sh --batch; ${PROMPT_COMMAND}"
+# fi
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
