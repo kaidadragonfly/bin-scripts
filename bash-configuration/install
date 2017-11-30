@@ -12,4 +12,8 @@ if [ "$1" ]; then
 fi
 
 
-${INSTALL_CMD} "${PWD}"/.bash* "${PWD}"/.profile "${DEST}"
+${INSTALL_CMD} \
+    "${PWD}"/.bash* \
+    "${PWD}"/.profile \
+    "${PWD}"/.inputrc \
+    "${DEST}"
