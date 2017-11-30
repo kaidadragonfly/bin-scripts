@@ -1,5 +1,7 @@
 #!/bin/bash
 
+KEY_PATTERN='id_rsa'
+
 DO_RUN=true
 if [[ "$1" == '--batch' ]]; then
     if [ -f "${HOME}/.ssh/auth_sock_var" ]; then
@@ -13,7 +15,7 @@ fi
 if [ "${SSH_AUTH_SOCK}" ] && [ "${DO_RUN}" ]; then
     echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" > "${HOME}/.ssh/auth_sock_var"
 
-    KEYS=($(find "${HOME}/.ssh" -name 'id_rsa*' | grep -v '[.]pub$' | sort))
+    KEYS=($(find "${HOME}/.ssh" -name "${KEY_PATTERN}" | grep -v '[.]pub$' | sort))
 
     for key in "${KEYS[@]}"; do
         KEY_EXISTS=$(ssh-add -l | grep "$key")
