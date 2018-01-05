@@ -54,15 +54,6 @@ origin_host=$(git config --get remote.origin.url | \
                      sed -r 's|^https?://||' | \
                      sed -r 's/:.*$//')
 
-if echo "${origin_host}" | grep -v -q "${ORIGIN_HOST_REGEXP}"; then
-    unknown_origin=true
-fi
-
-if [ -z "${origin_host}" ]; then
-    origin_host='no-origin'
-    unknown_origin=true
-fi
-
 if [[ "${changes}" != 0 ]]; then
     if git status --porcelain 2>/dev/null | egrep -v -q '^. '; then
         dirty='*'
@@ -86,10 +77,6 @@ fi
 
 if [ "${stashes}" ]; then
     stash='&'
-fi
-
-if [ "${unknown_origin}" ]; then
-    branch="${origin_host}/${branch}"
 fi
 
 echo -n "${branch}${no_upstream}${local}${remote}${dirty}${stash}"
