@@ -48,6 +48,8 @@ function cdr() {
 
 alias gf='git-fuzzy'
 alias 2fa='oathtool --base32 --totp'
+alias swift='PATH=/usr/bin:$PATH swift'
+alias xcrun='PATH=/usr/bin:$PATH xcrun'
 
 # Git aliases
 # [alias]
