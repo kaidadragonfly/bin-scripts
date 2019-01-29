@@ -27,9 +27,11 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     # Requires the following in crontab
     # @hourly /usr/local/bin/brew outdated >/Users/kaida/.brew_outdated
     if [ -f "${HOME}/.brew_outdated" ]; then
-        echo "Remember to clean up old packages on occasion!"
-        echo
-        cat "${HOME}/.brew_outdated"
+        if [ "$(cat "${HOME}/.brew_outdated")" ]; then
+            echo "Remember to clean up old packages on occasion!"
+            echo
+            cat "${HOME}/.brew_outdated"
+        fi
     else
         # shellcheck disable=SC2088
         echo "~/.brew_outdated not found!"

@@ -24,7 +24,7 @@ HISTFILESIZE=2000
 export TERM="xterm-256color"
 
 # check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# update the values of LINES and COLUMNS. 
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
