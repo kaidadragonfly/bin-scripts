@@ -2,7 +2,7 @@
 
 ORIGIN_HOST_REGEXP='github.com'
 
-if [ ! "$(which git 2>/dev/null)" ]; then
+if [ ! "$(command -v git 2>/dev/null)" ]; then
     exit 1
 fi
 
@@ -13,7 +13,7 @@ if echo "$results" | grep -q '^fatal:'; then
     exit 1
 fi
 
-branch=$(git branch 2> /dev/null | egrep '^[*] ' | sed -r 's/^[*] //')
+branch=$(git branch 2> /dev/null | grep -E '^[*] ' | sed -r 's/^[*] //')
 
 if [ -e "${git_dir}/FETCH_HEAD" ] && \
        [ "$(find "${git_dir}/FETCH_HEAD" -mmin +5)" ]; then
@@ -35,9 +35,9 @@ if [ "${git_major_version}" -gt '1' ] || [ "${git_minor_version}" -gt '8' ]; the
     diverged=$(echo "${header}" | grep -i 'diverged')
 else
     header=$(git status --porcelain --branch | head -n 1)
-    behind=$(echo "${header}" | egrep '\[behind [0-9]+\]')
-    ahead=$(echo "${header}" | egrep '\[ahead [0-9]+\]')
-    diverged=$(echo "${header}" | egrep "\[ahead [0-9]+, behind [0-9]+\]")
+    behind=$(echo "${header}" | grep -E '\[behind [0-9]+\]')
+    ahead=$(echo "${header}" | grep -E '\[ahead [0-9]+\]')
+    diverged=$(echo "${header}" | grep -E "\[ahead [0-9]+, behind [0-9]+\]")
 fi
 
 REF="$(git symbolic-ref -q HEAD)"
@@ -54,8 +54,17 @@ origin_host=$(git config --get remote.origin.url | \
                      sed -r 's|^https?://||' | \
                      sed -r 's/:.*$//')
 
+if echo "${origin_host}" | grep -v -q "${ORIGIN_HOST_REGEXP}"; then
+    unknown_origin=true
+fi
+
+if [ -z "${origin_host}" ]; then
+    origin_host='no-origin'
+    unknown_origin=true
+fi
+
 if [[ "${changes}" != 0 ]]; then
-    if git status --porcelain 2>/dev/null | egrep -v -q '^. '; then
+    if git status --porcelain 2>/dev/null | grep -E -v -q '^. '; then
         dirty='*'
     else
         dirty='~'
@@ -77,6 +86,10 @@ fi
 
 if [ "${stashes}" ]; then
     stash='&'
+fi
+
+if [ "${unknown_origin}" ]; then
+    branch="${origin_host}/${branch}"
 fi
 
 echo -n "${branch}${no_upstream}${local}${remote}${dirty}${stash}"
