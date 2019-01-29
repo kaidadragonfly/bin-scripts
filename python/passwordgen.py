@@ -57,7 +57,7 @@ def main():
                         type=int,
                         nargs='?',
                         help="the length of the password",
-                        default=10)
+                        default=26)
 
     args = parser.parse_args()
 
