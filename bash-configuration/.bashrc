@@ -136,8 +136,7 @@ fi
 # Special `pushd` that emulates `cd`s behavior, but uses the directory stack.
 cpushd () {
     if [ "$1" ]; then
-        if [[ "$1" == "-" ]]
-        then
+        if [[ "$1" == "-" ]]; then
             builtin popd > /dev/null
         else
             builtin pushd "$@" > /dev/null
