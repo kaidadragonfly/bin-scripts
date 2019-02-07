@@ -19,8 +19,14 @@ if [ "${SSH_AUTH_SOCK}" ] && [ "${DO_RUN}" ]; then
 
     for key in "${KEYS[@]}"; do
         KEY_EXISTS=$(ssh-add -l | grep "$key")
+        PRINT="$(ssh-keygen -lf "$key")"
+        KEY_EXISTS="${KEY_EXISTS} $(ssh-add -l | grep "$PRINT")"
         if [ -z "${KEY_EXISTS}" ]; then
-            ssh-add "$key"
+            if [[ "$(uname)" == 'Darwin' ]]; then
+               ssh-add -K "$key"
+            else
+               ssh-add "$key"
+            fi
         fi
     done
 fi
