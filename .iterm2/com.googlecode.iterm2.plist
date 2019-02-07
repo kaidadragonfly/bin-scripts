@@ -426,6 +426,13 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0x20-0x20000</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Text</key>
+			<string>15</string>
+		</dict>
 		<key>0x20-0x80000</key>
 		<dict>
 			<key>Action</key>
@@ -602,6 +609,8 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>GlobalTouchBarMap</key>
+	<dict/>
 	<key>HiddenAFRStrokeThickness</key>
 	<real>0.0</real>
 	<key>HiddenAdvancedFontRendering</key>
@@ -648,22 +657,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSColorPanelMode</key>
-	<string>1</string>
-	<key>NSColorPickerPageableNameListDefaults</key>
-	<string>1Web Safe Colors</string>
-	<key>NSColorPickerSlidersDefaults</key>
-	<string>1</string>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
-	<key>NSFontPanelPreviewHeight</key>
-	<real>0.0</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Desktop</string>
+	<string>~/bin/.iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
-	<key>NSNavPanelExpandedSizeForSaveMode</key>
-	<string>{712, 521}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -679,7 +676,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAc7AAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAc7Gdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -700,40 +697,10 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>1066 1109 214 309 0 0 2560 1418 </string>
-	<key>NSWindow Frame NSFontPanel</key>
-	<string>382 755 445 77 0 0 2560 1417 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>189 166 606 456 0 0 1280 777 </string>
-	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>972 933 616 174 0 0 2560 1417 </string>
-	<key>NSWindow Frame SessionsPreferences</key>
-	<string>93 45 606 469 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1474 228 918 381 0 0 2560 1417 </string>
+	<string>228 165 796 486 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 1220 2560 197 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>23 213 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 10</key>
-	<string>772 492 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>22 828 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>1441 716 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 4</key>
-	<string>1064 684 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>1855 171 572 412 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>1637 370 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 7</key>
-	<string>423 195 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 8</key>
-	<string>889 155 810 572 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 9</key>
-	<string>1345 103 810 572 0 0 2560 1417 </string>
+	<string>718 212 572 412 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_24746145-A761-4CD0-B096-661728A9088A</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_5F1E447B-27A9-4DC5-879C-780F5D860D77</key>
@@ -4164,30 +4131,18 @@
 			<string></string>
 		</dict>
 	</array>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
-	<integer>0</integer>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
+	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
-	<integer>1</integer>
 	<key>NoSyncInstallationId</key>
-	<string>F14A3DEC-014F-4482-A507-3FC27E02F945</string>
+	<string>2ED611A4-619C-49D9-B8C0-2487222B0DA1</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
-	<key>NoSyncSuppressAnnyoingBellOffer</key>
-	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>487715082.07353801</real>
-	<key>NoSyncTimeOfLastPromo</key>
-	<real>453232570.900554</real>
-	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>487615909.14639097</real>
+	<real>570649355.92202997</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -4220,7 +4175,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/bin/.iterm2</string>
+	<string>/Users/kaida/bin/.iterm2</string>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -4231,21 +4186,19 @@
 	<integer>1</integer>
 	<key>RunJobsInServers</key>
 	<false/>
-	<key>SUAutomaticallyUpdate</key>
-	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=18</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=56</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-10-12T17:20:24Z</date>
-	<key>SavePasteHistory</key>
+	<date>2019-02-01T22:57:39Z</date>
+	<key>SUSendProfileInfo</key>
 	<false/>
-	<key>Secure Input</key>
+	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
 	<false/>
@@ -4290,7 +4243,7 @@
 	<key>WindowStyle</key>
 	<integer>0</integer>
 	<key>WordCharacters</key>
-	<string>/-+\~_.</string>
+	<string></string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
 	<key>findMode_iTerm</key>
@@ -4298,7 +4251,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.4.beta.1</string>
+	<string>3.2.7</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
