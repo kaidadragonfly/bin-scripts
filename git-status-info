@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ORIGIN_HOST_REGEXP='github.com'
+ORIGIN_HOST_REGEXP='(github.com)|(github-personal)'
 
 if [ ! "$(command -v git 2>/dev/null)" ]; then
     exit 1
@@ -54,7 +54,7 @@ origin_host=$(git config --get remote.origin.url | \
                      sed -r 's|^https?://||' | \
                      sed -r 's/:.*$//')
 
-if echo "${origin_host}" | grep -v -q "${ORIGIN_HOST_REGEXP}"; then
+if echo "${origin_host}" | grep -v -q -E "${ORIGIN_HOST_REGEXP}"; then
     unknown_origin=true
 fi
 
