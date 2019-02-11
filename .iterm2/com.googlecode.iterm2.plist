@@ -426,13 +426,6 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x20-0x20000</key>
-		<dict>
-			<key>Action</key>
-			<integer>11</integer>
-			<key>Text</key>
-			<string>15</string>
-		</dict>
 		<key>0x20-0x80000</key>
 		<dict>
 			<key>Action</key>
@@ -698,9 +691,13 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>228 165 796 486 0 0 1440 877 </string>
+	<string>228 214 958 470 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>718 212 572 412 0 0 1440 877 </string>
+	<string>0 680 1440 197 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>145 293 572 412 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>556 153 572 412 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_24746145-A761-4CD0-B096-661728A9088A</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_5F1E447B-27A9-4DC5-879C-780F5D860D77</key>
@@ -4141,6 +4138,8 @@
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>570649355.92202997</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -4195,7 +4194,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-02-01T22:57:39Z</date>
+	<date>2019-02-07T22:34:06Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
