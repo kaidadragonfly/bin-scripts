@@ -37,4 +37,4 @@ export PYTHONPATH=.
 
 export SHELLCHECK_OPTS="-e SC1090 -e SC1091 -e SC2001 -e SC2002 -e SC2012 -e SC2129"
 
-export GIT_SSH=ssh-wrapper-git.sh
+# export GIT_SSH=ssh-wrapper-git.sh
