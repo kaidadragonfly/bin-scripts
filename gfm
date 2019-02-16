@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if ! [ "$1" ]; then
+    echo "Usage: gfm infile"
+    exit 1
+fi
+
+OUTFILE=$(mktemp /tmp/gfm-preview-XXXX)
+
+Grip --export "$1" "${OUTFILE}"
+
+open "${OUTFILE}"
