@@ -49,10 +49,10 @@ def main():
         cmd = (full_cmd[0]).split('/')[-1]
         args = ' '.join(full_cmd[1:])
 
-        if 'no remote' not in ex.stderr.lower():
+        if 'no remote' not in ex.stderr.decode().lower():
             print(wrap('Command "{} {}" failed!'.format(cmd, args)))
             print('')
-            print(ex.stderr)
+            print(ex.stderr.decode())
 
 if __name__ == '__main__':
     main()
