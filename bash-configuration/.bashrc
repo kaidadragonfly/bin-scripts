@@ -205,3 +205,5 @@ if [ "${SSH_AGENT_PID}" ] \
     ssh-agent >"$HOME/.ssh-agent.env"
     source "$HOME/.ssh-agent.env" >/dev/null
 fi
+
+add-keys.sh
