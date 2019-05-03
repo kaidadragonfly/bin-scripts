@@ -1,0 +1,33 @@
+#!/bin/bash
+
+QUALITY=80
+BASENAME="$(basename -s '.png' "$1")"
+WD="$(pwd)"
+
+if [ "$2" ]; then
+    QUALITY="$2"
+fi
+
+magick convert -quality "$QUALITY" "$BASENAME".png "$BASENAME".jpg
+
+du -h "$BASENAME".png "$BASENAME".jpg
+
+open "$BASENAME".png "$BASENAME".jpg
+
+cd "$(proj-root)" || exit
+
+rg "$BASENAME".png
+
+if [ "$(rg -l "$BASENAME".png)" ]; then
+    read -rp "Press enter to open changed files."
+
+    "$EDITOR" $(rg -l "$BASENAME".png)
+fi
+
+cd "$WD" || exit
+
+read -rp "Remove original file? " REMOVE
+
+if echo "$REMOVE" | grep -i "^y"; then
+    git rm "$BASENAME.png"
+fi
