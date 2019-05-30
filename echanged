@@ -2,8 +2,8 @@
 
 cd "$(proj-root)" || exit
 if [ "$1" ]; then
-    IFS=" " read -r -a FILES <<< "$(git status --porcelain | sed 's/^.. //' | grep "$1")"
+    FILES=($(git status --porcelain | sed 's/^.. //' | grep "$1"))
 else
-    IFS=" " read -r -a FILES <<< "$(git status --porcelain | sed 's/^.. //' | grep "$1" | grep "$1")"
+    FILES=($(git status --porcelain | sed 's/^.. //' | grep "$1" | grep "$1"))
 fi
 ${EDITOR} "${FILES[@]}"
