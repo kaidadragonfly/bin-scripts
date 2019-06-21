@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ "$#" != 1 ]] && [[ "$#" != 3 ]]; then
+    echo 'usage: ere REGEXP [in DIRECTORY]' >/dev/stderr
+    exit 1
+fi
+
+if [ -x "$(command -v rg)" ]; then
+    SEARCH_COMMAND='rg'
+elif [ -x "$(command -v ag)" ]; then
+    SEARCH_COMMAND='ag'
+else
+    SEARCH_COMMAND='git grep'
+fi
+
+cd "$(proj-root)" || exit 1
+
+echo "$(${SEARCH_COMMAND} "$1")"
+
+# Make a command named "ere" that does a search for a string.
+
+# Use "git grep -l" if in a repo, use "rg -l", "ag -l" or  "timeout 3s grep -Rl" otherwise?
+
+# -S, --smart-case
+#   Searches case insensitively if the pattern is all lowercase. Search case
+#   sensitively otherwise.
