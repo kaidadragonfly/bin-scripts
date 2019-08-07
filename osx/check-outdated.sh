@@ -1,3 +1,3 @@
 #!/bin/bash
 
-brew outdated > ~/.brew_outdated
+/usr/local/bin/brew outdated > "$HOME"/.brew_outdated
