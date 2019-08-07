@@ -14,7 +14,7 @@ def refresh():
     """
     git.fetch()
     output = str(git.merge('--ff-only')).strip()
-    if output != 'Already up-to-date.':
+    if output != 'Already up to date.':
         print(output)
     git.fetch('--tags')
 
