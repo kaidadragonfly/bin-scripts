@@ -5,8 +5,10 @@ if ! [ "$1" ]; then
     exit 1
 fi
 
-OUTFILE=$(mktemp /tmp/gfm-preview-XXXX)
+OUTFILE="$(mktemp /tmp/gfm-preview-XXXX).html"
 
-Grip --export "$1" "${OUTFILE}"
+find "${PWD}" -type d -maxdepth 1 -exec ln -sf {} /tmp/ \;
+
+grip --export "$1" "${OUTFILE}"
 
 open "${OUTFILE}"
