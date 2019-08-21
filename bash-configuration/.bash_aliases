@@ -51,8 +51,11 @@ alias 2fa='oathtool --base32 --totp'
 alias swift='PATH=/usr/bin:$PATH swift'
 alias xcrun='PATH=/usr/bin:$PATH xcrun'
 
+alias rake='bundle-wrapper rake'
+alias rails='bundle-wrapper rails'
+alias guard='bundle-wrapper guard'
+
 # Git aliases
 # [alias]
 #     dw = diff --color-words --word-diff-regex='[A-z0-9_]+|[^[:space:]]'
 #     tree = log --all --graph --pretty='format:%h (%an) %s'
-
