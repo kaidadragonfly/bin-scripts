@@ -9,6 +9,9 @@ if [ "$1" = '-k' ]; then
     shift
 fi
 
+if [ -f "${HOME}/.bash_aliases" ]; then
+    source "${HOME}/.bash_aliases"
+fi
 
 DEFAULT_EXCLUDES='(.*/[.].*)|(.*/flycheck_.*)'
 

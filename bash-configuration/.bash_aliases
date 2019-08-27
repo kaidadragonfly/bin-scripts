@@ -21,7 +21,7 @@ alias l='ls -CF'
 alias l.='ls --directory .*'
 
 # A few custom aliases.
-if ! [ -x $(which open) ]; then
+if ! [ -x "$(which open)" ]; then
     alias open='xdg-open'
 fi
 
@@ -33,13 +33,14 @@ alias simonsays='sudo'
 alias please='sudo'
 alias cdiff='git diff --color --no-index'
 alias dc='git diff --color --no-index'
+alias rg="rg --smart-case"
 
 function cdf() {
     if [ "$1" ]; then
         cd "$(find-dir "$1")" || exit 1
     else
         echo "usage: cdf dirname ['in' path]"
-    fi       
+    fi
 }
 
 function cdr() {
@@ -51,9 +52,18 @@ alias 2fa='oathtool --base32 --totp'
 alias swift='PATH=/usr/bin:$PATH swift'
 alias xcrun='PATH=/usr/bin:$PATH xcrun'
 
-alias rake='bundle-wrapper rake'
-alias rails='bundle-wrapper rails'
-alias guard='bundle-wrapper guard'
+# These are functions so that they work from within "loop"
+function rake() {
+    bundle-wrapper rake "$@"
+}
+
+function rails() {
+    bundle-wrapper rails "$@"
+}
+
+function guard() {
+    bundle-wrapper guard "$@"
+}
 
 # Git aliases
 # [alias]
