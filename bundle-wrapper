@@ -8,7 +8,7 @@ else
     exit 1
 fi
 
-if [ -f Gemfile ] && [ -x "$(which bundler)" ]; then
+if [ -f "$(proj-root)/Gemfile" ] && [ -x "$(which bundler)" ]; then
     bundle exec "${EXECUTABLE}" "$@"
 else
     "${EXECUTABLE}" "$@"
