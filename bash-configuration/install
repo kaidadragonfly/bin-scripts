@@ -1,19 +1,23 @@
 #!/bin/bash
 
 DEST="${HOME}/"
-INSTALL_CMD='ln -s -v'
-if [[ "$(uname)" == 'Darwin' || "$(uname)" == 'Linux' ]]; then
-    INSTALL_CMD='ln -s -i'
-fi
+INSTALL_CMD='ln -s -i'
 
 if [ "$1" ]; then
     DEST="$1:"
     INSTALL_CMD='scp'
 fi
 
-
 ${INSTALL_CMD} \
     "${PWD}"/.bash* \
     "${PWD}"/.profile \
     "${PWD}"/.inputrc \
     "${DEST}"
+
+${INSTALL_CMD} "${PWD}"/gpg.conf "${DEST}/.gnupg/"
+${INSTALL_CMD} "${PWD}"/gpg-agent.conf "${DEST}/.gnupg/"
+
+if [[ "$(uname)" == 'Darwin' ]]; then
+    mkdir -p "${DEST}/.gnupg"
+    ${INSTALL_CMD} "${PWD}"/gpg-agent-osx.conf "${DEST}/.gnupg/gpg-agent.conf"
+fi
