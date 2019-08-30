@@ -36,4 +36,12 @@ if [[ "$(uname)" == 'Darwin' ]]; then
         # shellcheck disable=SC2088
         echo "~/.brew_outdated not found!"
     fi
+
+    function swift() {
+        if [[ "$1" == 'test' ]] && [ "$(which xcpretty)" ]; then
+            "$(which swift)" test 2>&1 | xcpretty >&2
+        else
+            "$(which swift)" "$@"
+        fi
+    }
 fi
