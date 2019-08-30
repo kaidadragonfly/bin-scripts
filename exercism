@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 # Requires Bash 4 which is newer than what OSX installs by default.
 
-# Add smart "exercism submit"
-SOURCE_DIRS=(Sources lib src)
-
-
 NO_HOME_PATH="$(echo "$PATH" | sed -s "s|$HOME/bin[^:]*:||g")"
 EXERCISM_BIN=$(PATH="${NO_HOME_PATH}" which exercism)
 
-SOURCES=()
 if [[ "$1" == 'submit' ]] && [[ "$#" == 1 ]]; then
-    for DIR in "${SOURCE_DIRS[@]}"; do
-        if [ -d "$DIR" ]; then
-            readarray -d '' FILES < <(find "$DIR" -type f -print0)
-            SOURCES=("${SOURCES[@]}" "${FILES[@]}")
-        fi
-    done
+
+    # Swift support.
+    if [ -f "Package.swift" ]; then
+        readarray -d '' SOURCES < <(find "Sources" -type f -print0)
+    fi
 
     "${EXERCISM_BIN}" submit "${SOURCES[@]}"
 else
