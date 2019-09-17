@@ -2,16 +2,16 @@
 
 oldx=$(tput cols)
 oldy=$(tput lines)
-x=$((${oldx} * 70 / 100))
-y=$((${oldy} * 70 / 100))
+x=$((oldx * 70 / 100))
+y=$((oldy * 70 / 100))
 
 # Normalize to return to 24x80
-if [[ 70 < $x && $x < 90 ]]; then
+if [[ 70 -lt $x && $x -lt 90 ]]; then
     x=80
     # y=24
 fi
 
-if [[ 20 < $y && $y < 28 ]]; then
+if [[ 20 -lt $y && $y -lt 28 ]]; then
     # x=80
     y=24
 fi
