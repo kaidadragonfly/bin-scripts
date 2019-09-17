@@ -8,9 +8,16 @@ cd "${DIR}" || exit 1
 shift
 
 OUTPUT="$(git "$@" | fold -w ${WIDTH} | sed 's/^/    /')"
+RESULT=$?
+
+if [ "${RESULT}" -ne 0 ]; then
+    echo "Command: \"$1\" failed!" >&2
+    echo "${OUTPUT}" >&2
+    exit "${RESULT}"
+fi
 
 if [ "${OUTPUT}" ]; then
     echo "in repo ${DIR}:" >&2
-    echo "${OUTPUT}"
+    echo "${OUTPUT}" >&2
     echo
 fi
