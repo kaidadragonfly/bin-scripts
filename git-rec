@@ -1,4 +1,9 @@
 #!/bin/bash
 
-find . -type d \( -name '.git' -o -name 'old' \) -prune \
-     -exec run-git-command-for-rec {} "$@" \;
+if [ "$1" ]; then
+    find . -type d \( -name '.git' -o -name 'old' \) -prune \
+         -exec run-git-command-for-rec {} "$@" \;
+else
+    echo "usage: git rec COMMAND" >&2
+    exit 1
+fi
