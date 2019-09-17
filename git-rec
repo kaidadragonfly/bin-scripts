@@ -1,4 +1,4 @@
 #!/bin/bash
 
-find . -type d -name .git -prune \
+find . -type d \( -name '.git' -o -name 'old' \) -prune \
      -exec run-git-command-for-rec {} "$@" \;
