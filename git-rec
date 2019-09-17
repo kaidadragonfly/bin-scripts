@@ -1,1 +1,4 @@
-python/git_rec.py
+#!/bin/bash
+
+find . -type d -name .git -prune \
+     -exec run-git-command-for-rec {} "$@" \;

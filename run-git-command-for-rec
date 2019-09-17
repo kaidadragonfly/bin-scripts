@@ -1,0 +1,16 @@
+#!/bin/bash
+
+WIDTH=$(tput cols)
+WIDTH=$((WIDTH - 4))
+
+DIR=$(echo "$1" | sed 's/\/[.]git$//')
+cd "${DIR}" || exit 1
+shift
+
+OUTPUT="$(git "$@" | fold -w ${WIDTH} | sed 's/^/    /')"
+
+if [ "${OUTPUT}" ]; then
+    echo "in repo ${DIR}:" >&2
+    echo "${OUTPUT}"
+    echo
+fi
