@@ -10,4 +10,4 @@ fi
 
 cd "$ROOT" || exit 1
 
-ripper-tags -R -e --exclude=vendor -f "$(proj-root)/.tags"
+ripper-tags -R -e --exclude=vendor --exclude=node_modules --exclude=coverage -f "$(proj-root)/.tags"
