@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Notify of Homebrew updates via Notification Center on Mac OS X
 #

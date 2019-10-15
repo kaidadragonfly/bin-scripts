@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 results=$(git rev-parse --git-dir 2>&1)
 fatal=$(echo "${results}" | grep '^fatal:')

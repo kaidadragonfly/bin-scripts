@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 host-command '${HOME}/bin/osx/cmd_k'
 /usr/bin/reset

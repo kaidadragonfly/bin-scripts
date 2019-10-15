@@ -1,11 +1,9 @@
-#!/bin/bash
-
-PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+#!/usr/bin/env bash
 
 sbtd >/dev/null
 SESSION=$(sbtd)
 
-if [[ "$#" < 1 ]]; then
+if [[ "$#" -lt 1 ]]; then
    echo "usage: sbtc COMMAND..."
    exit
 fi
@@ -19,15 +17,15 @@ done
 
 COMMAND=$(echo "$COMMAND" | sed 's/;;/;/')
 
-if [ $(echo "$COMMAND" | grep '~') ]; then
+if echo "$COMMAND" | grep -q '~'; then
     echo "Repeated commands (~COMMAND) are not supported."
     exit 1
 fi
 
 TMP="/tmp/sbtd/$SESSION"
 MSG='Starting daemon'
-touch $TMP
-until grep '^> $' $TMP >/dev/null; do
+touch "$TMP"
+until grep '^> $' "$TMP" >/dev/null; do
     echo -n "$MSG"
     MSG='.'
     sleep 1
@@ -43,9 +41,8 @@ tmux send -t "$SESSION" "$COMMAND" ENTER
 tmux send -t "$SESSION" ENTER
 tmux send -t "$SESSION" ENTER
 
-FIRST='true'
 tail -f -n 0 "$TMP" | \
-    while read LOGLINE; do
+    while read -r LOGLINE; do
         LOGLINE=$(echo "$LOGLINE" | tr -d '\r')
         if [[ "${LOGLINE}" == "> " ]]; then
             exit

@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TAGS="$(git tag | egrep '^v0[.]0[.]1?4(2|3|4)0?0?')"
 
 for tag in ${TAGS}; do
-    git tag -d ${tag}
-    git push origin :refs/tags/${tag}
+    git tag -d "${tag}"
+    git push origin ":refs/tags/${tag}"
 done

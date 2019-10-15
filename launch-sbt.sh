@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -e "$(proj-root)/.sbt-opts" ]; then
     source "$(proj-root)/.sbt-opts"

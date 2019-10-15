@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 host-ssh "osascript -e '
 tell application \"iTerm\"

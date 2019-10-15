@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Returns a cached result of the given command from 
 # [WORKING DIRECTORY]/[CACHEFILE] (./.cached-output by default),

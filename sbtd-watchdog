@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 SESSION="$1"
 TMP="$2"
-while [ $(find "$TMP" -mmin -15 2>/dev/null) ]; do
+while [ "$(find "$TMP" -mmin -15 2>/dev/null)" ]; do
     sleep 10
 done
 tmux kill-session -t "$SESSION"

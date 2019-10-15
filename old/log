@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function log() {
     date >> /home/kmasaki/Desktop/log.txt
-    echo $@ >>/home/kmasaki/Desktop/log.txt
+    echo "$@" >>/home/kmasaki/Desktop/log.txt
 }

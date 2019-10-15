@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$#" -ne 1 ]; then
     echo 'usage: newscript SCRIPTNAME'
@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 if ! [ -e "$1" ]; then
-    echo '#!/bin/bash' >"$1"
+    echo '#!/usr/bin/env bash' >"$1"
     echo >> "$1"
 fi
 

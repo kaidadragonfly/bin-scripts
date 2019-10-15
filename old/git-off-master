@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ ! "$(which git)" ]; then
     exit 1
@@ -16,5 +16,5 @@ fi
 branch=$(echo "${branch}" | grep '^*' | sed 's/^* //')
 
 if [[ "${branch}" != 'master' ]]; then
-    echo ${branch}
+    echo "${branch}"
 fi

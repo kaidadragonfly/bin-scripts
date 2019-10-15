@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 git fetch --tags 2>/dev/null
 git describe --tags `git rev-list --tags --max-count=1`

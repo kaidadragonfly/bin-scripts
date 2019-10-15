@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$#" != 1 ]] && [[ "$#" != 3 ]]; then
     echo 'usage: ere REGEXP [in DIRECTORY]' >/dev/stderr

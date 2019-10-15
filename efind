@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 WD='.'
 EXCLUDES='[.]((os)|o|(class))$'

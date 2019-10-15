@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-emacs $(find . -iname "$1.java")
+emacs "$(find . -iname "$1.java")"

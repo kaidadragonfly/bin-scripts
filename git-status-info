@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ORIGIN_HOST_REGEXP='(github.com)|(github-personal)'
 

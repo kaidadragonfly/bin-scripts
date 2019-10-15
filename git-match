@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CMD="git $1"
 PROJ_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)

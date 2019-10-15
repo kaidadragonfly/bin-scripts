@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 cd "$(proj-root)" || exit
 if [ "$1" ]; then

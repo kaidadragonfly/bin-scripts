@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 oldx=$(tput cols)
 oldy=$(tput lines)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 x=80
 y=24

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 WIDTH=$(tput cols)
 WIDTH=$((WIDTH - 4))

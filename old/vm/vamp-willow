@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if ! ssh -qT vamp-willow exit; then
     VBoxManage startvm vamp-willow --type headless

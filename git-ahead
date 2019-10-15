@@ -1,3 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-PAGER=cat git log origin/HEAD..HEAD
+export PAGER=cat 
+git log origin/HEAD..HEAD

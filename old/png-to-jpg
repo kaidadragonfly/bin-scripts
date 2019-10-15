@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 QUALITY=80
 BASENAME="$(basename -s '.png' "$1")"

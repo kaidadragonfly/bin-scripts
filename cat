@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Pipe through less to get syntax hilighting.
 less "$@" | tee

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 base_dir=$PWD
-git_cmd="$@"
+git_cmd="$*"
 
 echo -n 'Locating repositories...'
 repos=$(find . -name .git -prune -o -name .git -type d 2>/dev/null \
@@ -10,8 +10,8 @@ echo ' done.'
 
 for repo in ${repos}
 do
-    cd ${base_dir}/${repo}
-    output=$(git ${git_cmd} 2>&1)
+    cd "${base_dir}/${repo}" || exit 1
+    output=$(git "${git_cmd}" 2>&1)
     if [ "${output}" ]; then
         echo
         echo "in repo ${repo}:"
