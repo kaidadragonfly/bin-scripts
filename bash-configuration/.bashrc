@@ -60,7 +60,7 @@ function branch () {
 }
 
 function c () {
-    if [ "$(git branch 2> /dev/null)" ]; then
+    if [ "$(branch)" ]; then
         echo -n ":"
     fi
 }
@@ -72,7 +72,7 @@ function show_user () {
 }
 
 function show_host () {
-    if [ -z "$(git branch 2> /dev/null)" ] \
+    if [ -z "$(branch)" ] \
            && ! [ -e "${HOME}/.oncall" ]; then
         echo -n "@$(hostname -s)"
     fi

@@ -89,7 +89,11 @@ if [ "${stashes}" ]; then
 fi
 
 if [ "${unknown_origin}" ]; then
-    branch="${origin_host}/${branch}"
+    if [ "${branch}" ]; then
+        branch="${origin_host}/${branch}"
+    else
+        branch="new-repo"
+    fi
 fi
 
 echo -n "${branch}${no_upstream}${local}${remote}${dirty}${stash}"
