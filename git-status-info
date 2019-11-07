@@ -92,7 +92,7 @@ if [ "${unknown_origin}" ]; then
     if [ "${branch}" ]; then
         branch="${origin_host}/${branch}"
     else
-        branch="new-repo"
+        branch="${origin_host}/master"
     fi
 fi
 
