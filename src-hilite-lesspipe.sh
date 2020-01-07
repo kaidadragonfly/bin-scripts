@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 if [ -x "$(which source-highlight)" ]; then
     for source in "$@"; do

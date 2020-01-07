@@ -34,6 +34,7 @@ alias please='sudo'
 alias cdiff='git diff --color --no-index'
 alias dc='git diff --color --no-index'
 alias rg="rg --smart-case"
+alias cat='ltcat'
 
 function cdf() {
     if [ "$1" ]; then
