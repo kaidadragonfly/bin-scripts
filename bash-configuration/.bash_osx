@@ -18,10 +18,14 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     
     export JAVA_TOOL_OPTIONS="-Dapple.awt.UIElement=true"
 
-    source /usr/local/etc/bash_completion.d/git-completion.bash
-
     if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
         source "$(brew --prefix)/etc/bash_completion"
+    fi
+
+    if [ -d "$(brew --prefix)/etc/bash_completion.d" ]; then
+        for file in "$(brew --prefix)/etc/bash_completion.d"/*; do
+            source "$file"
+        done
     fi
 
     # Requires the following in crontab
