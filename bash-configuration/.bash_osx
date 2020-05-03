@@ -15,17 +15,11 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias top='top -s1 -o cpu -R -F'
     alias jdk7="JAVA_HOME=\$(/usr/libexec/java_home -v 1.7) "
     alias jdk8="JAVA_HOME=\$(/usr/libexec/java_home -v 1.8) "
-    
+
     export JAVA_TOOL_OPTIONS="-Dapple.awt.UIElement=true"
 
-    if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    if [ -r "$(brew --prefix)/etc/bash_completion" ]; then
         source "$(brew --prefix)/etc/bash_completion"
-    fi
-
-    if [ -d "$(brew --prefix)/etc/bash_completion.d" ]; then
-        for file in "$(brew --prefix)/etc/bash_completion.d"/*; do
-            source "$file"
-        done
     fi
 
     # Requires the following in crontab
