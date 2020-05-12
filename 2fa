@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SEED="$1"
+shift
+
+while [ "$1" ]; do
+    SEED="${SEED} $1"
+    shift
+done
+
+oathtool --base32 --totp "${SEED}"
