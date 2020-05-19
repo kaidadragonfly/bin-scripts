@@ -21,7 +21,7 @@ alias l='ls -CF'
 alias l.='ls --directory .*'
 
 # A few custom aliases.
-if ! [ -x "$(which open)" ]; then
+if ! [ -x "$(which open 2>/dev/null)" ]; then
     alias open='xdg-open'
 fi
 
