@@ -5,6 +5,6 @@ if [ "$(uname)" == 'Linux' ]; then
     NUM_TTYS=$(ps axno user,tty | awk '$1 >= 1000 && $1 < 65530 && $2 != "?"' | sort -u | sed 's/^ *//' | cut -d' ' -f1 | grep -c "^${UID}\$")
 
     if [ "$NUM_TTYS" -eq 1 ]; then
-        killall ssh-agent
+        killall ssh-agent 2>/dev/null
     fi
 fi
