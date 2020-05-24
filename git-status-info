@@ -6,94 +6,87 @@ if [ ! "$(command -v git 2>/dev/null)" ]; then
     exit 1
 fi
 
-results=$(git rev-parse --git-dir 2>&1)
-git_dir=${results}
+GIT_DIR=$(git rev-parse --git-dir 2>&1)
 
-if echo "$results" | grep -q '^fatal:'; then
+if echo "$GIT_DIR" | grep -q '^fatal:'; then
     exit 1
 fi
 
-branch=$(git branch 2> /dev/null | grep -E '^[*] ' | sed -r 's/^[*] //')
-
-if [ -e "${git_dir}/FETCH_HEAD" ] && \
-       [ "$(find "${git_dir}/FETCH_HEAD" -mmin +5)" ]; then
+if [ -e "${GIT_DIR}/FETCH_HEAD" ] && \
+       [ "$(find "${GIT_DIR}/FETCH_HEAD" -mmin +5)" ]; then
     git fetch >/dev/null 2>/dev/null
 fi
 
 # Prevent unexpected delays while working.
-touch "${git_dir}/FETCH_HEAD" 2>/dev/null
+touch "${GIT_DIR}/FETCH_HEAD" 2>/dev/null
 
-git_version=$(git --version | sed 's/git version //')
-git_major_version=$(echo "${git_version}" | cut -d. -f1)
-git_minor_version=$(echo "${git_version}" | cut -d. -f2)
+FULL_STATUS=$(git status --porcelain --branch)
 
-# Legacy git support, a little crude; also somewhat prone to breakage.
-if [ "${git_major_version}" -gt '1' ] || [ "${git_minor_version}" -gt '8' ]; then
-    header=$(git status | tail -n +2 | head -n 1)
-    behind=$(echo "${header}" | grep -i 'behind')
-    ahead=$(echo "${header}" | grep -i 'ahead')
-    diverged=$(echo "${header}" | grep -i 'diverged')
-else
-    header=$(git status --porcelain --branch | head -n 1)
-    behind=$(echo "${header}" | grep -E '\[behind [0-9]+\]')
-    ahead=$(echo "${header}" | grep -E '\[ahead [0-9]+\]')
-    diverged=$(echo "${header}" | grep -E "\[ahead [0-9]+, behind [0-9]+\]")
+HEADER=$(echo "${FULL_STATUS}" | head -n 1)
+STATUS=$(echo "${FULL_STATUS}" | tail -n +2)
+
+BRANCH=$(echo "$HEADER" | sed -r 's/^## ([^.]+).*/\1/')
+
+BEHIND=$(echo "${HEADER}" | grep -E '\[behind [0-9]+\]')
+AHEAD=$(echo "${HEADER}" | grep -E '\[ahead [0-9]+\]')
+DIVERGED=$(echo "${HEADER}" | grep -E "\[ahead [0-9]+, behind [0-9]+\]")
+
+if [ -z "$(git config "branch.${BRANCH}.remote")" ]; then
+    NO_UPSTREAM='?'
 fi
 
-REF="$(git symbolic-ref -q HEAD)"
-if [ -z "$(git for-each-ref --format='%(upstream:short)' "${REF}")" ]; then
-    no_upstream='?'
+CHANGES=$(echo -n "${STATUS}" | wc -c | tr -d ' ')
+
+STASHES=$(git stash list)
+
+ORIGIN_HOST=$(git config --get remote.origin.url | \
+                  sed -r 's/^.*@//' | \
+                  sed -r 's|^https?://||' | \
+                  sed -r 's/:.*$//')
+
+if echo "${ORIGIN_HOST}" | grep -v -q -E "${ORIGIN_HOST_REGEXP}"; then
+    UNKNOWN_ORIGIN=true
 fi
 
-changes=$(git status --porcelain | wc -l | tr -d ' ')
-
-stashes=$(git stash list)
-
-origin_host=$(git config --get remote.origin.url | \
-                     sed -r 's/^.*@//' | \
-                     sed -r 's|^https?://||' | \
-                     sed -r 's/:.*$//')
-
-if echo "${origin_host}" | grep -v -q -E "${ORIGIN_HOST_REGEXP}"; then
-    unknown_origin=true
+if [ -z "${ORIGIN_HOST}" ]; then
+    ORIGIN_HOST='no-origin'
+    if [[ "${BRANCH}" == "No commits yet on master" ]]; then
+        BRANCH='no-commits'
+    fi
+    UNKNOWN_ORIGIN=true
 fi
 
-if [ -z "${origin_host}" ]; then
-    origin_host='no-origin'
-    unknown_origin=true
-fi
-
-if [[ "${changes}" != 0 ]]; then
-    if git status --porcelain 2>/dev/null | grep -E -v -q '^. '; then
-        dirty='*'
+if [[ "${CHANGES}" != 0 ]]; then
+    if echo "${STATUS}" | grep -E -v -q '^. '; then
+        DIRTY='*'
     else
-        dirty='~'
+        DIRTY='~'
     fi
 fi
 
-if [ "$behind" ]; then
-    remote='-'
+if [ "${BEHIND}" ]; then
+    REMOTE='-'
 fi
 
-if [ "${ahead}" ]; then
-    local='+'
+if [ "${AHEAD}" ]; then
+    LOCAL='+'
 fi
 
-if [ "${diverged}" ]; then
-    local='+'
-    remote='-'
+if [ "${DIVERGED}" ]; then
+    LOCAL='+'
+    REMOTE='-'
 fi
 
-if [ "${stashes}" ]; then
-    stash='&'
+if [ "${STASHES}" ]; then
+    STASH='&'
 fi
 
-if [ "${unknown_origin}" ]; then
-    if [ "${branch}" ]; then
-        branch="${origin_host}/${branch}"
+if [ "${UNKNOWN_ORIGIN}" ]; then
+    if [ "${BRANCH}" ]; then
+        BRANCH="${ORIGIN_HOST}/${BRANCH}"
     else
-        branch="${origin_host}/master"
+        BRANCH="${ORIGIN_HOST}/master"
     fi
 fi
 
-echo -n "${branch}${no_upstream}${local}${remote}${dirty}${stash}"
+echo -n "${BRANCH}${NO_UPSTREAM}${LOCAL}${REMOTE}${DIRTY}${STASH}"
