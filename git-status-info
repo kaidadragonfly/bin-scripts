@@ -17,7 +17,7 @@ branch=$(git branch 2> /dev/null | grep -E '^[*] ' | sed -r 's/^[*] //')
 
 if [ -e "${git_dir}/FETCH_HEAD" ] && \
        [ "$(find "${git_dir}/FETCH_HEAD" -mmin +5)" ]; then
-    git fetch --all >/dev/null 2>/dev/null
+    git fetch >/dev/null 2>/dev/null
 fi
 
 # Prevent unexpected delays while working.
