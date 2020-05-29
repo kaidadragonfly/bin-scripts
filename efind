@@ -20,14 +20,20 @@ fi
 NEEDLE="$1"
 SUBSTR=$(basename "${NEEDLE}")
 
-# Try an exact match!
-FILES=$(find "$WD" -name "${SUBSTR}" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
-FILE=$(echo "$FILES" | fgrep "${NEEDLE}" | head -n 1)
-
-# Try a insensitive and fuzzy match.
-if [ -z "$FILE" ]; then
+if [[ "${WD}" == '.' ]] && git status >/dev/null 2>/dev/null; then
+    FILES="$(git ls-files)"
+else
     FILES=$(find "$WD" -iname "*${SUBSTR}*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
-    FILE=$(echo "$FILES" | fgrep -i "${NEEDLE}" | head -n 1)
+fi
+
+SORTED=$(echo "${FILES}" | awk '{ print length(), $0 | "sort -n" }' | cut -d ' ' -f 2-)
+
+# Try case sensitive match.
+FILE=$(echo "${SORTED}" | grep -F "${NEEDLE}" | head -n 1)
+
+# Fall back to case insensitive match.
+if [ -z "${FILE}" ]; then
+    FILE=$(echo "${SORTED}" | grep -F -i "${NEEDLE}" | head -n 1)
 fi
 
 if [ "${DRY_RUN}" ]; then
