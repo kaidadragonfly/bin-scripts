@@ -1086,9 +1086,9 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>211 230 796 486 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 777 1280 197 0 0 1280 777 </string>
+	<string>0 777 1280 629 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>11 19 572 411 0 0 1280 777 </string>
+	<string>0 212 645 565 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>173 54 572 411 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -1961,7 +1961,7 @@
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Transparency</key>
-			<real>0.10038269352791879</real>
+			<real>0.035423937182741116</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unicode Version</key>
@@ -4678,7 +4678,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>93A8FCE9-FF1B-49DD-AF1B-6C0B9C5C7997</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>11</integer>
+	<integer>14</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -5454,7 +5454,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-30T16:38:43Z</date>
+	<date>2020-07-19T02:21:55Z</date>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SavePasteHistory</key>
