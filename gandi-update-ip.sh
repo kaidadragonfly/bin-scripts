@@ -2,8 +2,8 @@
 
 set -e
 
-IPV4=$(curl -f https://v4.rojoma.com/ip/ 2>/dev/null)
-IPV6=$(curl -f https://v6.rojoma.com/ip/ 2>/dev/null)
+IPV4=$(curl --silent --fail-early https://v4.rojoma.com/ip/)
+IPV6=$(curl --silent --fail-early https://v6.rojoma.com/ip/)
 
 curl -D- -XPUT -H "Content-Type: text/plain" \
     -H"X-Api-Key: ${GANDI_API_KEY}" \
