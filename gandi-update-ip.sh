@@ -12,4 +12,5 @@ curl -D- -XPUT -H "Content-Type: text/plain" \
     << EOF
 @ IN A $IPV4
 @ IN AAAA $IPV6
+@ IN TXT $EMAIL_RECORD
 EOF
