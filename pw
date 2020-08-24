@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 die () {
+    echo
     echo "$1"
     exit 1
 }
@@ -27,14 +28,14 @@ if [ "$2" ]; then
     after="$2"
 fi
 
-read -p 'Enter decryption password: ' -s password
+read -r -p 'Enter decryption password: ' -s password
 if [ "$PS1" ]; then
     echo
 fi
 
 cleartext=$(openssl aes-256-cbc -d \
                     -in "${CRYPT_FILE}" \
-                    -pass "pass:${password}" 2>/dev/null) || \
+                    -pass "pass:${password}" 2>/dev/null | tr -d '\0' 2>/dev/null) || \
     die 'Failed to decrypt!'
 
 if [[ "$1" == '-e' ]]; then
