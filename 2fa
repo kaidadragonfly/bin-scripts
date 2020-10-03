@@ -8,4 +8,15 @@ while [ "$1" ]; do
     shift
 done
 
-oathtool --base32 --totp "${SEED}"
+TOKEN=$(oathtool --base32 --totp "${SEED}")
+
+echo -n "${TOKEN}"
+
+if [ -x "$(which pbcopy)" ]; then
+    echo -n "${TOKEN}" | pbcopy
+    echo " (copied)"
+else
+    echo
+fi
+
+
