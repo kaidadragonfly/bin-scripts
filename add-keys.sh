@@ -15,7 +15,7 @@ fi
 if [ "${SSH_AUTH_SOCK}" ] && [ "${DO_RUN}" ]; then
     echo "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" > "${HOME}/.ssh/auth_sock_var"
 
-    KEYS="$(find "${HOME}/.ssh" -name "${KEY_PATTERN}" | grep -v '[.]pub$' | sort)"
+    KEYS="$(find "${HOME}/.ssh" -maxdepth 1 -name "${KEY_PATTERN}" | grep -v '[.]pub$' | sort)"
 
     for key in ${KEYS}; do
         KEY_EXISTS=$(ssh-add -l | grep "$key")
