@@ -101,6 +101,11 @@ PS1=$PS1']'                                          # close-bracket
 PS1=$PS1'\$ '                                        # dollar
 unset color_prompt force_color_prompt
 
+if [ "${VIRTUAL_ENV}" ]; then
+    VENV_DIR="$(basename "${VIRTUAL_ENV}")"
+
+    PS1="(${VENV_DIR}) $PS1"
+fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -137,12 +142,12 @@ fi
 cpushd () {
     if [ "$1" ]; then
         if [[ "$1" == "-" ]]; then
-            builtin popd > /dev/null
+            builtin popd > /dev/null || return
         else
-            builtin pushd "$@" > /dev/null
+            builtin pushd "$@" > /dev/null || return
         fi
     else
-        builtin pushd ~ > /dev/null
+        builtin pushd ~ > /dev/null || return
     fi
 }
 #alias cd so it uses the directory stack
