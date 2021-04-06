@@ -34,7 +34,6 @@ alias please='sudo'
 alias cdiff='git diff --color --no-index'
 alias dc='git diff --color --no-index'
 alias rg="rg --smart-case"
-alias cat='ltcat'
 alias python='python3'
 
 function cdf() {
