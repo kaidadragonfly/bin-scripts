@@ -211,4 +211,6 @@ if [ "${SSH_AGENT_PID}" ] \
     source "$HOME/.ssh-agent.env" >/dev/null
 fi
 
-add-keys.sh
+if [ -n "${SSH_CLIENT}" ] && ! [ -e "${HOME}/.treat-local" ]; then
+    add-keys.sh
+fi
