@@ -24,7 +24,7 @@ if [ "${SSH_AUTH_SOCK}" ] && [ "${DO_RUN}" ]; then
 
         if [ -z "${KEY_EXISTS}" ]; then
             if [[ "$(uname)" == 'Darwin' ]]; then
-               ssh-add -K "$key"
+               ssh-add --apple-use-keychain "$key"
             else
                ssh-add "$key"
             fi
