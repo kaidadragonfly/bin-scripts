@@ -11,7 +11,7 @@ fi
 cd "$ROOT" || exit 1
 
 HIDDEN_EXCLUDES=($(find . -name '.*' -maxdepth 1 | egrep -v '^[.]$'))
-DEFAULT_EXCLUDES=('tiny_mce' 'htdocs' 'target' 'public/javascripts/plugins' '*/target' 'node_modules' 'flycheck_*', 'coverage')
+DEFAULT_EXCLUDES=('tiny_mce' 'htdocs' 'target' 'public/javascripts/plugins' '*/target' 'node_modules' 'flycheck_*' 'coverage')
 DEFAULT_EXCLUDES=("${HIDDEN_EXCLUDES[@]}" "${DEFAULT_EXCLUDES[@]}")
 
 if [ -f ".gitignore" ]; then
