@@ -19,10 +19,17 @@ def send_email(
         password):
     # Create the container email message.
     msg = EmailMessage()
-    msg['Subject'] = subject
+    if subject:
+        msg['Subject'] = subject
+    elif body:
+        msg['Subject'] = body[:31]
+    elif attachment_path:
+        msg['Subject'] = attachment_path
     msg['From'] = sender
     msg['To'] = to
     msg.preamble = 'You will not see this in a MIME-aware mail reader.\n'
+    if body:
+        msg.set_content(body)
 
     if attachment_path:
         extension = attachment_path.split('.')[-1]
