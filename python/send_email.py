@@ -39,6 +39,12 @@ def send_email(
         if extension == 'epub':
             maintype = 'application'
             subtype = 'epub+zip'
+        elif extension == 'pdf':
+            maintype = 'application'
+            subtype = 'pdf'
+        elif extension == 'mobi':
+            maintype = 'application'
+            subtype= 'x-mobipocket-ebook'
 
         if maintype and subtype:
             with open(attachment_path, 'rb') as fp:
