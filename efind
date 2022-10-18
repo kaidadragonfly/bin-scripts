@@ -21,7 +21,7 @@ NEEDLE="$1"
 SUBSTR=$(basename "${NEEDLE}")
 
 if [[ "${WD}" == '.' ]] && git status >/dev/null 2>/dev/null; then
-    FILES="$(git ls-files --others)"
+    FILES="$(git ls-files --cached --others)"
 else
     FILES=$(find "$WD" -iname "*${SUBSTR}*" | awk '{ print length, $0 }' | sort -g | cut -d' ' -f2 | egrep -v "${EXCLUDES}")
 fi
