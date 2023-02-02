@@ -16,7 +16,9 @@ def send_email(
         body,
         attachment_path,
         username,
-        password):
+        password,
+        smtp_server):
+
     # Create the container email message.
     msg = EmailMessage()
     if subject:
@@ -56,8 +58,8 @@ def send_email(
         else:
             raise ValueError("Unsupported attachment type!")
 
-    # Send the email via our own SMTP server.
-    with smtplib.SMTP('127.0.0.1:1025') as server:
+    with smtplib.SMTP(smtp_server) as server:
+        server.starttls()
         server.login(username, password)
         server.send_message(msg)
 
@@ -99,6 +101,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    smtp_server = os.environ.get('SMTP_SERVER')
     username = os.environ.get('SMTP_USERNAME')
     password = os.environ.get('SMTP_PASSWORD')
 
@@ -115,7 +118,8 @@ if __name__ == '__main__':
             args.body,
             args.path,
             username,
-            password
+            password,
+            smtp_server
         )
     except ValueError as e:
         print(e)
