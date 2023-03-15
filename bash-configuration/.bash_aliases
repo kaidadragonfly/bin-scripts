@@ -70,3 +70,5 @@ function guard() {
 # [alias]
 #     dw = diff --color-words --word-diff-regex='[A-z0-9_]+|[^[:space:]]'
 #     tree = log --all --graph --pretty='format:%h (%an) %s'
+
+# alias fanficfare='calibre-debug --run-plugin FanFicFare --'
