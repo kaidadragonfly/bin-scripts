@@ -8,4 +8,6 @@ if [ -x /usr/local/bin/brew ]; then
     BREW=/usr/local/bin/brew
 fi
 
+$BREW update >/dev/null 2>/dev/null
+
 $BREW outdated > "$HOME"/.brew_outdated
