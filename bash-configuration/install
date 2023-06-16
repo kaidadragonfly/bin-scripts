@@ -14,6 +14,7 @@ ${INSTALL_CMD} \
     "${PWD}"/.inputrc \
     "${DEST}"
 
+mkdir -p "${DEST}/.gnupg/"
 ${INSTALL_CMD} "${PWD}"/gpg.conf "${DEST}/.gnupg/"
 ${INSTALL_CMD} "${PWD}"/gpg-agent.conf "${DEST}/.gnupg/"
 
