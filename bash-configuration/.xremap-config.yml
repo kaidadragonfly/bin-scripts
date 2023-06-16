@@ -1,0 +1,31 @@
+modmap:
+  - name: Global
+    application:
+      not: [Gnome-terminal, Guake]
+    remap:
+      CapsLock: Super_L
+      Ctrl_L: Super_L
+      Super_L: Ctrl_L
+
+keymap:
+  - name: Global
+    application:
+      not: [Gnome-terminal, Guake]
+    remap:
+      C-space: Super-space
+      C-tab: Super-tab
+      Super-tab: C-tab
+      
+  - name: Firefox
+    application:
+      only: firefox
+    remap:
+      C-1: M-1
+      C-2: M-2
+      C-3: M-3
+      C-4: M-4
+      C-5: M-5
+      C-6: M-6
+      C-7: M-7
+      C-8: M-8
+      C-9: M-9
