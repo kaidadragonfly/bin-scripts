@@ -10,6 +10,28 @@ keymap:
     remap:
       C-space: Super-space
 
+  - name: Emacs
+    application:
+      not: [Gnome-terminal, Guake]
+    remap:
+      Super-b: left
+      Super-f: right
+      Super-p: up
+      Super-c: down
+      M-b: C-left
+      M-f: C-right
+      Super-a: home
+      Super-e: end
+      Super-d: delete
+      M-d: C-delete
+      Super-k: [Shift-end, C-x]
+      Super-slash: C-z
+      Super-s: C-f
+      M-left: C-left
+      M-right: C-right
+      M-backspace: C-backspace
+      C-backspace: [Shift-home, backspace]
+
   - name: Terminal
     application:
       only: [Gnome-terminal, Guake]
@@ -113,3 +135,5 @@ keymap:
       Ctrl-7: M-7
       Ctrl-8: M-8
       Ctrl-9: M-9
+      Super-tab: C-pagedown
+      Super-Shift-tab: C-pageup
