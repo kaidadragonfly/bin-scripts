@@ -20,11 +20,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls --directory .*'
 
-# A few custom aliases.
-if ! [ -x "$(which open 2>/dev/null)" ]; then
-    alias open='xdg-open'
-fi
-
 alias emacs='emacs -nw'
 alias hgit='git --git-dir=.home.git/ '
 alias nh='nohup >/dev/null 2>/dev/null'
