@@ -139,3 +139,4 @@ keymap:
       C-x: Super-x
       C-y: Super-y
       C-z: Super-z
+      Super-enter: C-j
