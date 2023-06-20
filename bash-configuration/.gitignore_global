@@ -1,0 +1,13 @@
+*~
+.DS_Store
+.tags
+.deps
+.dep-tags
+.idea
+*.err
+*.log
+*.pid
+.sbt-opts
+.sbt-subprojects
+.scalac-options
+.test-scalac-options
