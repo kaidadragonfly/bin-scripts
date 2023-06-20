@@ -7,7 +7,7 @@ fi
 
 OUTFILE="$(mktemp /tmp/gfm-preview-XXXX).html"
 
-find "${PWD}" -type d -maxdepth 1 -exec ln -sf {} /tmp/ \;
+find "${PWD}" -maxdepth 1 -type d -exec ln -sf {} /tmp/ \;
 if [ -h /tmp/.git ]; then
     rm /tmp/.git
 fi
