@@ -1,0 +1,26 @@
+[alias]
+        tree = log --all --graph --pretty='format:%h (%an) %s'
+        co = glob checkout
+        dw = diff --color-words --word-diff-regex='[A-z0-9_]+|[^[:space:]]'
+[push]
+	default = current
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[core]
+	excludesfile = /Users/kaida/.gitignore_global
+	precomposeunicode = false
+        pager = delta
+[merge]
+	tool = meld
+[diff]
+	algorithm = patience
+[fetch]
+	prune = true
+[include]
+        path = ~/.gitconfig_user
+[pull]
+	rebase = false
+[init]
+        defaultBranch = main

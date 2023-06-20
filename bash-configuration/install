@@ -12,6 +12,7 @@ ${INSTALL_CMD} \
     "${PWD}"/.bash* \
     "${PWD}"/.profile \
     "${PWD}"/.inputrc \
+    "${PWD}"/.git* \
     "${DEST}"
 
 mkdir -p "${DEST}/.gnupg/"
