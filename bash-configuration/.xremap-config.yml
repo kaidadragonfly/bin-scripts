@@ -13,6 +13,7 @@ keymap:
   - name: Emacs
     application:
       not: [Gnome-terminal, Guake]
+    exact_match: true
     remap:
       Super-b: left
       Super-f: right
