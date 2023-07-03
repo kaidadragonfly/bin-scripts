@@ -33,7 +33,7 @@ if [ "$PS1" ]; then
     echo
 fi
 
-cleartext=$(openssl aes-256-cbc -d \
+cleartext=$(openssl aes-256-cbc -d -md md5 \
                     -in "${CRYPT_FILE}" \
                     -pass "pass:${password}" 2>/dev/null | tr -d '\0' 2>/dev/null) || \
     die 'Failed to decrypt!'
@@ -43,6 +43,7 @@ if [[ "$1" == '-e' ]]; then
     echo "$cleartext" > "${TMP}"
     "${EDITOR}" "${TMP}"
     openssl aes-256-cbc \
+            -md md5 \
             -in "${TMP}" \
             -out "${CRYPT_FILE}" \
             -pass "pass:${password}"
