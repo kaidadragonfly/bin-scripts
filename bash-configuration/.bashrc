@@ -192,11 +192,6 @@ if [ -z "${RECORDING}" ] && [ -e "${HOME}/.oncall" ]; then
     exit
 fi
 
-if [ -x "$(which gpg-agent)" ] \
-       && ! pgrep gpg-agent >/dev/null 2>/dev/null; then
-    gpg-agent --daemon --default-cache-ttl 36000 --max-cache-ttl 36000
-fi
-
 GPG_TTY=$(tty)
 export GPG_TTY
 
