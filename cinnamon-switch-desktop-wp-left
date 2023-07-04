@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+CURRENT=$(wmctrl -d | grep -E '^[0-9]+ +[*]' | grep -E -o '^[0-9]+')
+TARGET=$((CURRENT - 1))
+IDX=$((TARGET + 1))
+WALLPAPER=$(sed "$IDX!d" ~/Pictures/Wallpaper/wallpapers.txt)
+
+if [ "$TARGET" -ge 0 ]; then
+   gsettings set org.cinnamon.desktop.background picture-uri "file://$WALLPAPER"
+   sleep 0.1
+   wmctrl -s "$TARGET"
+fi
