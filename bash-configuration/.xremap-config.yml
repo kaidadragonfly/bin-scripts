@@ -155,7 +155,8 @@ keymap:
     application:
       only: Gnome-terminal
     remap:
-      C-n: Super-n
+      C-n: C-Super-t
+      C-Shift-n: Super-n
 
   - name: Guake
     application:
