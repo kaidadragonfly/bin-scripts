@@ -26,6 +26,10 @@ if [ -d "$HOME/bin/local" ]; then
     PATH="$HOME/bin/local:$PATH"
 fi
 
+if [ "$DESKTOP_SESSION" = 'cinnamon' ]; then
+    PATH="$HOME/bin/cinnamon:$PATH"
+fi
+
 export PATH
 
 export SHELLCHECK_OPTS="-e SC1090 -e SC1091 -e SC2001 -e SC2002 -e SC2012 -e SC2129 -e SC2207 -e SC2196 -e SC2230"
