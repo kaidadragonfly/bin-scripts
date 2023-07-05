@@ -2,8 +2,14 @@ modmap:
   - name: General
     remap:
       Super_L: Ctrl_L
+      Super_R: Ctrl_R
       Capslock: Super_L
       Ctrl_L: Super_L
+  - name: Terminal
+    application:
+      only: [Gnome-terminal, Guake]
+    remap:
+      Alt_R: Super_R
 
 keymap:
   - name: Global
@@ -30,6 +36,8 @@ keymap:
       Super-s: C-f
       M-left: C-left
       M-right: C-right
+      M-Shift-left: Shift-C-left
+      M-Shift-right: Shift-C-right
       M-backspace: C-backspace
       C-backspace: [Shift-home, backspace]
 
@@ -127,7 +135,7 @@ keymap:
       C-k: Super-k
       C-l: Super-l
       C-m: Super-m
-      C-n: Super-n
+      # C-n: Super-n
       C-o: Super-o
       C-p: Super-p
       C-q: Super-q
@@ -141,3 +149,16 @@ keymap:
       C-y: Super-y
       C-z: Super-z
       Super-enter: C-j
+      C-Super-t: C-Super-t
+
+  - name: Gnome Terminal
+    application:
+      only: Gnome-terminal
+    remap:
+      C-n: Super-n
+
+  - name: Guake
+    application:
+      only: Guake
+    remap:
+      C-n: C-Super-t
