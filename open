@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
 
-xdg-open "$@" 2>&1 \
-    | grep --extended-regexp --invert-match \
-           '\(nemo:[0-9]+\):.*WARNING.* theme' \
-    | grep --extended-regexp --invert-match \
-           'Initializing nemo-image-converter extension' \
-    | grep --extended-regexp --invert-match \
-           '^$' &
+/usr/bin/open "$@" >/dev/null 2>/dev/null &
 disown
