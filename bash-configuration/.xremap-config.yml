@@ -1,10 +1,11 @@
 modmap:
-  - name: General
+  - name: Global
     remap:
       Super_L: Ctrl_L
       Super_R: Ctrl_R
       Capslock: Super_L
       Ctrl_L: Super_L
+
   - name: Terminal
     application:
       only: [Gnome-terminal, Guake]
