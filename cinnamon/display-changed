@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+sleep 1
+pkill plank
+plank &
+if [ "$1" -gt 1 ]; then
+    sleep 5
+
+    pkill -f "$HOME/.cargo/bin/xremap"
+    "$HOME/.cargo/bin/xremap" "$HOME/.xremap-config.yml" &
+fi

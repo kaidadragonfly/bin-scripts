@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+PREV_COUNT=$(xrandr | grep -cw 'connected')
+BASE_DIR="$(dirname "$0")/"
+
+while true; do
+    CURRENT_COUNT=$(xrandr | grep -cw 'connected')
+
+    if [ "$CURRENT_COUNT" != "$PREV_COUNT" ]; then
+        "${BASE_DIR}/display-changed" "$CURRENT_COUNT"
+        PREV_COUNT="$CURRENT_COUNT"
+    fi
+
+    sleep 1
+done
