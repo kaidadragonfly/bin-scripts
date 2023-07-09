@@ -20,8 +20,28 @@ Create `/etc/modprobe.d/applespi.conf` with contents:
 options applespi fnmode=2
 ```
 
+Create `/etc/modprobe.d/hid_apple.conf`
+
+```
+options hid_apple fnmode=2
+```
+
 Update the initrd:
 
 ```
 sudo update-initramfs -u -k "$(uname -r)"
+```
+
+reboot
+
+## Firefox Scrolling ##
+
+Follow instructions from the [Arch Wiki](https://wiki.archlinux.org/title/Firefox/Tweaks#Smooth_scrolling).
+
+## Dark Theme ##
+
+Getting a proper dark theme requires a gsettings tweak:
+
+```
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ```
