@@ -36,7 +36,9 @@ reboot
 
 ## Firefox Scrolling ##
 
-Follow instructions from the [Arch Wiki](https://wiki.archlinux.org/title/Firefox/Tweaks#Smooth_scrolling).
+Add `MOZ_USE_XINPUT2 DEFAULT=1` to `/etc/security/pam_env.conf`.
+
+(From here: https://askubuntu.com/questions/853910/how-to-enable-touchscreen-scrolling-in-firefox/994483#994483)
 
 ## Dark Theme ##
 
