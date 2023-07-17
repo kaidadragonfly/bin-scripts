@@ -47,3 +47,7 @@ Getting a proper dark theme requires a gsettings tweak:
 ```
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ```
+
+## Alt button menu stuff ##
+
+Set left alt to do /bin/false in the keyboard settings.  (xremap will make left alt right alt for terminal purposes.)
