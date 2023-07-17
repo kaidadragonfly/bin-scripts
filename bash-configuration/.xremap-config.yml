@@ -11,6 +11,7 @@ modmap:
       only: [Gnome-terminal, Guake]
     remap:
       Alt_R: Super_R
+      Alt_L: Alt_R
 
 keymap:
   - name: Global
