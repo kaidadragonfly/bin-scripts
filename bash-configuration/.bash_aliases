@@ -45,8 +45,8 @@ function cdr() {
 
 alias gf='git-fuzzy'
 # alias 2fa='oathtool --base32 --totp'
-alias swift='PATH=/usr/bin:$PATH swift'
-alias xcrun='PATH=/usr/bin:$PATH xcrun'
+alias utcnow='date -u -Iseconds '
+alias open='xdg-open'
 
 # These are functions so that they work from within "loop"
 function rake() {
@@ -67,3 +67,4 @@ function guard() {
 #     tree = log --all --graph --pretty='format:%h (%an) %s'
 
 # alias fanficfare='calibre-debug --run-plugin FanFicFare --'
+
