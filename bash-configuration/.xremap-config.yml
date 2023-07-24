@@ -6,13 +6,6 @@ modmap:
       Capslock: Super_L
       Ctrl_L: Super_L
 
-  - name: Terminal
-    application:
-      only: [Gnome-terminal, Guake]
-    remap:
-      Alt_R: Super_R
-      Alt_L: Alt_R
-
 keymap:
   - name: Global
     remap:

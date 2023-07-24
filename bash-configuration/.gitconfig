@@ -9,7 +9,7 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [core]
-	excludesfile = /Users/kaida/.gitignore_global
+	excludesfile = /home/kaida/.gitignore_global
 	precomposeunicode = false
 [merge]
 	tool = meld
