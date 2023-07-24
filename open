@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-/usr/bin/open "$@" >/dev/null 2>/dev/null &
-disown
