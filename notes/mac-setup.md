@@ -28,13 +28,19 @@ options hid_apple fnmode=2
 
 Update the initrd:
 
+Mint/Ubuntu:
 ```
 sudo update-initramfs -u -k "$(uname -r)"
 ```
 
+Fedora:
+```
+sudo dracut --regenerate-all
+```
+
 reboot
 
-## Firefox Scrolling ##
+## Firefox Scrolling (Mint only) ##
 
 Add `MOZ_USE_XINPUT2 DEFAULT=1` to `/etc/security/pam_env.conf`.
 
@@ -51,3 +57,16 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ## Alt button menu stuff ##
 
 Set left alt to do /bin/false in the keyboard settings.  (xremap will make left alt right alt for terminal purposes.)
+
+The above is Cinnamon only.  Gnome Shell won't let you bind a global keybinding to juts Alt.
+
+## Speed up DNF ##
+
+From here: https://ostechnix.com/how-to-speed-up-dnf-package-manager-in-fedora/
+
+Add the following to `/etc/dnf/dnf.conf`:
+
+```
+max_parallel_downloads=10
+fastestmirror=True
+```
