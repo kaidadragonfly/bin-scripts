@@ -40,19 +40,20 @@ keymap:
     application:
       only: firefox
     remap:
-      Ctrl-1: M-1
-      Ctrl-2: M-2
-      Ctrl-3: M-3
-      Ctrl-4: M-4
-      Ctrl-5: M-5
-      Ctrl-6: M-6
-      Ctrl-7: M-7
-      Ctrl-8: M-8
-      Ctrl-9: M-9
+      C-1: M-1
+      C-2: M-2
+      C-3: M-3
+      C-4: M-4
+      C-5: M-5
+      C-6: M-6
+      C-7: M-7
+      C-8: M-8
+      C-9: M-9
       Super-tab: C-pagedown
       Super-Shift-tab: C-pageup
       C-left: M-left
       C-right: M-right
+      C-comma: [C-t, a,b,o,u,t,Shift-semicolon,p,r,e,f,e,r,e,n,c,e,s, enter]
 
   - name: Terminal
     application:
