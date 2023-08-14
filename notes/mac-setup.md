@@ -70,3 +70,69 @@ Add the following to `/etc/dnf/dnf.conf`:
 max_parallel_downloads=10
 fastestmirror=True
 ```
+
+## Update Lock-Screen Background
+
+From here: https://help.gnome.org/admin/system-admin-guide/stable/desktop-shield.html.en
+
+copy wallpaper into `/opt/wallpaper/` (will need to create that).
+
+```
+sudo mkdir /opt/wallpaper/
+sudo cp mercy-hand-outstretched.jpg /opt/wallpaper/
+```
+
+Create `/etc/dconf/profile/gdm` with the following contents:
+
+```
+user-db:user
+system-db:gdm
+file-db:/usr/share/gdm/greeter-dconf-defaults
+```
+
+Create `/etc/dconf/db/gdm.d/01-screensaver`:
+
+```
+[org/gnome/desktop/screensaver]
+picture-uri='file:///opt/wallpaper/mercy-hand-outstretched.jpg'
+```
+
+Update dconf:
+
+```
+sudo dconf update
+```
+
+## Fix resolution on external monitor ##
+
+Zoom out using steps here (1.25x1.25)
+
+[https://wiki.archlinux.org/title/HiDPI#Xorg](https://wiki.archlinux.org/title/HiDPI#Xorg)
+
+## Turn of bluetooth on sleep ##
+
+Create `/lib/systemd/system-sleep/unload-load-bt.sh`:
+
+```
+#!/bin/sh
+# unload/load modules before sleep/resume
+#
+case $1 in
+    pre)
+        echo "Going to $2... disable bluetooth"
+    /usr/sbin/modprobe -r hci_uart
+    /usr/sbin/modprobe -r btintel
+        ;;
+    post)
+        echo "Waking up from $2... restore bluetooth"
+    /usr/sbin/modprobe btintel
+    /usr/sbin/modprobe hci_uart
+    ;;
+esac
+```
+
+Make the script executable (seems to apply on next reboot):
+
+```
+sudo chmod +x /lib/systemd/system-sleep/unload-load-bt.sh
+```
