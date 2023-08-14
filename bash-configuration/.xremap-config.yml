@@ -1,10 +1,20 @@
 modmap:
   - name: Global
+    application:
+      not: rustdesk.Rustdesk
     remap:
       Super_L: Ctrl_L
       Super_R: Ctrl_R
       Capslock: Super_L
       Ctrl_L: Super_L
+
+  - name: Rustdesk
+    application:
+      only: rustdesk.Rustdesk
+    remap:
+      Capslock: Ctrl_L
+      Super_L: Alt_L
+      Alt_L: Super_L
 
 keymap:
   - name: Global
@@ -131,7 +141,7 @@ keymap:
       C-k: Super-k
       C-l: Super-l
       C-m: Super-m
-      # C-n: Super-n
+      C-n: [Super-t, Super-y]
       C-o: Super-o
       C-p: Super-p
       C-q: Super-q
@@ -146,16 +156,4 @@ keymap:
       C-z: Super-z
       Super-enter: C-j
       C-Super-t: C-Super-t
-
-  - name: Gnome Terminal
-    application:
-      only: Gnome-terminal
-    remap:
-      C-n: C-Super-t
-      C-Shift-n: Super-n
-
-  - name: Guake
-    application:
-      only: Guake
-    remap:
       C-n: C-Super-t

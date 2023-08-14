@@ -68,3 +68,4 @@ function guard() {
 
 # alias fanficfare='calibre-debug --run-plugin FanFicFare --'
 
+alias run='gio launch '
