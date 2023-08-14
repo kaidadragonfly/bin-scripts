@@ -36,5 +36,10 @@ export SHELLCHECK_OPTS="-e SC1090 -e SC1091 -e SC2001 -e SC2002 -e SC2012 -e SC2
  
 # export GIT_SSH=ssh-wrapper-git.sh
 
+# Make Gnome-Terminal open things in the current directory.
+if [ -f /etc/profile.d/vte.sh ]; then
+    source /etc/profile.d/vte.sh
+fi
+
 # Make emacs respect terminal colors.
 unset COLORTERM
