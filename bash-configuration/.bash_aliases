@@ -69,3 +69,9 @@ function guard() {
 # alias fanficfare='calibre-debug --run-plugin FanFicFare --'
 
 alias run='gio launch '
+
+function xremap() {
+    sleep 1 && nohup "${HOME}/.cargo/bin/xremap" "${HOME}/.xremap-config.yml" >/tmp/xremap.log &
+    disown
+}
+
