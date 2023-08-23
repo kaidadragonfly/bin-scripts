@@ -136,3 +136,12 @@ Make the script executable (seems to apply on next reboot):
 ```
 sudo chmod +x /lib/systemd/system-sleep/unload-load-bt.sh
 ```
+
+## Set startup chime volume ##
+
+Add to root crontab:
+
+```
+@reboot /usr/bin/chattr -i /sys/firmware/efi/efivars/SystemAudioVolume-7c436110-ab2a-4bbb-a880-fe41995c9f82
+@reboot /usr/bin/bash -c '/usr/bin/printf "\x07\x00\x00\x00\x37" > /sys/firmware/efi/efivars/SystemAudioVolume-7c436110-ab2a-4bbb-a880-fe41995c9f82'
+```
