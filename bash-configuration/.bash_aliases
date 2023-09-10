@@ -75,3 +75,4 @@ function xremap() {
     disown
 }
 
+alias egrep='grep -E'
