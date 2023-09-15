@@ -1,9 +1,19 @@
 modmap:
   - name: Global
     application:
-      not: [rustdesk.Rustdesk, moonlight.Moonlight]
+      not: [rustdesk.Rustdesk, moonlight.Moonlight, Gnome-terminal, Guake]
     remap:
       Super_L: Ctrl_L
+      Super_R: Ctrl_R
+      Capslock: Super_L
+      Ctrl_L: Super_L
+
+  - name: Terminal
+    application:
+      only: [Gnome-terminal, Guake]
+    remap:
+      Super_L: Alt_L
+      Alt_L: Ctrl_L
       Super_R: Ctrl_R
       Capslock: Super_L
       Ctrl_L: Super_L
@@ -128,18 +138,18 @@ keymap:
       Super-z: C-z
       Super-slash: C-slash
       Super-space: C-space
-      C-1: Super-1
-      C-2: Super-2
-      C-3: Super-3
-      C-4: Super-4
-      C-5: Super-5
-      C-6: Super-6
-      C-7: Super-7
-      C-8: Super-8
-      C-9: Super-9
-      C-0: Super-0
-      C-minus: Super-minus
-      C-equal: Super-equal
+      M-1: Super-1
+      M-2: Super-2
+      M-3: Super-3
+      M-4: Super-4
+      M-5: Super-5
+      M-6: Super-6
+      M-7: Super-7
+      M-8: Super-8
+      M-9: Super-9
+      M-0: Super-0
+      M-minus: Super-minus
+      M-equal: Super-equal
       C-a: Super-a
       C-b: Super-b
       C-c: Super-c
@@ -150,16 +160,16 @@ keymap:
       C-h: Super-h
       C-i: Super-i
       C-j: Super-j
-      C-k: [Super-k, "c", "l", "e", "a", "r", enter]
+      M-k: [Super-k, "c", "l", "e", "a", "r", enter]
       C-l: Super-l
       C-m: Super-m
-      C-n: [Super-t, Super-y]
+      M-n: [Super-t, Super-y]
       C-o: Super-o
       C-p: Super-p
       C-q: Super-q
       C-r: Super-r
       C-s: Super-s
-      C-t: Super-t
+      M-t: Super-t
       C-u: Super-u
       C-v: Super-v
       C-w: Super-w
@@ -167,5 +177,5 @@ keymap:
       C-y: Super-y
       C-z: Super-z
       Super-enter: C-j
-      C-Super-t: C-Super-t
+      M-Super-t: C-Super-t
       C-n: C-Super-t
