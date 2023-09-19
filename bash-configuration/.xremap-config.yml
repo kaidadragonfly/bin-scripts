@@ -140,32 +140,34 @@ keymap:
       C-0: Super-0
       C-minus: Super-minus
       C-equal: Super-equal
-      C-a: Super-a
-      C-b: Super-b
-      C-c: Super-c
-      C-d: Super-d
-      C-e: Super-e
-      C-f: Super-f
-      C-g: Super-g
-      C-h: Super-h
-      C-i: Super-i
-      C-j: Super-j
+      C-a: M-a
+      C-b: M-b
+      C-c: M-c
+      M-c: Super-c
+      C-d: M-d
+      C-e: M-e
+      C-f: M-f
+      M-f: Super-f
+      C-g: M-g
+      C-h: M-h
+      C-i: M-i
+      C-j: M-j
       C-k: [Super-k, "c", "l", "e", "a", "r", enter]
-      C-l: Super-l
-      C-m: Super-m
-      C-n: [Super-t, Super-y]
-      C-o: Super-o
-      C-p: Super-p
-      C-q: Super-q
-      C-r: Super-r
-      C-s: Super-s
+      C-l: M-l
+      C-m: M-m
+      C-Shift-n: [Super-t, Super-y]
+      C-o: M-o
+      C-p: M-p
+      C-q: M-q
+      C-r: M-r
+      C-s: M-s
       C-t: Super-t
-      C-u: Super-u
-      C-v: Super-v
+      C-u: M-u
+      C-v: M-v
+      M-v: Super-v
       C-w: Super-w
-      C-x: Super-x
-      C-y: Super-y
-      C-z: Super-z
+      C-x: M-x
+      C-y: M-y
+      C-z: M-z
       Super-enter: C-j
-      C-Super-t: C-Super-t
       C-n: C-Super-t
