@@ -165,9 +165,29 @@ keymap:
       C-u: M-u
       C-v: M-v
       M-v: Super-v
-      C-w: Super-w
+      C-w: M-w
+      M-w: Super-w
       C-x: M-x
       C-y: M-y
       C-z: M-z
       Super-enter: C-j
       C-n: C-Super-t
+      C-dot: M-dot
+      C-comma: M-comma
+      C-semicolon: M-semicolon
+      C-apostrophe: M-apostrophe
+      C-backslash: M-backslash
+      C-leftbrace: M-leftbrace
+      C-rightbrace: M-rightbrace
+      C-slash: M-slash
+      C-shift-1: M-shift-1
+      C-shift-2: M-shift-2
+      C-shift-3: M-shift-3
+      C-shift-4: M-shift-4
+      C-shift-5: M-shift-5
+      C-shift-6: M-shift-6
+      C-shift-7: M-shift-7
+      C-shift-8: M-shift-8
+      C-shift-9: M-shift-9
+      C-shift-0: M-shift-0
+      C-backspace: M-backspace
