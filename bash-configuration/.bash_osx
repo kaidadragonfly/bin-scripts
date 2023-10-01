@@ -46,6 +46,8 @@ if [[ "$(uname)" == 'Darwin' ]]; then
         echo "~/.brew_outdated not found!"
     fi
 
+    export HOMEBREW_NO_ENV_HINTS=1
+
     function swift() {
         if [[ "$1" == 'test' ]] && [ "$(which xcpretty)" ]; then
             "$(which swift)" test 2>&1 | xcpretty >&2
