@@ -28,11 +28,6 @@ if [[ "$(uname)" == 'Darwin' ]]; then
         source "$(brew --prefix)/etc/bash_completion"
     fi
 
-    if [ -x "$(which gpg-agent)" ] \
-           && ! pgrep gpg-agent >/dev/null 2>/dev/null; then
-        gpg-agent --daemon --default-cache-ttl 36000 --max-cache-ttl 36000
-    fi
-
     # Requires the following in crontab
     # @hourly /usr/local/bin/brew outdated >/Users/kaida/.brew_outdated
     if [ -f "${HOME}/.brew_outdated" ]; then
