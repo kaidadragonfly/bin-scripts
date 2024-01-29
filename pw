@@ -35,15 +35,21 @@ fi
 
 cleartext=$(openssl aes-256-cbc -d -md md5 \
                     -in "${CRYPT_FILE}" \
+                    -pass "pass:${password}" 2>/dev/null | tr -d '\0' 2>/dev/null)
+
+if [ "$?" -ne 0 ]; then
+    cleartext=$(openssl aes-256-cbc -d -pbkdf2 -iter 100000 \
+                    -in "${CRYPT_FILE}" \
                     -pass "pass:${password}" 2>/dev/null | tr -d '\0' 2>/dev/null) || \
     die 'Failed to decrypt!'
+fi
 
 if [[ "$1" == '-e' ]]; then
     TMP=$(TMPDIR=/tmp/ mktemp -t 'tempXXX') || die 'Failed to create tmp file!'
     echo "$cleartext" > "${TMP}"
     "${EDITOR}" "${TMP}"
     openssl aes-256-cbc \
-            -md md5 \
+            -pbkdf2 -iter 100000 \
             -in "${TMP}" \
             -out "${CRYPT_FILE}" \
             -pass "pass:${password}"
