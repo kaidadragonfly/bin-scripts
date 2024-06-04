@@ -20,7 +20,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls --directory .*'
 
-alias emacs='emacs -nw'
 alias hgit='git --git-dir=.home.git/ '
 alias nh='nohup >/dev/null 2>/dev/null'
 alias gitg='gitg &'
