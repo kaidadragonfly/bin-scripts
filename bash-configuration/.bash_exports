@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-export EDITOR='emacs -nw'
+export EDITOR='emacs'
 #export LESS=" --raw-control-chars --no-init ${LESS}"
 # Try this if there is trouble.
 export LESS="--RAW-CONTROL-CHARS --no-init ${LESS}"
