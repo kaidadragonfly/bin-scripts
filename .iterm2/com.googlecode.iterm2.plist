@@ -3281,15 +3281,15 @@
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string></string>
+			<string>`</string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string></string>
+			<string>~</string>
 			<key>HotKey Key Code</key>
-			<integer>111</integer>
+			<integer>50</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>131072</integer>
+			<integer>655360</integer>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
@@ -4758,7 +4758,7 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
-	<false/>
+	<true/>
 	<key>TmuxDashboardLimit</key>
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
