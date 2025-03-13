@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+open -a /Applications/StarCraft\ II/Support/SC2Switcher.app /Applications/StarCraft\ II/Maps/Starcraft\ Mass\ Recall/SCMR\ Campaign\ Launcher.SC2Map
