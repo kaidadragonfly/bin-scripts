@@ -8,7 +8,8 @@
 
 UNBOUND_DIR="/etc/unbound/local.d/"
 UNBOUND_EXCEPTIONS_FILE="$UNBOUND_DIR/adblock.exceptions"
-URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+#URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+URL="https://codeberg.org/hagezi/mirror2/raw/branch/main/dns-blocklists/hosts/multi.txt"
 
 if ! [ -f "$UNBOUND_EXCEPTIONS_FILE" ]; then
     touch "$UNBOUND_EXCEPTIONS_FILE"
@@ -20,3 +21,5 @@ fi
   /usr/bin/awk '{gsub(/\./,"\\."); print "g/\"" $0 "\"/d"}'; echo w) | /usr/bin/ed - "$UNBOUND_DIR/adblock.conf"
 /usr/bin/cat "$UNBOUND_EXCEPTIONS_FILE" | \
   /usr/bin/awk '{print "local-zone: \""$0".\" transparent"}' > "$UNBOUND_DIR/adblock.exceptions.conf"
+
+/usr/sbin/unbound-checkconf && /usr/sbin/unbound-control reload
