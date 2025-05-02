@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ORIGIN_HOST_REGEXP='(github.com)|(github-personal)'
+ORIGIN_HOST_REGEXP='codeberg.org'
 
 if [ ! "$(command -v git 2>/dev/null)" ]; then
     exit 1
