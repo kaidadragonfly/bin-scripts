@@ -75,3 +75,4 @@ function xremap() {
 }
 
 alias egrep='grep -E'
+alias yt-dlp='yt-dlp --cookies-from-browser firefox'
