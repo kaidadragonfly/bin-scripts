@@ -12,6 +12,7 @@ ${INSTALL_CMD} \
     "${PWD}"/.bash* \
     "${PWD}"/.profile \
     "${PWD}"/.inputrc \
+    "${PWD}"/.xremap-config.yml \
     "${PWD}"/.git* \
     "${DEST}"
 
