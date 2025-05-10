@@ -12,9 +12,16 @@ ${INSTALL_CMD} \
     "${PWD}"/.bash* \
     "${PWD}"/.profile \
     "${PWD}"/.inputrc \
-    "${PWD}"/.xremap-config.yml \
     "${PWD}"/.git* \
     "${DEST}"
+
+if [[ "$(uname)" == 'Linux' ]]; then
+    ${INSTALL_CMD} "${PWD}"/.xremap-config.yml "${DEST}"
+    ${INSTALL_CMD} "${PWD}"/xremap.desktop ~/.config/autostart/
+    mkdir -p ~/.config/systemd/user/
+    ${INSTALL_CMD} "${PWD}"/xremap.service ~/.config/systemd/user/
+fi
+
 
 mkdir -p "${DEST}/.gnupg/"
 ${INSTALL_CMD} "${PWD}"/gpg.conf "${DEST}/.gnupg/"
