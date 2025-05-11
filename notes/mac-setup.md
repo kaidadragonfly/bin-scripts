@@ -145,3 +145,25 @@ Add to root crontab:
 @reboot /usr/bin/chattr -i /sys/firmware/efi/efivars/SystemAudioVolume-7c436110-ab2a-4bbb-a880-fe41995c9f82
 @reboot /usr/bin/bash -c '/usr/bin/printf "\x07\x00\x00\x00\x37" > /sys/firmware/efi/efivars/SystemAudioVolume-7c436110-ab2a-4bbb-a880-fe41995c9f82'
 ```
+
+## Tweak Terminal Settings ##
+
+Use dconf-editor to change the following:
+
+* in `/org/gnome/terminal/legacy/keybindings`
+  * `new-tab` to `<Super>t`
+  * `detach-tab` to `<Super>y`
+  * `switch-to-tab-1` to `<Super>1` (etc, etc)
+  * `switch-to-tab-last` to `<Super>9`
+  * `zoom-in` to `<Super>equal`
+  * `zoom-out` to `<Super>minus`
+  * `zoom-normal` to `<Super>0`
+  * `reset` to `<Super>k`
+
+* in `/org/gnome/shell/keybindings`
+  * set `toggle-overview` to `[<Super>space]`
+  * set the following to `[]`:
+    * `shift-overview-down`
+    * `shift-overview-up`
+    * `switch-to-application-1` (etc, etc)
+    * `open-new-window-application-1` (etc, etc)
