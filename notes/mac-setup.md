@@ -151,10 +151,13 @@ Add to root crontab:
 Use dconf-editor to change the following:
 
 * in `/org/gnome/terminal/legacy/keybindings`
-  * `new-tab` to `<Super>t`
+  * `new-tab` to `<Super>t` (this is bound to cmd-t in xremap)
   * `detach-tab` to `<Super>y`
   * `switch-to-tab-1` to `<Super>1` (etc, etc)
   * `switch-to-tab-last` to `<Super>9`
+  * `copy` to `<Super>c` (this is bound to alt-c in xremap)
+  * `paste` to `<Super>v` (this is bound to alt-v in xremap)
+  * `find` to `<Super>f` (this is bound to alt-f in xremap)
   * `zoom-in` to `<Super>equal`
   * `zoom-out` to `<Super>minus`
   * `zoom-normal` to `<Super>0`
