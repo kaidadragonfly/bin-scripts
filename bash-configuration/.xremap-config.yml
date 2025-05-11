@@ -35,7 +35,7 @@ keymap:
 
   - name: Emacs
     application:
-      not: [Gnome-terminal, com.github.amezin.ddterm]
+      not: [org.gnome.Terminal, com.github.amezin.ddterm]
     exact_match: true
     remap:
       Super-b: left
@@ -79,7 +79,7 @@ keymap:
 
   - name: Terminal
     application:
-      only: [Gnome-terminal, com.github.amezin.ddterm]
+      only: [org.gnome.Terminal, com.github.amezin.ddterm]
     remap:
       Super-1: C-1
       Super-2: C-2
