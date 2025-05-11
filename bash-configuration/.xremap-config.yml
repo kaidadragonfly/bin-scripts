@@ -1,37 +1,15 @@
 modmap:
   - name: Global
-    application:
-      not: [rustdesk.Rustdesk, moonlight.Moonlight]
     remap:
       Super_L: Ctrl_L
       Super_R: Ctrl_R
       Capslock: Super_L
       Ctrl_L: Super_L
 
-  - name: Moonlight
-    application:
-      only: moonlight.Moonlight
-    remap:
-      Capslock: Ctrl_L
-
-  - name: Rustdesk
-    application:
-      only: rustdesk.Rustdesk
-    remap:
-      Capslock: Ctrl_L
-      Super_L: Alt_L
-      Alt_L: Super_L
-
 keymap:
   - name: Global
     remap:
       C-space: Super-space
-
-  - name: Moonlight
-    application:
-      only: moonlight.Moonlight
-    remap:
-      Super-q: C-M-Shift-q
 
   - name: Emacs
     application:
