@@ -1,6 +1,6 @@
-# Colors #
+# Terminal Colors #
 
-## Tango Dark ##
+## Dark ##
 
 | color      | normal  | bright  |
 |------------|---------|---------|
@@ -15,7 +15,7 @@
 | cyan       | #009d94 | #00d8cc |
 | white      | #c7c7c7 | #feffff |
 
-## Tango Light ##
+## Light ##
 
 | color      | normal  | bright  |
 |------------|---------|---------|
