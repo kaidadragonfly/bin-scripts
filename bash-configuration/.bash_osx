@@ -28,6 +28,11 @@ if [[ "$(uname)" == 'Darwin' ]]; then
         source "$(brew --prefix)/etc/bash_completion"
     fi
 
+    if [ -d "$(brew --prefix)/opt/rustup/bin/" ]; then
+        BREW_PREFIX=$(brew --prefix)
+        export PATH="$PATH:${BREW_PREFIX}/opt/rustup/bin"
+    fi
+
     # Requires the following in crontab
     # @hourly /usr/local/bin/brew outdated >/Users/kaida/.brew_outdated
     if [ -f "${HOME}/.brew_outdated" ]; then
@@ -42,6 +47,10 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     fi
 
     export HOMEBREW_NO_ENV_HINTS=1
+
+    export ANDROID_NDK_HOME="/opt/homebrew/share/android-ndk"
+    export JAVA_HOME='/Applications/Android Studio.app/Contents/jbr/Contents/Home'
+    export ANDROID_HOME="$HOME/Library/Android/sdk/"
 
     function swift() {
         if [[ "$1" == 'test' ]] && [ "$(which xcpretty)" ]; then
