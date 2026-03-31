@@ -16,7 +16,7 @@ if ! [ -f "$UNBOUND_EXCEPTIONS_FILE" ]; then
 fi
 
 /usr/bin/wget -qO- "$URL" | /usr/bin/grep '^0\.0\.0\.0' | /usr/bin/sort | \
-  /usr/bin/awk '{print "local-zone: \""$2"\" refuse"}' > "$UNBOUND_DIR/adblock.conf"
+  /usr/bin/awk '{print "local-zone: \""$2"\" always_nxdomain"}' > "$UNBOUND_DIR/adblock.conf"
 (/usr/bin/cat "$UNBOUND_EXCEPTIONS_FILE" | \
   /usr/bin/awk '{gsub(/\./,"\\."); print "g/\"" $0 "\"/d"}'; echo w) | /usr/bin/ed - "$UNBOUND_DIR/adblock.conf"
 /usr/bin/cat "$UNBOUND_EXCEPTIONS_FILE" | \
