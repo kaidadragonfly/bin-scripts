@@ -8,13 +8,13 @@ set -e
 if [ "$IPV4" ]; then
     curl -X PUT "https://api.gandi.net/v5/livedns/domains/$GANDI_DOMAIN/records/@/A" \
          -H "content-type: application/json" \
-         -H "authorization: Apikey ${GANDI_API_KEY}" \
+         -H "authorization: Bearer ${GANDI_API_TOKEN}" \
          -d "{\"rrset_values\": [ \"$IPV4\" ], \"rrset_ttl\": 300}"
 fi
 
 if [ "$IPV6" ]; then
     curl -X PUT "https://api.gandi.net/v5/livedns/domains/$GANDI_DOMAIN/records/@/AAAA" \
          -H "content-type: application/json" \
-         -H "authorization: Apikey ${GANDI_API_KEY}" \
+         -H "authorization: Bearer ${GANDI_API_TOKEN}" \
          -d "{\"rrset_values\": [ \"$IPV6\" ], \"rrset_ttl\": 300}"
 fi
