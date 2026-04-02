@@ -12,9 +12,9 @@ if echo "$GIT_DIR" | grep -q '^fatal:'; then
     exit 1
 fi
 
-if [ -e "${GIT_DIR}/FETCH_HEAD" ] && \
-       [ "$(find "${GIT_DIR}/FETCH_HEAD" -mmin +5)" ]; then
-    git fetch >/dev/null 2>/dev/null
+
+if [ -e "${GIT_DIR}/FETCH_HEAD" ]; then
+    (git fetch >/dev/null 2>/dev/null) &    
 fi
 
 # Prevent unexpected delays while working.
