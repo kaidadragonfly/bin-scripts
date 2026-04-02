@@ -69,4 +69,5 @@ function guard() {
 
 alias run='gio launch '
 alias egrep='grep -E'
-alias yt-dlp='yt-dlp --cookies-from-browser firefox'
+alias yt-dlp='yt-dlp --cookies-from-browser firefox --audio-format aac --recode-video mov'
+alias ping='ping -c 4'
